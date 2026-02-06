@@ -1,0 +1,241 @@
+:root {
+    --verde-logo: #8DA18E; /* Ajustado al verde suave de Holismo */
+    --azul-logo: #3A7BD5;
+    --violeta-logo: #8E44AD;
+    --naranja-logo: #F39C12;
+    --salmon: #E5A88A;
+    --crema: #FDFBF7;
+    --texto: #5A5A5A;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body { 
+    font-family: 'Quicksand', sans-serif; 
+    color: var(--texto); 
+    background-color: #fff; 
+    line-height: 1.6; 
+    overflow-x: hidden; 
+}
+
+/* --- HEADER Y NAVEGACIÓN --- */
+header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px 5%; 
+    background: #ffffff; 
+    position: sticky; 
+    top: 0;
+    z-index: 1000; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+    height: 80px;
+}
+
+.logo-header { 
+    height: 60px; 
+    width: auto; 
+}
+
+.nav-menu { 
+    display: flex; 
+    gap: 25px; 
+}
+
+.nav-menu a { 
+    text-decoration: none; 
+    color: var(--texto); 
+    font-weight: 600; 
+    font-size: 15px; 
+    transition: 0.3s; 
+}
+
+.nav-menu a:hover { 
+    color: var(--azul-logo); 
+}
+
+.nav-menu a.active {
+    color: var(--verde-logo); 
+    font-weight: 700;
+}
+
+/* --- BOTÓN HAMBURGUESA --- */
+.menu-hamburguesa {
+    display: none; 
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.menu-hamburguesa span {
+    width: 30px;
+    height: 3px;
+    background-color: var(--texto);
+    transition: 0.3s;
+}
+
+/* --- SECCIONES HERO --- */
+.hero-onda {
+    padding: 60px 5%;
+    text-align: center;
+    border-radius: 0 0 60px 60px;
+    margin-bottom: 30px;
+}
+
+.hero-onda h1 { 
+    font-family: 'Lora', serif; 
+    font-size: clamp(30px, 5vw, 45px); 
+    color: white; 
+    margin: 0; 
+}
+
+.hero-onda p { 
+    color: white; 
+    opacity: 0.9; 
+    margin-top: 10px; 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+}
+
+/* --- TIPOGRAFÍAS INTERMEDIAS (Aprender en comunidad) --- */
+.propuesta-titulo, .titulo-intermedio, .taller-card h3 {
+    font-family: 'Lora', serif !important;
+    font-style: italic !important;
+    font-weight: 400 !important;
+    color: var(--verde-logo);
+    font-size: clamp(26px, 4vw, 34px);
+    letter-spacing: 0.5px;
+    margin-bottom: 25px;
+}
+
+/* --- GRILLA DE TALLERES --- */
+.talleres-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 40px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.taller-card {
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.taller-card:hover { transform: translateY(-5px); }
+
+.taller-card span {
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #AABDAA;
+    font-weight: 700;
+}
+
+.taller-info { margin: 15px 0; color: var(--texto); font-size: 15px; }
+
+.btn-taller {
+    background-color: var(--azul-logo);
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 50px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+/* --- ANIMACIÓN --- */
+.animacion-contenido {
+    animation: fadeInContenido 0.8s ease-out;
+}
+
+@keyframes fadeInContenido {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- FOOTER Y EQUIPO --- */
+.footer-holismo { background: var(--crema); padding: 40px; text-align: center; border-top: 2px solid var(--salmon); margin-top: 50px; }
+.equipo-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 20px auto; }
+
+/* --- RESPONSIVE MOBILE (768px) --- */
+@media (max-width: 768px) {
+    .menu-hamburguesa { 
+        display: flex !important; 
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        right: -100%; /* Escondido */
+        background: white;
+        width: 75%; 
+        height: 100vh;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 60px;
+        transition: 0.4s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        display: flex; /* Cambiamos de none a flex para que la transición funcione */
+        gap: 40px;
+    }
+
+    .nav-menu.mostrar {
+        right: 0; /* Aparece */
+    }
+}
+/* Botón WhatsApp Personalizado */
+.whatsapp-float {
+    position: fixed;
+    bottom: 25px;
+    left: 25px; /* Lado opuesto al asistente virtual */
+    width: 65px; /* Un poco más grande */
+    height: 65px;
+    background-color: #8DA18E; /* Verde Holismo en lugar del verde WhatsApp chillón */
+    color: #FFF;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    z-index: 10000;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    background-color: #7A8D7B; /* Un tono más oscuro del mismo verde al pasar el mouse */
+    box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+}
+
+/* Ajuste para que en celu no tape tanto contenido */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 55px;
+        height: 55px;
+        bottom: 20px;
+        left: 20px;
+    }
+    .whatsapp-float svg {
+        width: 32px;
+        height: 32px;
+    }
+}

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holismo | Espacio Terapéutico</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <img src="logo.png" class="logo-header">
+        <nav class="nav-menu" id="nav-menu"> 
+            <a href="index.html"class="active">Inicio</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="equipo.html">Equipo</a>
+            <a href="talleres.html">Talleres</a>
+            <a href="contacto.html">Contacto</a>
+        </nav>
+<div class="menu-hamburguesa" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    </header>
+<div class="animacion-contenido"> 
+<section class="hero-imagen" style="
+    background-image: linear-gradient(rgba(141, 161, 142, 0.92), rgba(141, 161, 142, 0.92)), url('holismo.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-blend-mode: screen; /* Clave: mantiene el color suave y luminoso */
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 5%;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    margin-bottom: 40px;
+">
+    <h1 style="font-family: 'Lora', serif; color: white; font-size: clamp(40px, 7vw, 65px); margin: 0; font-weight: 700; text-shadow: 1px 1px 10px rgba(0,0,0,0.1);">HOLISMO</h1>
+    <div style="background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255,255,255,0.4); padding: 10px 30px; border-radius: 50px; margin-top: 20px;">
+        <p style="color: white; margin: 0; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; font-size: 13px;">Acompañar la vida en todas sus dimensiones</p>
+    </div>
+</section>
+ <main>
+
+        <div class="contenedor-holismo">
+            <div class="bloque-imagen">
+                <div class="marco-decorativo" style="border-color: #D6E0D7;"></div> <img src="https://static.wixstatic.com/media/1a42ff_b5f18a90b5514528a43e8f109cbfd95e~mv2.png" alt="Bienestar Holismo" class="imagen-principal">
+            </div>
+
+            <div class="bloque-texto">
+                <span class="subtitulo" style="color: #AABDAA;">Espacio Terapéutico</span>
+                <h2 class="titulo" style="color: #8DA18E;">Un punto de encuentro con el bienestar emocional y mental</h2>
+                
+                <p class="parrafo">
+                    <b>Holismo</b> nace de una mirada que integra la mente, el cuerpo y el espíritu. No somos solo un centro de atención; somos un lugar pensado para acompañar a <b>todas las personas</b> en su búsqueda de equilibrio y salud.
+                </p>
+
+                <p class="parrafo-secundario">
+                    Entendemos que cada proceso es diferente. Por eso, combinamos el rigor de las <b>clínicas tradicionales</b> (Psicología, Psicopedagogía, Fonoaudiología, Terapia Ocupacional) con la profundidad de las <b>terapias complementarias y sistémicas</b> (Reiki, Constelaciones Familiares, Musicoterapia).
+                </p>
+
+                <p class="parrafo-secundario">
+                    Ya sea que busques apoyo especializado en discapacidad, un espacio de sanación personal o herramientas para tu grupo familiar, aquí encontrarás un equipo que te recibirá con calidez.
+                </p>
+
+                <div class="frase-cierre">
+                    <div class="linea" style="background-color: #AABDAA;"></div>
+                    <span class="texto-cierre" style="color: #8DA18E;">Tu totalidad es nuestro enfoque.</span>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            /* Estructura Base */
+            .contenedor-holismo {
+                font-family: 'Quicksand', sans-serif;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                background-color: #ffffff;
+                padding: 60px 5%;
+                gap: 40px;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            /* Bloque de Imagen Responsivo */
+            .bloque-imagen {
+                flex: 1;
+                min-width: 300px;
+                max-width: 500px;
+                position: relative;
+                padding: 10px;
+            }
+
+            .marco-decorativo {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 95%;
+                height: 95%;
+                border: 2px solid #E5A88A;
+                border-radius: 50px;
+                z-index: 0;
+            }
+
+            .imagen-principal {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 1 / 1;
+                border-radius: 50px;
+                position: relative;
+                z-index: 1;
+                box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+                object-fit: cover;
+                display: block;
+            }
+
+            /* Bloque de Texto Responsivo */
+            .bloque-texto {
+                flex: 1.2;
+                min-width: 300px;
+                text-align: left;
+            }
+
+            .subtitulo {
+                text-transform: uppercase;
+                letter-spacing: 3px;
+                font-weight: 600;
+                font-size: 13px;
+                display: block;
+            }
+
+            .titulo {
+                font-family: 'Lora', serif;
+                font-size: clamp(28px, 5vw, 42px);
+                margin: 10px 0;
+                line-height: 1.2;
+                font-weight: normal;
+            }
+
+            .parrafo { color: #5A5A5A; font-size: 17px; line-height: 1.8; margin-bottom: 15px; }
+            .parrafo-secundario { color: #5A5A5A; font-size: 15px; line-height: 1.7; margin-bottom: 15px; }
+
+            .frase-cierre { display: flex; align-items: center; gap: 15px; margin-top: 20px; }
+            .linea { height: 2px; width: 40px; }
+            .texto-cierre { font-family: 'Lora', serif; font-style: italic; font-size: 18px; }
+
+            @media (max-width: 768px) {
+                .contenedor-holismo { padding: 40px 20px; text-align: center; }
+                .bloque-texto { text-align: center; }
+                .frase-cierre { justify-content: center; }
+            }
+        </style>
+
+        <div class="propuesta-container" style="background-color: #F7F9F7;"> <h2 class="propuesta-titulo" style="color: #8DA18E;">Nuestra Propuesta</h2>
+            
+            <div class="propuesta-grid">
+                
+                <div class="h-card">
+                    <h3 class="h-card-titulo" style="color: #AABDAA;">Interdisciplina</h3>
+                    <p class="h-card-texto">
+                        Entendemos la salud como un proceso integral donde el intercambio entre profesionales de distintas áreas es clave para cada proceso.
+                    </p>
+                </div>
+
+                <div class="h-card h-card-destacada" style="border-top-color: #8DA18E;">
+                    <h3 class="h-card-titulo" style="color: #8DA18E;">Discapacidad</h3>
+                    <p class="h-card-texto">
+                        Brindamos herramientas y sostén especializado, priorizando siempre la autonomía y el enfoque de derechos en cada etapa.
+                    </p>
+                </div>
+
+                <div class="h-card">
+                    <h3 class="h-card-titulo" style="color: #AABDAA;">Familias</h3>
+                    <p class="h-card-texto">
+                        Sostenemos a quienes sostienen. Ofrecemos espacios de orientación y escucha para padres y hermanos en su rol fundamental.
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+
+        <style>
+            .propuesta-container {
+                font-family: 'Quicksand', sans-serif;
+                text-align: center;
+                padding: 60px 20px;
+                border-radius: 50px;
+            }
+
+            .propuesta-titulo {
+                font-family: 'Lora', serif;
+                font-size: clamp(30px, 5vw, 42px);
+                margin-bottom: 40px;
+                font-weight: normal;
+            }
+
+            .propuesta-grid {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 25px;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .h-card {
+                width: 100%;
+                max-width: 320px;
+                background: white;
+                padding: 35px;
+                border-radius: 40px;
+                border: 1px solid #eee;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+                text-align: left;
+                transition: transform 0.4s ease, border-color 0.4s ease;
+                box-sizing: border-box;
+            }
+
+            .h-card-destacada {
+                border-top: 6px solid;
+            }
+
+            .h-card-titulo {
+                font-family: 'Lora', serif;
+                font-size: 22px;
+                margin-bottom: 15px;
+            }
+
+            .h-card-texto {
+                color: #5A5A5A;
+                line-height: 1.6;
+                font-size: 15px;
+            }
+
+            .h-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            }
+
+            @media (max-width: 768px) {
+                .propuesta-container { padding: 40px 15px; }
+                .h-card { max-width: 100%; padding: 30px 25px; }
+            }
+        </style>
+
+    </main>
+</div>
+    <footer class="footer-holismo" style="background-color: #FDFBF7; padding: 40px; text-align: center; border-top: 2px solid #AABDAA; margin-top: 50px;">
+        <h2 style="font-size: 22px; margin-bottom: 10px; font-family: 'Lora'; color: #8DA18E;">Holismo</h2>
+        <p style="font-size: 12px; color: #aaa;">© 2026 • Creado por <a href="http://www.somosnomade.com.ar" target="_blank" style="color: #AABDAA; text-decoration: none; font-weight: bold;">Nómade</a></p>
+    </footer>
+
+<script>
+    // Función para detectar el scroll y mostrar elementos
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+            }
+        });
+    }, observerOptions);
+
+    // Seleccionamos lo que queremos animar (tarjetas, bloques de texto)
+    document.querySelectorAll('.s-card, .pro-card, .h-card, .contenedor-holismo, .propuesta-grid').forEach(el => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(30px)";
+        el.style.transition = "all 0.8s ease-out";
+        observer.observe(el);
+    });
+</script>
+<script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
+</script>
+<div id="ventana-chat" style="display: none;">
+    
+    <div style="background: #8DA18E; color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 25px 25px 0 0;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 10px; height: 10px; background: #2ecc71; border-radius: 50%; border: 2px solid white;"></div>
+            <strong style="font-family: 'Lora', serif; font-size: 17px; letter-spacing: 0.5px;">Asistente Holismo</strong>
+        </div>
+        <div onclick="toggleChat()" style="cursor: pointer; padding: 5px; opacity: 0.8;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+    </div>
+
+    <div id="chat-body" style="padding: 20px; max-height: 400px; overflow-y: auto; background: white;">
+        <div id="mensaje-asistente" style="background: #F7F9F7; padding: 15px; border-radius: 20px 20px 20px 5px; font-size: 14px; color: #5A5A5A; margin-bottom: 20px; line-height: 1.6; border: 1px solid #edf2ed;">
+            ¡Hola! Soy el asistente de Holismo. ¿Cómo podemos acompañarte hoy?
+        </div>
+        
+        <div id="opciones-chat" style="display: flex; flex-direction: column; gap: 10px;">
+            <a href="https://api.whatsapp.com/send/?phone=5491153432264" target="_blank" class="btn-chat" style="background: #E8EDE8; border: 1px solid #8DA18E; color: #8DA18E; font-weight: bold; text-align: center; text-decoration: none; border-radius: 12px; padding: 12px;">Quiero hablar con un profesional</a>
+            
+            <button class="btn-chat" onclick="responder('obras')">¿Trabajan con Obras Sociales / CUD?</button>
+            <button class="btn-chat" onclick="responder('primeravez')">Nunca hice terapia, ¿puedo empezar?</button>
+            <button class="btn-chat" onclick="responder('talleres')">¿Cómo pago los talleres?</button>
+            <button class="btn-chat" onclick="responder('presencial')">¿Dónde están ubicados?</button>
+            <button class="btn-chat" onclick="responder('edades')">¿A quiénes atienden?</button>
+            <button class="btn-chat" onclick="responder('turnos')">¿Cómo pido un turno?</button>
+        </div>
+    </div>
+</div>
+
+<div id="btn-abrir-chat" onclick="toggleChat()" style="position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; background-color: #8DA18E; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10000; box-shadow: 0 6px 20px rgba(141, 161, 142, 0.4); transition: 0.3s;">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+</div>
+
+<style>
+    #ventana-chat {
+        position: fixed; bottom: 100px; right: 25px; width: 340px; background: white; border-radius: 25px;
+        box-shadow: 0 15px 45px rgba(0,0,0,0.15); z-index: 10001; overflow: hidden;
+        font-family: 'Quicksand', sans-serif; border: 1px solid #f0f0f0;
+        animation: slideUpChat 0.4s ease-out;
+    }
+
+    @keyframes slideUpChat {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    .btn-chat {
+        background: white; border: 1px solid #eee; padding: 12px 15px; border-radius: 12px;
+        font-family: 'Quicksand', sans-serif; font-size: 13.5px; color: #5A5A5A; cursor: pointer;
+        width: 100%; text-align: left; transition: all 0.3s ease;
+    }
+    
+    .btn-chat:hover { background: #FDFBF7; border-color: #E5A88A; color: #E5A88A; transform: scale(1.02); }
+
+    @media (max-width: 480px) {
+        #ventana-chat { width: 90%; right: 5%; bottom: 90px; }
+    }
+</style>
+
+<script>
+    function toggleChat() {
+        const ventana = document.getElementById('ventana-chat');
+        if (ventana.style.display === 'none' || ventana.style.display === '') {
+            ventana.style.display = 'block';
+        } else {
+            ventana.style.display = 'none';
+        }
+    }
+
+    function responder(tipo) {
+        const m = document.getElementById('mensaje-asistente');
+        const o = document.getElementById('opciones-chat');
+        
+        let respuesta = "";
+        if(tipo === 'obras') respuesta = "Trabajamos de forma particular y con <b>Obras Sociales</b> por reintegro. Somos especialistas en el abordaje con <b>CUD</b>.";
+        if(tipo === 'primeravez') respuesta = "¡Es el momento ideal! Holismo es un espacio seguro para conocerse y sanar. Te orientamos desde el primer encuentro.";
+        if(tipo === 'talleres') respuesta = "Los pagos se gestionan de forma segura a través de <b>Mercado Pago</b> o transferencia bancaria.";
+        if(tipo === 'presencial') respuesta = "Estamos en <b>Del Candil 3500, Parque Leloir</b>. Un entorno natural pensado para la calma.";
+        if(tipo === 'edades') respuesta = "Atendemos a niños, adolescentes, adultos y familias. Contamos con un equipo interdisciplinario.";
+        if(tipo === 'turnos') respuesta = "Para coordinar, escribinos directamente por <b>WhatsApp</b> haciendo clic en el botón verde arriba.";
+        
+        m.innerHTML = respuesta;
+        o.innerHTML = '<button class="btn-chat" onclick="resetChat()" style="text-align:center; background:#f9f9f9; font-weight:bold;">← Volver a las opciones</button>';
+    }
+
+    function resetChat() {
+        document.getElementById('mensaje-asistente').innerText = "¿En qué más podemos ayudarte?";
+        document.getElementById('opciones-chat').innerHTML = `
+            <a href="https://api.whatsapp.com/send/?phone=5491153432264" target="_blank" class="btn-chat" style="background: #E8EDE8; border: 1px solid #8DA18E; color: #8DA18E; font-weight: bold; text-align: center; text-decoration: none; border-radius: 12px; padding: 12px;">Quiero hablar con un profesional</a>
+            <button class="btn-chat" onclick="responder('obras')">¿Trabajan con Obras Sociales / CUD?</button>
+            <button class="btn-chat" onclick="responder('primeravez')">Nunca hice terapia, ¿puedo empezar?</button>
+            <button class="btn-chat" onclick="responder('talleres')">¿Cómo pago los talleres?</button>
+            <button class="btn-chat" onclick="responder('presencial')">¿Dónde están ubicados?</button>
+            <button class="btn-chat" onclick="responder('edades')">¿A quiénes atienden?</button>
+            <button class="btn-chat" onclick="responder('turnos')">¿Cómo pido un turno?</button>
+        `;
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('nav-menu');
+
+        if (toggle && menu) {
+            toggle.onclick = function() {
+                menu.classList.toggle('mostrar');
+                console.log("Menú clickeado, clase actual:", menu.className); // Esto te dirá en consola si está funcionando
+            };
+        }
+    });
+
+    // Función del Asistente Holismo (Corregida)
+    function toggleChat() {
+        const ventana = document.getElementById('ventana-chat');
+        const botonAbrir = document.getElementById('btn-abrir-chat');
+        
+        if (ventana.style.display === 'none' || ventana.style.display === '') {
+            ventana.style.display = 'block';
+            if(botonAbrir) botonAbrir.style.display = 'none';
+        } else {
+            ventana.style.display = 'none';
+            if(botonAbrir) botonAbrir.style.display = 'flex';
+        }
+    }
+</script>
+<a href="https://wa.me/5491153432264" class="whatsapp-float" target="_blank">
+    <svg width="35" height="35" viewBox="0 0 24 24" fill="white">
+        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.001.332.005c.109.004.258-.041.404.311.16.389.549 1.334.597 1.431.048.097.08.212.014.341-.065.131-.1.213-.197.337-.098.123-.205.274-.293.366-.1.104-.204.218-.087.419.117.201.521.859 1.116 1.391.763.682 1.407.893 1.608.993.201.1.32.084.441-.055.121-.139.521-.607.66-.814.139-.207.279-.174.47-.103.193.071 1.225.577 1.435.684.211.106.351.159.402.247.051.09.051.519-.093.924z"/>
+    </svg>
+</a>
+</body>
+</html>
