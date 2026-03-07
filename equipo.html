@@ -69,36 +69,18 @@
         <div class="img-wrapper">
             <img src="https://drive.google.com/uc?id=1w2RgUAPUnXYbl3nPd8-pS-XjUbyQFcrq" alt="Lucía Snieg">
         </div>
-        <h3>Lucía Snieg</h3>
-        <p>ED. ESPECIAL</p>
+        <h3 class="nombre-equipo">Lucía Snieg</h3>
+        <p class="cargo-equipo">ED. ESPECIAL</p>
         <button class="btn-conoceme" onclick="abrirPresentacion('lucia')">Conoceme más</button>
     </div>
 
     <div class="pro-card">
         <div class="img-wrapper">
-            <img src="foto2.jpg" alt="M. Noelia Gomez">
+            <img src="tu-foto-aca.jpg" alt="Noelia Gomez">
         </div>
-        <h3>M. Noelia Gomez</h3>
-        <p>PSICOLOGÍA</p>
+        <h3 class="nombre-equipo">M. Noelia Gomez</h3>
+        <p class="cargo-equipo">PSICOLOGÍA</p>
         <button class="btn-conoceme" onclick="abrirPresentacion('noelia')">Conoceme más</button>
-    </div>
-
-    </div>
-
-<div id="modal-presentacion" class="modal">
-    <div class="modal-contenido">
-        <span class="cerrar-modal" onclick="cerrarPresentacion()">&times;</span>
-        <div class="modal-flex">
-            <div class="modal-img">
-                <img id="modal-foto" src="" alt="Foto Profesional">
-            </div>
-            <div class="modal-info">
-                <h2 id="modal-nombre">Nombre</h2>
-                <h4 id="modal-cargo">Cargo</h4>
-                <div class="linea-decorativa"></div>
-                <p id="modal-bio">Texto de presentación...</p>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -124,7 +106,50 @@
 
             .equipo-texto { color: #5A5A5A; font-size: 18px; line-height: 1.8; margin-bottom: 15px; }
             .equipo-texto-secundario { color: #5A5A5A; font-size: 16px; line-height: 1.7; }
+/* Esto asegura que el modal NO se vea hasta que hagas clic */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 9999; /* Muy alto para que tape todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6); /* Fondo oscuro traslúcido */
+    backdrop-filter: blur(8px); /* Desenfoque elegante */
+    justify-content: center;
+    align-items: center;
+}
 
+.modal-contenido {
+    background-color: white;
+    padding: 40px;
+    border-radius: 40px;
+    width: 90%;
+    max-width: 700px;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+/* Estilo de los botones "Conoceme más" para que no parezcan de Windows viejo */
+.btn-conoceme {
+    background-color: #F9F7FD;
+    border: 1px solid #B298C1;
+    color: #8E44AD;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.btn-conoceme:hover {
+    background-color: #B298C1;
+    color: white;
+}
             .equipo-badge {
                 display: inline-block;
                 padding: 12px 35px;
@@ -366,3 +391,4 @@
 </body>
 
 </html>
+
