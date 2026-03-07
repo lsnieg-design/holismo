@@ -5,7 +5,7 @@
     <title>Generador de Apuntes | Holismo</title>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- ESTILOS PARA LA PANTALLA (Lo que ves vos mientras editás) --- */
+        /* --- ESTILOS PARA LA PANTALLA --- */
         body { font-family: 'Quicksand', sans-serif; background: #f0f0f0; padding: 50px; margin: 0; }
         .editor-container { max-width: 850px; margin: 0 auto; background: white; padding: 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         .controles { margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
@@ -18,52 +18,47 @@
 
         .btn-descargar {
             background: #8DA18E; color: white; border: none; padding: 12px 25px;
-            border-radius: 50px; cursor: pointer; font-weight: bold; font-family: 'Quicksand'; transition: 0.3s;
+            border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s;
         }
-        .btn-descargar:hover { background: #7A8D7B; transform: scale(1.05); }
 
-        /* --- ESTILOS EXCLUSIVOS PARA EL PDF (La magia del borde blanco) --- */
+        /* --- ESTILOS PARA EL PDF (Márgenes Blancos) --- */
         @media print {
             @page { 
                 size: A4; 
-                margin: 2.5cm; /* Esto crea el borde blanco real en el papel */
+                margin: 2.5cm !important; /* ESTO CREA EL BORDE BLANCO */
             }
-            body { background: white; padding: 0; margin: 0; }
-            .controles { display: none !important; } /* Oculta el botón y el título de edición */
+            body { background: white !important; padding: 0 !important; margin: 0 !important; }
+            .controles { display: none !important; } 
             
             .editor-container { 
-                box-shadow: none; 
-                width: 100%; 
-                padding: 0 !important; /* El margen lo da @page */
+                box-shadow: none !important; 
+                width: 100% !important; 
+                padding: 0 !important; 
                 margin: 0 !important;
             }
             
             #area-edicion { 
-                border: none; 
-                padding: 0; 
-                background: white;
-                font-size: 12pt; /* Tamaño estándar de lectura en papel */
+                border: none !important; 
+                padding: 0 !important; 
+                background: white !important;
+                font-size: 12pt !important;
             }
 
-            /* Encabezado del PDF */
             .pdf-header { 
                 display: flex !important; 
                 flex-direction: column;
                 align-items: center;
-                margin-bottom: 40px; 
-                border-bottom: 1px solid #E5A88A; 
-                padding-bottom: 20px; 
+                margin-bottom: 40px !important; 
+                border-bottom: 1px solid #E5A88A !important; 
+                padding-bottom: 20px !important; 
             }
-            .pdf-header img { height: 70px; margin-bottom: 10px; }
+            .pdf-header img { height: 70px !important; margin-bottom: 10px !important; }
             
-            /* Tipografía del contenido en el PDF */
-            h1 { font-family: 'Lora', serif; color: #3A7BD5; font-size: 24pt; margin-top: 0; }
-            h2, h3 { font-family: 'Lora', serif; color: #3A7BD5; margin-top: 20px; }
-            p { font-family: 'Lora', serif; line-height: 1.6; text-align: justify; color: #333; margin-bottom: 15px; }
-            b, strong { color: #000; font-weight: 700; }
+            h1 { font-family: 'Lora', serif; color: #3A7BD5 !important; font-size: 24pt !important; margin-top: 0 !important; }
+            p { font-family: 'Lora', serif; line-height: 1.6 !important; text-align: justify !important; color: #333 !important; }
         }
         
-        .pdf-header { display: none; } /* Se oculta en la web para que no te moleste al escribir */
+        .pdf-header { display: none; }
     </style>
 </head>
 <body>
@@ -71,11 +66,8 @@
     <div class="editor-container">
         <div class="controles">
             <h2 style="font-family: 'Lora'; margin-top: 0; color: #3A7BD5;">Generador de Materiales Holismo</h2>
-            <p style="font-size: 13px; color: #777; margin-bottom: 20px;">
-                Escribí el contenido abajo. <br>
-                Tip: Usá <b>Ctrl + B</b> para negrita y seleccioná texto para borrar o editar.
-            </p>
-            <button class="btn-descargar" onclick="window.print()">Generar PDF ahora</button>
+            <p style="font-size: 13px; color: #777;">Escribí tu texto y usá <b>Negrita</b> para resaltar.</p>
+            <button class="btn-descargar" onclick="window.print()">Generar PDF con bordes</button>
         </div>
 
         <div class="pdf-header">
@@ -86,9 +78,8 @@
         </div>
 
         <div id="area-edicion" contenteditable="true">
-            <h1>Título del Taller o Clase</h1>
-            <p>Este es tu espacio de redacción. Al presionar el botón verde de arriba, el sistema aplicará automáticamente los márgenes de seguridad, el logo de Holismo y la tipografía Lora con interlineado 1.5.</p>
-            <p><b>Recomendación:</b> Asegurate de que en la ventana de impresión que se abre, la opción "Gráficos de fondo" esté marcada si usás colores especiales, y que el destino sea "Guardar como PDF".</p>
+            <h1>Título del Taller</h1>
+            <p>Al imprimir, verás que ahora el texto respeta los bordes blancos de 2.5cm. Esto evita que el contenido se vea amontonado o se corte en las impresoras.</p>
         </div>
     </div>
 
