@@ -65,42 +65,42 @@
         </div>
 
         <div class="equipo-grid-container">
-            <div class="pro-card">
-                <div class="img-wrapper"><img src="https://drive.google.com/uc?id=1w2RgUAPUnXYbl3nPd8-pS-XjUbyQFcrq"></div>
-                <h3>Lucía Snieg</h3>
-                <p>ED. ESPECIAL</p>
-            </div>
+    <div class="pro-card">
+        <div class="img-wrapper">
+            <img src="https://drive.google.com/uc?id=1w2RgUAPUnXYbl3nPd8-pS-XjUbyQFcrq" alt="Lucía Snieg">
+        </div>
+        <h3>Lucía Snieg</h3>
+        <p>ED. ESPECIAL</p>
+        <button class="btn-conoceme" onclick="abrirPresentacion('lucia')">Conoceme más</button>
+    </div>
 
-            <div class="pro-card">
-                <div class="img-wrapper"><img src="foto2.jpg"></div>
-                <h3>Gabriela Bovina</h3>
-                <p>PSICOLOGÍA</p>
-            </div>
+    <div class="pro-card">
+        <div class="img-wrapper">
+            <img src="foto2.jpg" alt="M. Noelia Gomez">
+        </div>
+        <h3>M. Noelia Gomez</h3>
+        <p>PSICOLOGÍA</p>
+        <button class="btn-conoceme" onclick="abrirPresentacion('noelia')">Conoceme más</button>
+    </div>
 
-            <div class="pro-card">
-                <div class="img-wrapper"><img src="foto3.jpg"></div>
-                <h3>Macarena Abritta</h3>
-                <p>PSICOPEDAGOGÍA</p>
-            </div>
+    </div>
 
-            <div class="pro-card">
-                <div class="img-wrapper"><img src="foto4.jpg"></div>
-                <h3>Sofía Acosta</h3>
-                <p>FONOAUDIOLOGÍA</p>
+<div id="modal-presentacion" class="modal">
+    <div class="modal-contenido">
+        <span class="cerrar-modal" onclick="cerrarPresentacion()">&times;</span>
+        <div class="modal-flex">
+            <div class="modal-img">
+                <img id="modal-foto" src="" alt="Foto Profesional">
             </div>
-
-            <div class="pro-card">
-                <div class="img-wrapper"><img src="foto5.jpg"></div>
-                <h3>M. Noelia Gomez</h3>
-                <p>PSICOLOGÍA</p>
-            </div>
-
-            <div class="pro-card">
-                <div class="img-wrapper"><img src="foto6.jpg"></div>
-                <h3>Tess</h3>
-                <p>T. OCUPACIONAL</p>
+            <div class="modal-info">
+                <h2 id="modal-nombre">Nombre</h2>
+                <h4 id="modal-cargo">Cargo</h4>
+                <div class="linea-decorativa"></div>
+                <p id="modal-bio">Texto de presentación...</p>
             </div>
         </div>
+    </div>
+</div>
 
         <style>
             /* Contenedor Principal Intro */
@@ -364,4 +364,5 @@
     </svg>
 </a>
 </body>
+
 </html>
