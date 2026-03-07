@@ -238,4 +238,83 @@ header {
         width: 32px;
         height: 32px;
     }
+/* Botón Conoceme Más */
+.btn-conoceme {
+    background-color: transparent;
+    border: 1px solid #B298C1;
+    color: #B298C1;
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-conoceme:hover {
+    background-color: #B298C1;
+    color: white;
+}
+
+/* VENTANA EMERGENTE */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px); /* Efecto de desenfoque de fondo */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-contenido {
+    background-color: white;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 40px;
+    padding: 40px;
+    position: relative;
+    animation: fadeInModal 0.4s ease-out;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-flex {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.modal-img { flex: 1; min-width: 250px; }
+.modal-img img { width: 100%; border-radius: 30px; object-fit: cover; }
+
+.modal-info { flex: 1.5; min-width: 280px; text-align: left; }
+.modal-info h2 { font-family: 'Lora', serif; color: #8E44AD; margin-bottom: 5px; }
+.modal-info h4 { font-size: 13px; letter-spacing: 2px; color: #E5A88A; margin-bottom: 20px; }
+.modal-info p { line-height: 1.8; color: #5A5A5A; }
+
+.linea-decorativa { width: 50px; height: 3px; background: #8DA18E; margin-bottom: 20px; }
+
+.cerrar-modal {
+    position: absolute;
+    right: 25px; top: 20px;
+    font-size: 35px; color: #aaa;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .modal-contenido { padding: 30px 20px; max-height: 90vh; overflow-y: auto; }
+    .modal-flex { flex-direction: column; text-align: center; }
+    .modal-info { text-align: center; }
+    .linea-decorativa { margin: 0 auto 20px; }
+}
 }
