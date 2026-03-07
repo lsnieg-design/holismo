@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador de Apuntes | Holismo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- ESTILOS PARA LA PANTALLA (Lo que ves vos) --- */
+        body { font-family: 'Quicksand', sans-serif; background: #f0f0f0; padding: 50px; }
+        .editor-container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .controles { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        
+        /* El área donde escribís */
+        #area-edicion {
+            width: 100%; min-height: 400px; border: 1px solid #ddd; padding: 20px;
+            font-family: 'Lora', serif; font-size: 18px; line-height: 1.5; text-align: justify;
+            outline: none; border-radius: 10px;
+        }
+
+        .btn-descargar {
+            background: #8DA18E; color: white; border: none; padding: 10px 20px;
+            border-radius: 50px; cursor: pointer; font-weight: bold;
+        }
+
+        /* --- ESTILOS PARA EL PDF (La magia) --- */
+        @media print {
+            @page { size: A4; margin: 2cm; }
+            body { background: white; padding: 0; }
+            .controles, header, footer, .whatsapp-float, #btn-abrir-chat { display: none !important; } /* Oculta todo lo web */
+            
+            .editor-container { box-shadow: none; width: 100%; padding: 0; }
+            #area-edicion { border: none; padding: 0; }
+
+            /* Encabezado del PDF */
+            .pdf-header { display: block !important; text-align: center; margin-bottom: 30px; border-bottom: 2px solid #E5A88A; padding-bottom: 20px; }
+            .pdf-header img { height: 80px; }
+            
+            /* Tipografía del contenido */
+            h1, h2, h3 { font-family: 'Lora', serif; color: #3A7BD5; margin-top: 25px; }
+            p { font-family: 'Lora', serif; font-size: 12pt; line-height: 1.5; text-align: justify; color: #333; }
+            b, strong { color: #000; font-weight: 700; }
+        }
+        
+        .pdf-header { display: none; } /* Oculto en la web, se ve solo en el PDF */
+    </style>
+</head>
+<body>
+
+    <div class="editor-container">
+        <div class="controles">
+            <h2 style="font-family: 'Lora';">Generador de Apuntes Holismo</h2>
+            <p style="font-size: 13px; color: #777;">Escribí o pegá tu texto acá. Usá <b>Negrita</b> (Ctrl+B) para los títulos.</p>
+            <button class="btn-descargar" onclick="window.print()">Descargar como PDF</button>
+        </div>
+
+        <div class="pdf-header">
+            <img src="logo.png" alt="Logo Holismo">
+            <p style="font-family: 'Quicksand'; font-weight: 700; color: #E5A88A; font-size: 10px; letter-spacing: 2px; margin-top: 10px;">ACOMPAÑAR LA VIDA EN TODAS SUS DIMENSIONES</p>
+        </div>
+
+        <div id="area-edicion" contenteditable="true">
+            <h1>Título del Taller</h1>
+            <p>Este es un párrafo de ejemplo. Podés borrar todo esto y pegar tu contenido. Recordá que para que el PDF quede bien, es mejor usar títulos claros y resaltar los conceptos clave en negrita.</p>
+            <p><b>Importante:</b> Al apretar el botón verde, se abrirá la ventana de impresión. Elegí "Guardar como PDF" en el destino de la impresora.</p>
+        </div>
+    </div>
+
+</body>
+</html>
