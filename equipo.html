@@ -6,6 +6,49 @@
     <title>Holismo | Nuestro Equipo</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- ESTILOS ESPECÍFICOS DE EQUIPO --- */
+        .equipo-intro-container { padding: 40px 20px; text-align: center; font-family: 'Quicksand', sans-serif; }
+        .equipo-titulo { font-family: 'Lora', serif; font-size: clamp(28px, 4vw, 36px); color: #8E44AD; margin-bottom: 20px; }
+        .equipo-texto { color: #5A5A5A; font-size: 18px; line-height: 1.8; max-width: 800px; margin: 0 auto 15px; }
+        .equipo-badge { display: inline-block; padding: 12px 35px; border-radius: 50px; border: 1px solid #D1C4E9; background: #F9F7FD; color: #8E44AD; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 20px; }
+
+        .equipo-grid-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
+        
+        .pro-card { width: 220px; text-align: center; transition: 0.3s; display: flex; flex-direction: column; align-items: center; }
+        .pro-card:hover { transform: translateY(-10px); }
+
+        .img-wrapper { width: 160px; height: 160px; border-radius: 50%; overflow: hidden; margin-bottom: 20px; border: 4px solid #F3E5F5; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+        .pro-card h3 { font-family: 'Lora', serif; font-size: 20px; color: #5A5A5A; margin-bottom: 5px; }
+        .pro-card p { font-size: 11px; color: #E5A88A; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 15px; }
+
+        /* EL BOTÓN CONOCEME MÁS */
+        .btn-conoceme { background-color: #ffffff; border: 1.5px solid #B298C1; color: #8E44AD; padding: 10px 22px; border-radius: 50px; cursor: pointer; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 11px; text-transform: uppercase; transition: 0.3s; }
+        .btn-conoceme:hover { background-color: #B298C1; color: white; }
+
+        /* VENTANA EMERGENTE (MODAL) */
+        .modal { display: none; position: fixed; z-index: 11000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(8px); justify-content: center; align-items: center; padding: 20px; }
+        .modal-contenido { background-color: white; padding: 40px; border-radius: 40px; width: 100%; max-width: 750px; position: relative; animation: slideUp 0.4s ease; }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .modal-flex { display: flex; gap: 30px; align-items: center; }
+        .modal-img { flex: 1; max-width: 250px; }
+        .modal-img img { width: 100%; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .modal-info { flex: 1.5; text-align: left; }
+        .modal-info h2 { font-family: 'Lora', serif; color: #8E44AD; margin-bottom: 5px; }
+        .modal-info h4 { color: #E5A88A; text-transform: uppercase; font-size: 13px; letter-spacing: 1px; margin-bottom: 15px; }
+        
+        .cerrar-modal { position: absolute; right: 25px; top: 20px; font-size: 35px; cursor: pointer; color: #aaa; line-height: 1; }
+        
+        @media (max-width: 768px) {
+            .modal-flex { flex-direction: column; text-align: center; }
+            .modal-info { text-align: center; }
+            .modal-img { max-width: 180px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -19,9 +62,7 @@
             <a href="contacto.html">Contacto</a>
         </nav>
         <div class="menu-hamburguesa" id="menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
     </header>
 
@@ -30,23 +71,23 @@
             <div style="position: absolute; right: -30px; bottom: -30px; opacity: 0.15; transform: rotate(-10deg);">
                 <img src="logo.png" style="width: 280px; filter: brightness(0) invert(1);"> 
             </div>
-            <h1 style="font-family: 'Lora', serif; color: white; font-size: clamp(35px, 6vw, 55px); margin: 0; font-weight: 700; text-shadow: 1px 1px 4px rgba(0,0,0,0.1);">Nuestro Equipo</h1>
+            <h1 style="font-family: 'Lora', serif; color: white; font-size: clamp(35px, 6vw, 55px); margin: 0; font-weight: 700;">Nuestro Equipo</h1>
             <p style="color: white; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; font-size: 13px; margin-top: 12px;">Profesionales en diálogo constante</p>
         </section>
 
         <main>
             <div class="equipo-intro-container">
                 <div class="equipo-intro-content">
-                    <h2 class="equipo-titulo" style="color: #8E44AD;">Interdisciplina en Acción</h2>
+                    <h2 class="equipo-titulo">Interdisciplina en Acción</h2>
                     <p class="equipo-texto">La mayor riqueza de <b>Holismo</b> reside en nuestra labor interdisciplinaria.</p>
-                    <div class="equipo-badge" style="color: #8E44AD; border-color: #D1C4E9; background: #F9F7FD;">Sinergia • Compromiso • Calidez</div>
+                    <div class="equipo-badge">Sinergia • Compromiso • Calidez</div>
                 </div>
             </div>
 
             <div class="equipo-grid-container">
                 <div class="pro-card">
                     <div class="img-wrapper">
-                        <img src="https://drive.google.com/uc?id=1w2RgUAPUnXYbl3nPd8-pS-XjUbyQFcrq" alt="Lucía Snieg">
+                        <img src="https://drive.google.com/uc?id=1w2RgUAPUnXYbl3nPd8-pS-XjUbyQFcrq" alt="Lucía">
                     </div>
                     <h3>Lucía Snieg</h3>
                     <p>ED. ESPECIAL</p>
@@ -54,212 +95,65 @@
                 </div>
 
                 <div class="pro-card">
-                    <div class="img-wrapper"><img src="foto2.jpg"></div>
+                    <div class="img-wrapper"><img src="foto2.jpg" alt="Gabriela"></div>
                     <h3>Gabriela Bovina</h3>
                     <p>PSICOLOGÍA</p>
                     <button class="btn-conoceme" onclick="abrirPresentacion('gabriela')">Conoceme más</button>
                 </div>
 
                 <div class="pro-card">
-                    <div class="img-wrapper"><img src="foto5.jpg"></div>
+                    <div class="img-wrapper"><img src="foto5.jpg" alt="Noelia"></div>
                     <h3>M. Noelia Gomez</h3>
                     <p>PSICOLOGÍA</p>
                     <button class="btn-conoceme" onclick="abrirPresentacion('noelia')">Conoceme más</button>
                 </div>
             </div>
-            <style>
-    /* 1. Reset de Fuentes y Colores para esta sección */
-    .equipo-intro-container {
-        font-family: 'Quicksand', sans-serif;
-        text-align: center;
-        background-color: #ffffff;
-        padding: 40px 20px;
-    }
-
-    .equipo-titulo {
-        font-family: 'Lora', serif;
-        font-size: clamp(28px, 4vw, 36px);
-        margin-bottom: 20px;
-        font-weight: normal;
-        color: #8E44AD; /* Violeta Holismo */
-    }
-
-    .equipo-texto { color: #5A5A5A; font-size: 18px; line-height: 1.8; margin-bottom: 15px; max-width: 800px; margin-left: auto; margin-right: auto; }
-    .equipo-texto-secundario { color: #5A5A5A; font-size: 16px; line-height: 1.7; max-width: 800px; margin-left: auto; margin-right: auto; }
-
-    .equipo-badge {
-        display: inline-block;
-        padding: 12px 35px;
-        border-radius: 50px;
-        border: 1px solid #D1C4E9;
-        background: #F9F7FD;
-        color: #8E44AD;
-        margin-top: 30px;
-        font-weight: 600;
-        font-size: 14px;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-    }
-
-  /* --- ESTILO DE LAS TARJETAS DE PROFESIONALES --- */
-.equipo-grid-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-    padding: 40px 5%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.pro-card {
-    width: 220px;
-    text-align: center;
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.pro-card:hover { transform: translateY(-10px); }
-
-/* Arreglo de los Círculos de Fotos */
-.img-wrapper {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    overflow: hidden; /* Esto hace que la foto no se salga del círculo */
-    margin-bottom: 20px;
-    border: 4px solid #F3E5F5; /* Violeta muy suave */
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    background-color: #eee; /* Fondo gris mientras carga la foto */
-}
-
-.img-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Esto evita que la foto se estire o deforme */
-    display: block;
-}
-
-/* Títulos y Cargos */
-.pro-card h3 {
-    font-family: 'Lora', serif;
-    font-size: 20px;
-    color: #5A5A5A;
-    margin-bottom: 5px;
-}
-
-.pro-card p {
-    font-size: 11px;
-    color: #E5A88A; /* Salmón */
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 15px;
-}
-
-/* --- EL "CARTEL" CONOCEME MÁS (BOTÓN) --- */
-.btn-conoceme {
-    background-color: #ffffff;
-    border: 1.5px solid #B298C1; /* Borde violeta */
-    color: #8E44AD; /* Texto violeta */
-    padding: 10px 22px;
-    border-radius: 50px; /* Forma de cápsula */
-    cursor: pointer;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(178, 152, 193, 0.1);
-}
-
-.btn-conoceme:hover {
-    background-color: #B298C1;
-    color: white;
-    box-shadow: 0 6px 15px rgba(178, 152, 193, 0.3);
-}
-
-/* --- AJUSTE PARA EL MODAL (Para que no se vea el texto suelto) --- */
-.modal {
-    display: none; 
-    position: fixed;
-    z-index: 10001; 
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.6);
-    backdrop-filter: blur(8px);
-    justify-content: center;
-    align-items: center;
-}
-    /* 4. Responsive */
-    @media (max-width: 768px) {
-        .modal-flex { flex-direction: column; text-align: center; }
-        .modal-info { text-align: center; }
-        .pro-card { width: 140px; }
-        .img-wrapper { width: 110px; height: 110px; }
-    }
-</style>
         </main>
 
         <div id="modal-presentacion" class="modal">
             <div class="modal-contenido">
                 <span class="cerrar-modal" onclick="cerrarPresentacion()">&times;</span>
                 <div class="modal-flex">
-                    <div class="modal-img"><img id="modal-foto" src=""></div>
+                    <div class="modal-img"><img id="modal-foto" src="" alt="Foto"></div>
                     <div class="modal-info">
-                        <h2 id="modal-nombre"></h2>
-                        <h4 id="modal-cargo"></h4>
+                        <h2 id="modal-nombre">Nombre</h2>
+                        <h4 id="modal-cargo">Cargo</h4>
                         <div style="width: 50px; height: 3px; background: #8DA18E; margin-bottom: 20px;"></div>
-                        <p id="modal-bio"></p>
+                        <p id="modal-bio">Texto de presentación...</p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-    </div> <footer class="footer-holismo">
+    <footer class="footer-holismo" style="background-color: #FDFBF7; padding: 40px; text-align: center; border-top: 2px solid #B298C1; margin-top: 50px;">
         <h2 style="font-size: 22px; margin-bottom: 10px; font-family: 'Lora'; color: #8DA18E;">Holismo</h2>
         <p style="font-size: 12px; color: #aaa;">© 2026 • Creado por Nómade</p>
     </footer>
 
-    <div id="ventana-chat" style="display: none;">
-        <div style="background: #8DA18E; color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 25px 25px 0 0;">
-            <strong style="font-family: 'Lora', serif;">Asistente Holismo</strong>
-            <span onclick="toggleChat()" style="cursor: pointer; font-size: 24px;">&times;</span>
-        </div>
-        <div id="chat-body" style="padding: 20px; max-height: 350px; overflow-y: auto; background: white;">
-            <p id="mensaje-asistente" style="background: #F7F9F7; padding: 15px; border-radius: 15px; font-size: 14px;">¡Hola! ¿Cómo podemos ayudarte?</p>
-            <div id="opciones-chat" style="display: flex; flex-direction: column; gap: 8px; margin-top: 15px;">
-                <button class="btn-chat" onclick="responder('obras')">Obras Sociales</button>
-                <button class="btn-chat" onclick="responder('turnos')">Pedir Turno</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="btn-abrir-chat" onclick="toggleChat()">
+    <div id="btn-abrir-chat" onclick="toggleChat()" style="position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; background-color: #8DA18E; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10000; box-shadow: 0 6px 20px rgba(141,161,142,0.4);">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
     </div>
 
-    <a href="https://wa.me/5491153432264" class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/5491153432264" class="whatsapp-float" style="position: fixed; bottom: 25px; left: 25px; width: 65px; height: 65px; background-color: #8DA18E; border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 10000; box-shadow: 0 6px 20px rgba(0,0,0,0.15);">
         <svg width="35" height="35" viewBox="0 0 24 24" fill="white"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.001.332.005c.109.004.258-.041.404.311.16.389.549 1.334.597 1.431.048.097.08.212.014.341-.065.131-.1.213-.197.337-.098.123-.205.274-.293.366-.1.104-.204.218-.087.419.117.201.521.859 1.116 1.391.763.682 1.407.893 1.608.993.201.1.32.084.441-.055.121-.139.521-.607.66-.814.139-.207.279-.174.47-.103.193.071 1.225.577 1.435.684.211.106.351.159.402.247.051.09.051.519-.093.924z"/></svg>
     </a>
 
     <script>
         const equipoData = {
-            lucia: { nombre: "Lucía Snieg", cargo: "Ed. Especial", foto: "https://drive.google.com/uc?id=1w2RgUAPUnXYbl3nPd8-pS-XjUbyQFcrq", bio: "Licenciada en Educación Especial..." },
-            noelia: { nombre: "M. Noelia Gomez", cargo: "Psicología", foto: "foto5.jpg", bio: "Psicóloga clínica..." },
-            gabriela: { nombre: "Gabriela Bovina", cargo: "Psicología", foto: "foto2.jpg", bio: "Especialista en..." }
+            lucia: { nombre: "Lucía Snieg", cargo: "Lic. en Educación Especial", foto: "https://drive.google.com/uc?id=1w2RgUAPUnXYbl3nPd8-pS-XjUbyQFcrq", bio: "Soy Lucía, Licenciada en Educación Especial. Mi enfoque se centra en acompañar los procesos de aprendizaje..." },
+            gabriela: { nombre: "Gabriela Bovina", cargo: "Psicóloga", foto: "foto2.jpg", bio: "Gabriela es psicóloga con amplia experiencia en..." },
+            noelia: { nombre: "M. Noelia Gomez", cargo: "Psicóloga", foto: "foto5.jpg", bio: "Noelia aporta una mirada clínica integral..." }
         };
 
         function abrirPresentacion(id) {
             const p = equipoData[id];
+            const modal = document.getElementById('modal-presentacion');
             document.getElementById('modal-nombre').innerText = p.nombre;
             document.getElementById('modal-cargo').innerText = p.cargo;
             document.getElementById('modal-foto').src = p.foto;
             document.getElementById('modal-bio').innerText = p.bio;
-            document.getElementById('modal-presentacion').style.display = 'flex';
+            modal.style.display = 'flex';
         }
 
         function cerrarPresentacion() {
@@ -267,19 +161,9 @@
         }
 
         function toggleChat() {
-            const v = document.getElementById('ventana-chat');
-            const b = document.getElementById('btn-abrir-chat');
-            v.style.display = (v.style.display === 'none' || v.style.display === '') ? 'block' : 'none';
-            if(b) b.style.display = (v.style.display === 'block') ? 'none' : 'flex';
+            alert("¡Hola! Soy el asistente. Estamos terminando de configurar el chat.");
         }
 
-        function responder(t) {
-            const m = document.getElementById('mensaje-asistente');
-            if(t === 'obras') m.innerHTML = "Trabajamos con CUD y reintegros.";
-            if(t === 'turnos') m.innerHTML = "Escribinos por WhatsApp.";
-        }
-
-        // MENU HAMBURGUESA CORREGIDO
         document.addEventListener('DOMContentLoaded', () => {
             const toggle = document.getElementById('menu-toggle');
             const nav = document.getElementById('nav-menu');
@@ -287,8 +171,13 @@
                 toggle.onclick = () => nav.classList.toggle('mostrar');
             }
         });
+
+        // Cerrar modal al clickear afuera
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('modal-presentacion')) {
+                cerrarPresentacion();
+            }
+        }
     </script>
 </body>
 </html>
-
-
