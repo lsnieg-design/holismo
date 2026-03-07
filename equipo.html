@@ -37,9 +37,13 @@
         .modal-info { flex: 1.5; text-align: left; }
         .modal-info h2 { font-family: 'Lora', serif; color: #8E44AD; margin-bottom: 5px; font-size: 32px; }
         .modal-info h4 { color: #E5A88A; text-transform: uppercase; font-size: 14px; letter-spacing: 2px; margin-bottom: 20px; font-weight: 700; }
-        .modal-bio { line-height: 1.8; color: #5A5A5A; font-family: 'Quicksand', sans-serif; font-size: 15px; white-space: pre-line; }
+        .modal-bio { line-height: 1.8; color: #5A5A5A; font-family: 'Quicksand', sans-serif; font-size: 15px; white-space: pre-line; margin-bottom: 25px; }
         
-        .cerrar-modal { position: absolute; right: 30px; top: 25px; font-size: 40px; cursor: pointer; color: #ccc; transition: 0.3s; }
+        /* Botón Solicitar Turno en Modal */
+        .btn-turno-modal { display: inline-block; background-color: #8DA18E; color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 13px; text-transform: uppercase; transition: 0.3s; box-shadow: 0 4px 15px rgba(141, 161, 142, 0.3); }
+        .btn-turno-modal:hover { background-color: #7A8D7B; transform: scale(1.05); }
+
+        .cerrar-modal { position: absolute; right: 30px; top: 25px; font-size: 40px; cursor: pointer; color: #ccc; transition: 0.3s; line-height: 1; }
         .cerrar-modal:hover { color: #8E44AD; }
 
         @media (max-width: 768px) {
@@ -78,13 +82,16 @@
             <div class="equipo-intro-container">
                 <div class="equipo-intro-content">
                     <h2 class="equipo-titulo">Interdisciplina en Acción</h2>
-                    <p class="equipo-texto">La mayor riqueza de <b>Holismo</b> reside en nuestra labor interdisciplinaria. Creemos que la salud y el bienestar no pueden fragmentarse, por eso nuestro equipo mantiene un diálogo constante para ofrecer respuestas integrales y humanas.</p>
-                    <div class="equipo-badge">Sinergia • Compromiso • Calidez</div>
+                    <p class="equipo-texto">La mayor riqueza de <b>Holismo</b> reside en nuestra labor interdisciplinaria. Creemos que la salud no puede fragmentarse, por eso trabajamos en red para ofrecerte un acompañamiento integral.</p>
                 </div>
             </div>
 
             <div class="equipo-grid-container">
-                
+                <div class="pro-card">
+                    <div class="img-wrapper"><img src="https://drive.google.com/uc?id=1w2RgUAPUnXYbl3nPd8-pS-XjUbyQFcrq" alt="Lucía"></div>
+                    <h3>Lucía Snieg</h3><p>ED. ESPECIAL</p>
+                    <button class="btn-conoceme" onclick="abrirPresentacion('lucia')">Conoceme más</button>
+                </div>
                 <div class="pro-card">
                     <div class="img-wrapper"><img src="miriam.jpg" alt="Miriam"></div>
                     <h3>Miriam</h3><p>PSICOLOGÍA</p>
@@ -94,11 +101,6 @@
                     <div class="img-wrapper"><img src="maria.jpg" alt="María Rosa"></div>
                     <h3>María Rosa Donnini</h3><p>PSICOPEDAGOGÍA</p>
                     <button class="btn-conoceme" onclick="abrirPresentacion('maria')">Conoceme más</button>
-                </div>
-                <div class="pro-card">
-                    <div class="img-wrapper"><img src="xxx.jpg" alt="Gabriela"></div>
-                    <h3>Gabriela</h3><p>PSICOLOGÍA</p>
-                    <button class="btn-conoceme" onclick="abrirPresentacion('gabriela_psico')">Conoceme más</button>
                 </div>
                 <div class="pro-card">
                     <div class="img-wrapper"><img src="santiago.jpg" alt="Santiago"></div>
@@ -131,11 +133,11 @@
                     <button class="btn-conoceme" onclick="abrirPresentacion('cynthia')">Conoceme más</button>
                 </div>
                 <div class="pro-card">
-                    <div class="img-wrapper"><img src="morello.jpg" alt="Carolina"></div>
+                    <div class="img-wrapper"><img src="carolina.jpg" alt="Carolina"></div>
                     <h3>Carolina Morello</h3><p>PSICOLOGÍA</p>
                     <button class="btn-conoceme" onclick="abrirPresentacion('carolina')">Conoceme más</button>
                 </div>
-               
+            </div>
         </main>
 
         <div id="modal-presentacion" class="modal">
@@ -144,10 +146,11 @@
                 <div class="modal-flex">
                     <div class="modal-img"><img id="modal-foto" src="" alt="Foto"></div>
                     <div class="modal-info">
-                        <h2 id="modal-nombre"></h2>
-                        <h4 id="modal-cargo"></h4>
+                        <h2 id="modal-nombre">Nombre</h2>
+                        <h4 id="modal-cargo">Cargo</h4>
                         <div style="width: 50px; height: 3px; background: #8DA18E; margin-bottom: 20px;"></div>
                         <p id="modal-bio" class="modal-bio"></p>
+                        <a id="btn-turno-link" href="#" target="_blank" class="btn-turno-modal">Solicitá tu turno conmigo</a>
                     </div>
                 </div>
             </div>
@@ -161,18 +164,46 @@
 
     <script>
         const equipoData = {
-            lucia: { nombre: "Lucía Snieg", cargo: "Lic. en Educación Especial", foto: "https://drive.google.com/uc?id=1w2RgUAPUnXYbl3nPd8-pS-XjUbyQFcrq", bio: "Licenciada en Educación Especial. Mi enfoque se centra en acompañar los procesos de aprendizaje desde una mirada integral y singular." },
-            miriam: { nombre: "Lic. Miriam", cargo: "Psicóloga - Coordinadora Holismo", foto: "miriam.jpg", bio: "Psicóloga (USAL) con 34 años de trayectoria clínica. Formada en psicoanálisis y orientada hacia un enfoque holístico, incorporando constelaciones familiares, terapia de regresión y sanación energética (Reiki y pránica). Co-fundadora de Holismo, concibo la terapia como un espacio cálido para desbloquear patrones y desplegar el potencial físico, mental y emocional." },
-            maria: { nombre: "Lic. María Rosa Donnini", cargo: "Lic. en Psicopedagogía", foto: "maria.jpg", bio: "Psicopedagoga con 32 años de experiencia. Especializada en evaluación neurocognitiva y orientación vocacional. Experta en el abordaje de población neurodivergente (TEA, TDAH, Tourette) y acompañamiento de trayectorias escolares. Posee una sólida trayectoria en gestión institucional y equipos interdisciplinarios." },
-            gabriela_psico: { nombre: "Lic. Gabriela", cargo: "Psicóloga", foto: "xxx.jpg", bio: "Psicóloga (UBA) con formación en el ámbito del hospital público y residencia en clínica. Especialista en Clínica Psicoanalítica, integra el equipo Holismo brindando atención a personas con discapacidad (CUD) y atención privada individual para niños, adolescentes y adultos." },
-            santiago: { nombre: "Lic. Santiago Nicolás Desimone", cargo: "Psicólogo", foto: "santiago.jpg", bio: "Psicólogo clínico (UBA) y docente. Su práctica, de orientación psicoanalítica, se centra en la escucha ética y el respeto por la singularidad de cada historia personal, con enfoque en derechos humanos y perspectiva de género. Acompaña infancias, adolescencias y adulteces." },
-            yesica: { nombre: "Lic. Yésica Lopez Juarez", cargo: "Psicóloga", foto: "yesica.jpg", bio: "Psicóloga (UBA) con 15 años de experiencia. Trabaja desde el enfoque Cognitivo-Conductual (TCC), utilizando estrategias prácticas para promover cambios reales y autonomía. Especializada en discapacidad y orientación familiar, ofrece un espacio de escucha riguroso y comprometido." },
-            florencia: { nombre: "Lic. Florencia Torreadrado", cargo: "Lic. en Psicopedagogía", foto: "flor.jpg", bio: "Psicopedagoga clínica especializada en el acompañamiento integral de niños y adolescentes con dificultades de aprendizaje. Formada en autismo e inclusión en el Hospital Garrahan y con referentes internacionales. Prioriza el vínculo de confianza y la articulación con instituciones escolares." },
-            valeria: { nombre: "Lic. Valeria De Risio", cargo: "Musicoterapeuta - Reflexóloga", foto: "valeria.jpg", bio: "Trabaja desde un enfoque integrador que articula la clínica con recursos complementarios. Su práctica busca la regulación y conexión profunda de la persona, entendida como una unidad cuerpo-mente-emoción, promoviendo el bienestar integral." },
-            gabriela_mt: { nombre: "Lic. Gabriela Nancy Matina", cargo: "Musicoterapeuta", foto: "gaby.jpg", bio: "Musicoterapeuta con más de 30 años de experiencia profesional. Formada en TCC y desarrollo temprano. Especializada en el abordaje de niños con TEA y diversas condiciones del neurodesarrollo en ámbitos docentes e institucionales." },
-            cynthia: { nombre: "Lic. Cynthia C. Rossi Dauliac", cargo: "Psicóloga", foto: "cynthia.jpg", bio: "Psicóloga y Profesora (UBA) con 20 años de trayectoria. Especializada en TEA, discapacidad y clínica vincular. Desarrolla estrategias de inclusión escolar y acompañamiento familiar, fundamentando su práctica en el respeto por la singularidad subjetiva." },
-            carolina: { nombre: "Lic. Carolina R. Morello", cargo: "Psicóloga", foto: "carolina.jpg", bio: "Especialista en clínica de niños, adolescentes y adultos desde 1996. Con experiencia en internación psiquiátrica, escuelas especiales y consultorio particular, ofrece un abordaje clínico sólido basado en su extensa trayectoria institucional." },
-            noelia: { nombre: "M. Noelia Gomez", cargo: "Psicóloga", foto: "foto5.jpg", bio: "Psicóloga clínica con enfoque integral. Parte fundamental de la red interdisciplinaria de Holismo." }
+            lucia: { 
+                nombre: "Lucía Snieg", cargo: "Ed. Especial", foto: "https://drive.google.com/uc?id=1w2RgUAPUnXYbl3nPd8-pS-XjUbyQFcrq", 
+                bio: "Soy Lucía, Licenciada en Educación Especial. Mi enfoque se centra en acompañar los procesos de aprendizaje desde una mirada integral y singular, respetando siempre los tiempos de cada persona." 
+            },
+            miriam: { 
+                nombre: "Lic. Miriam", cargo: "Psicóloga - Coord. Holismo", foto: "miriam.jpg", 
+                bio: "Soy Psicóloga egresada de la USAL con 34 años de trayectoria. Mi mirada es holística: integro el psicoanálisis con constelaciones familiares y terapias energéticas (Reiki). Concibo la terapia como un espacio cálido para desbloquear patrones y desplegar tu máximo potencial." 
+            },
+            maria: { 
+                nombre: "Lic. María Rosa Donnini", cargo: "Lic. en Psicopedagogía", foto: "maria.jpg", 
+                bio: "Soy Licenciada en Psicopedagogía con más de 32 años de experiencia. Me especializo en evaluación neurocognitiva y orientación vocacional. Mi enfoque es clínico-integral, promoviendo trayectorias educativas saludables e inclusivas." 
+            },
+            santiago: { 
+                nombre: "Lic. Santiago Desimone", cargo: "Psicólogo", foto: "santiago.jpg", 
+                bio: "Soy Psicólogo clínico y docente. Entiendo la terapia como un espacio de escucha y confianza mutua. Mi práctica se basa en que cada persona es única; por eso construimos el trabajo terapéutico respetando tu historia y tus necesidades actuales." 
+            },
+            yesica: { 
+                nombre: "Lic. Yésica Lopez Juarez", cargo: "Psicóloga", foto: "yesica.jpg", 
+                bio: "Soy Licenciada en Psicología con 15 años de trayectoria. Trabajo desde el enfoque Cognitivo-Conductual (TCC), brindando herramientas prácticas para generar cambios reales. Te invito a iniciar este proceso en un espacio respetuoso y profesional." 
+            },
+            florencia: { 
+                nombre: "Lic. Florencia Torreadrado", cargo: "Lic. en Psicopedagogía", foto: "flor.jpg", 
+                bio: "Soy Psicopedagoga clínica orientada al acompañamiento de niños y adolescentes. Me formé en el Hospital Garrahan en autismo e inclusión. Mi práctica se basa en la escucha activa y la construcción de vínculos de confianza con las familias." 
+            },
+            valeria: { 
+                nombre: "Lic. Valeria De Risio", cargo: "Musicoterapeuta - Reflexóloga", foto: "valeria.jpg", 
+                bio: "Soy Musicoterapeuta y Reflexóloga. Trabajo desde un enfoque integrador, comprendiendo a la persona como una unidad de cuerpo, mente y emoción. Mi objetivo es favorecer espacios de regulación y conexión profunda." 
+            },
+            gabriela_mt: { 
+                nombre: "Lic. Gabriela Nancy Matina", cargo: "Musicoterapeuta", foto: "gaby.jpg", 
+                bio: "Soy Musicoterapeuta con más de 30 años de experiencia. Me especializo en el abordaje de niños con TEA y desafíos del neurodesarrollo. Ofrezco tratamientos musicoterapéuticos integrales en consultorio." 
+            },
+            cynthia: { 
+                nombre: "Lic. Cynthia C. Rossi Dauliac", cargo: "Psicóloga", foto: "cynthia.jpg", 
+                bio: "Soy Psicóloga y docente con 20 años de experiencia. Me especializo en la atención de niños y adultos, especialmente en desafíos del desarrollo. Mi enfoque prioriza el bienestar, la autonomía y el crecimiento subjetivo." 
+            },
+            carolina: { 
+                nombre: "Lic. Carolina R. Morello", cargo: "Psicóloga", foto: "carolina.jpg", 
+                bio: "Soy Psicóloga especialista en clínica de niños, adolescentes y adultos. Ejerzo mi profesión desde 1996 en diversos ámbitos institucionales y privados. Ofrezco un abordaje clínico sólido basado en mi amplia experiencia." 
+            }
         };
 
         function abrirPresentacion(id) {
@@ -182,6 +213,11 @@
             document.getElementById('modal-cargo').innerText = p.cargo;
             document.getElementById('modal-foto').src = p.foto;
             document.getElementById('modal-bio').innerText = p.bio;
+            
+            // Configurar el link de WhatsApp dinámico
+            const mensaje = encodeURIComponent(`Hola! Quiero solicitar una cita con ${p.nombre}.`);
+            document.getElementById('btn-turno-link').href = `https://wa.me/5491153432264?text=${mensaje}`;
+            
             document.getElementById('modal-presentacion').style.display = 'flex';
         }
 
@@ -204,4 +240,3 @@
     </script>
 </body>
 </html>
-
