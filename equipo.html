@@ -101,11 +101,7 @@
             </div>
 
             <div class="equipo-grid-container">
-                <div class="pro-card">
-                    <div class="img-wrapper"><img src="https://drive.google.com/uc?id=1w2RgUAPUnXYbl3nPd8-pS-XjUbyQFcrq" alt="Lucía"></div>
-                    <h3>Lucía Snieg</h3><p>ED. ESPECIAL</p>
-                    <button class="btn-conoceme" onclick="abrirPresentacion('lucia')">Conoceme más</button>
-                </div>
+               
                 <div class="pro-card">
                     <div class="img-wrapper"><img src="miriam.jpg" alt="Miriam"></div>
                     <h3>Miriam</h3><p>PSICOLOGÍA</p>
@@ -152,11 +148,12 @@
                     <button class="btn-conoceme" onclick="abrirPresentacion('cynthia')">Conoceme más</button>
                 </div>
                 <div class="pro-card">
-                    <div class="img-wrapper"><img src="carolina.jpg" alt="Carolina"></div>
-                    <h3>Carolina Morello</h3><p>PSICOLOGÍA</p>
-                    <button class="btn-conoceme" onclick="abrirPresentacion('carolina')">Conoceme más</button>
-                </div>
-            </div>
+    <div class="img-wrapper"><img src="antonella.jpg" alt="Antonella Marengone"></div>
+    <h3>Antonella Marengone</h3>
+    <p>PSICOPEDAGOGÍA</p>
+    <button class="btn-conoceme" onclick="abrirPresentacion('antonella')">Conoceme más</button>
+</div>
+               
         </main>
 
         <div id="modal-presentacion" class="modal">
@@ -183,10 +180,12 @@
 
     <script>
         const equipoData = {
-            lucia: { 
-                nombre: "Lucía Snieg", cargo: "Lic. en Educación Especial", foto: "https://drive.google.com/uc?id=1w2RgUAPUnXYbl3nPd8-pS-XjUbyQFcrq", 
-                bio: "Soy Licenciada en Educación Especial. Mi enfoque se centra en acompañar los procesos de aprendizaje desde una mirada integral y singular, respetando siempre los tiempos de cada persona." 
-            },
+         antonella: { 
+    nombre: "Lic. Antonella Marengone", 
+    cargo: "Lic. en Psicopedagogía", 
+    foto: "antonella.jpg", 
+    bio: "Soy Licenciada en Psicopedagogía. Mi práctica se enfoca en comprender y acompañar los procesos de aprendizaje en las diferentes etapas de la vida. Trabajo desde una mirada clínica y preventiva, brindando herramientas que permitan potenciar las capacidades de cada persona en un entorno de confianza y calidez." 
+},
             miriam: { 
                 nombre: "Lic. Miriam", cargo: "Psicóloga - Coordinadora Holismo", foto: "miriam.jpg", 
                 bio: "Soy Psicóloga egresada de la Universidad del Salvador, con 34 años de trayectoria en el ámbito clínico. Formada en psicoanálisis, amplié mi mirada hacia una orientación holística incorporando herramientas como constelaciones familiares, terapia de regresión y terapias energéticas (Reiki y sanación pránica).\n\nHe trabajado en clínica psiquiátrica de adultos, brindando atención individual y conduciendo terapias grupales, y también con niños y adolescentes con discapacidad. Soy co-fundadora y coordinadora del equipo interdisciplinario Holismo, donde priorizo el trabajo colaborativo para ofrecer tratamientos integrales que involucren a la familia." 
@@ -266,3 +265,4 @@
     </script>
 </body>
 </html>
+
