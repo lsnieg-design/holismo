@@ -5,63 +5,90 @@
     <title>Generador de Apuntes | Holismo</title>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- ESTILOS PARA LA PANTALLA (Lo que ves vos) --- */
-        body { font-family: 'Quicksand', sans-serif; background: #f0f0f0; padding: 50px; }
-        .editor-container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .controles { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        /* --- ESTILOS PARA LA PANTALLA (Lo que ves vos mientras editás) --- */
+        body { font-family: 'Quicksand', sans-serif; background: #f0f0f0; padding: 50px; margin: 0; }
+        .editor-container { max-width: 850px; margin: 0 auto; background: white; padding: 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .controles { margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
         
-        /* El área donde escribís */
         #area-edicion {
-            width: 100%; min-height: 400px; border: 1px solid #ddd; padding: 20px;
-            font-family: 'Lora', serif; font-size: 18px; line-height: 1.5; text-align: justify;
-            outline: none; border-radius: 10px;
+            width: 100%; min-height: 500px; border: 1px solid #eee; padding: 30px;
+            font-family: 'Lora', serif; font-size: 18px; line-height: 1.6; text-align: justify;
+            outline: none; border-radius: 10px; background: #fafafa;
         }
 
         .btn-descargar {
-            background: #8DA18E; color: white; border: none; padding: 10px 20px;
-            border-radius: 50px; cursor: pointer; font-weight: bold;
+            background: #8DA18E; color: white; border: none; padding: 12px 25px;
+            border-radius: 50px; cursor: pointer; font-weight: bold; font-family: 'Quicksand'; transition: 0.3s;
         }
+        .btn-descargar:hover { background: #7A8D7B; transform: scale(1.05); }
 
-        /* --- ESTILOS PARA EL PDF (La magia) --- */
+        /* --- ESTILOS EXCLUSIVOS PARA EL PDF (La magia del borde blanco) --- */
         @media print {
-            @page { size: A4; margin: 2cm; }
-            body { background: white; padding: 0; }
-            .controles, header, footer, .whatsapp-float, #btn-abrir-chat { display: none !important; } /* Oculta todo lo web */
+            @page { 
+                size: A4; 
+                margin: 2.5cm; /* Esto crea el borde blanco real en el papel */
+            }
+            body { background: white; padding: 0; margin: 0; }
+            .controles { display: none !important; } /* Oculta el botón y el título de edición */
             
-            .editor-container { box-shadow: none; width: 100%; padding: 0; }
-            #area-edicion { border: none; padding: 0; }
+            .editor-container { 
+                box-shadow: none; 
+                width: 100%; 
+                padding: 0 !important; /* El margen lo da @page */
+                margin: 0 !important;
+            }
+            
+            #area-edicion { 
+                border: none; 
+                padding: 0; 
+                background: white;
+                font-size: 12pt; /* Tamaño estándar de lectura en papel */
+            }
 
             /* Encabezado del PDF */
-            .pdf-header { display: block !important; text-align: center; margin-bottom: 30px; border-bottom: 2px solid #E5A88A; padding-bottom: 20px; }
-            .pdf-header img { height: 80px; }
+            .pdf-header { 
+                display: flex !important; 
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 40px; 
+                border-bottom: 1px solid #E5A88A; 
+                padding-bottom: 20px; 
+            }
+            .pdf-header img { height: 70px; margin-bottom: 10px; }
             
-            /* Tipografía del contenido */
-            h1, h2, h3 { font-family: 'Lora', serif; color: #3A7BD5; margin-top: 25px; }
-            p { font-family: 'Lora', serif; font-size: 12pt; line-height: 1.5; text-align: justify; color: #333; }
+            /* Tipografía del contenido en el PDF */
+            h1 { font-family: 'Lora', serif; color: #3A7BD5; font-size: 24pt; margin-top: 0; }
+            h2, h3 { font-family: 'Lora', serif; color: #3A7BD5; margin-top: 20px; }
+            p { font-family: 'Lora', serif; line-height: 1.6; text-align: justify; color: #333; margin-bottom: 15px; }
             b, strong { color: #000; font-weight: 700; }
         }
         
-        .pdf-header { display: none; } /* Oculto en la web, se ve solo en el PDF */
+        .pdf-header { display: none; } /* Se oculta en la web para que no te moleste al escribir */
     </style>
 </head>
 <body>
 
     <div class="editor-container">
         <div class="controles">
-            <h2 style="font-family: 'Lora';">Generador de Apuntes Holismo</h2>
-            <p style="font-size: 13px; color: #777;">Escribí o pegá tu texto acá. Usá <b>Negrita</b> (Ctrl+B) para los títulos.</p>
-            <button class="btn-descargar" onclick="window.print()">Descargar como PDF</button>
+            <h2 style="font-family: 'Lora'; margin-top: 0; color: #3A7BD5;">Generador de Materiales Holismo</h2>
+            <p style="font-size: 13px; color: #777; margin-bottom: 20px;">
+                Escribí el contenido abajo. <br>
+                Tip: Usá <b>Ctrl + B</b> para negrita y seleccioná texto para borrar o editar.
+            </p>
+            <button class="btn-descargar" onclick="window.print()">Generar PDF ahora</button>
         </div>
 
         <div class="pdf-header">
             <img src="logo.png" alt="Logo Holismo">
-            <p style="font-family: 'Quicksand'; font-weight: 700; color: #E5A88A; font-size: 10px; letter-spacing: 2px; margin-top: 10px;">ACOMPAÑAR LA VIDA EN TODAS SUS DIMENSIONES</p>
+            <p style="font-family: 'Quicksand'; font-weight: 700; color: #E5A88A; font-size: 9pt; letter-spacing: 2px; text-transform: uppercase; margin: 0;">
+                ACOMPAÑAR LA VIDA EN TODAS SUS DIMENSIONES
+            </p>
         </div>
 
         <div id="area-edicion" contenteditable="true">
-            <h1>Título del Taller</h1>
-            <p>Este es un párrafo de ejemplo. Podés borrar todo esto y pegar tu contenido. Recordá que para que el PDF quede bien, es mejor usar títulos claros y resaltar los conceptos clave en negrita.</p>
-            <p><b>Importante:</b> Al apretar el botón verde, se abrirá la ventana de impresión. Elegí "Guardar como PDF" en el destino de la impresora.</p>
+            <h1>Título del Taller o Clase</h1>
+            <p>Este es tu espacio de redacción. Al presionar el botón verde de arriba, el sistema aplicará automáticamente los márgenes de seguridad, el logo de Holismo y la tipografía Lora con interlineado 1.5.</p>
+            <p><b>Recomendación:</b> Asegurate de que en la ventana de impresión que se abre, la opción "Gráficos de fondo" esté marcada si usás colores especiales, y que el destino sea "Guardar como PDF".</p>
         </div>
     </div>
 
