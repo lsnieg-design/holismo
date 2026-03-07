@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holismo | Aula Virtual</title>
+    <title>Holismo | Aula Virtual CUD</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -21,15 +21,15 @@
             display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; margin-top: 40px;
         }
         .info-taller { background: white; padding: 40px; border-radius: 30px; border: 1px solid #eee; }
-        .sidebar-recursos { background: #FDFBF7; padding: 30px; border-radius: 30px; border: 1px solid #F2E9D0; }
+        .sidebar-recursos { background: #F7FAFD; padding: 30px; border-radius: 30px; border: 1px solid #DDE7F2; }
         
         .btn-pdf {
             display: flex; align-items: center; justify-content: center;
-            background: #E5A88A; color: white; padding: 15px;
+            background: #3A7BD5; color: white; padding: 15px;
             border-radius: 15px; text-decoration: none; font-weight: 700;
             margin-top: 20px; transition: 0.3s;
         }
-        .btn-pdf:hover { background: #D48E6C; transform: translateY(-3px); }
+        .btn-pdf:hover { background: #2A5FB0; transform: translateY(-3px); }
         
         @media (max-width: 768px) { .recursos-grid { grid-template-columns: 1fr; } }
     </style>
@@ -39,50 +39,51 @@
     <header>
         <img src="logo.png" class="logo-header">
         <nav class="nav-menu"> 
-            <span style="font-family: 'Lora'; font-style: italic; color: #8DA18E;">Aula Virtual Holismo</span>
+            <span style="font-family: 'Lora'; font-style: italic; color: #3A7BD5;">Aula Virtual Holismo</span>
         </nav>
     </header>
 
     <div class="aula-container">
         <div style="margin-bottom: 30px;">
-            <h1 style="font-family: 'Lora'; color: #3A7BD5; font-size: 32px; margin-bottom: 10px;">Taller para hermanos/as de personas con discapacidad</h1>
-            <p style="color: #777; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: 700;">Módulo Único • Por Lucía Snieg</p>
+            <h1 style="font-family: 'Lora'; color: #3A7BD5; font-size: 32px; margin-bottom: 10px;">Cómo tramitar el CUD</h1>
+            <p style="color: #777; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: 700;">Guía Paso a Paso • Por Lic. María Rosa Donnini</p>
         </div>
 
         <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/placeholder" allowfullscreen></iframe>
         </div>
 
         <div class="recursos-grid">
             <div class="info-taller">
-                <h3 style="font-family: 'Lora'; color: #3A7BD5; margin-bottom: 15px;">Resumen del Taller</h3>
+                <h3 style="font-family: 'Lora'; color: #3A7BD5; margin-bottom: 15px;">Objetivo del Encuentro</h3>
                 <p style="color: #5A5A5A; line-height: 1.8;">
-                    En este encuentro profundizamos en la dinámica familiar y el rol fundamental de los hermanos. 
-                    A menudo, los hermanos de personas con discapacidad asumen responsabilidades o silencian sus propias necesidades. 
-                    <b>Este taller busca darles voz</b> y brindar herramientas para una convivencia saludable y equilibrada.
+                    El Certificado Único de Discapacidad (CUD) es la llave de acceso a los derechos de las personas con discapacidad en Argentina. Sin embargo, el proceso administrativo puede resultar abrumador.
+                    <br><br>
+                    En este video, te explicamos <b>cómo organizar la documentación</b>, qué esperar de la junta evaluadora y cómo evitar los errores más comunes para que el trámite sea exitoso desde la primera presentación.
                 </p>
                 
-                <h4 style="font-family: 'Lora'; margin: 25px 0 10px 0;">Instrucciones para el taller:</h4>
+                <h4 style="font-family: 'Lora'; margin: 25px 0 10px 0;">Contenidos del Taller:</h4>
                 <ul style="color: #5A5A5A; line-height: 1.8; padding-left: 20px;">
-                    <li>Buscá un espacio tranquilo y sin interrupciones.</li>
-                    <li>Tené a mano tu cuaderno de anotaciones.</li>
-                    <li>Descargá el PDF de actividades antes de comenzar el video.</li>
-                    <li>Si surgen dudas, podés contactarnos vía WhatsApp con tu número de orden.</li>
+                    <li>Requisitos iniciales según la condición de salud.</li>
+                    <li>Planillas y certificados: quién debe firmar qué.</li>
+                    <li>Turnos y modalidad de atención (presencial vs virtual).</li>
+                    <li>La Junta Evaluadora: qué preguntan y cómo prepararse.</li>
+                    <li>Vigencia y renovación del certificado.</li>
                 </ul>
             </div>
 
             <div class="sidebar-recursos">
-                <h3 style="font-family: 'Lora'; color: #E5A88A; margin-bottom: 10px;">Material de Trabajo</h3>
-                <p style="font-size: 14px; color: #777;">Descargá la guía práctica en PDF para acompañar la visualización del video.</p>
+                <h3 style="font-family: 'Lora'; color: #3A7BD5; margin-bottom: 10px;">Documentación</h3>
+                <p style="font-size: 14px; color: #777;">Descargá el Check-list de documentos necesarios para no olvidar nada antes de tu turno.</p>
                 
-                <a href="material-taller.pdf" target="_blank" class="btn-pdf">
+                <a href="guia-cud-holismo.pdf" target="_blank" class="btn-pdf">
                     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right: 10px;"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    Descargar Guía PDF
+                    Descargar Guía de Trámite
                 </a>
 
                 <div style="margin-top: 30px; padding-top: 20px; border-top: 1px dashed #ccc;">
                     <p style="font-size: 12px; color: #aaa; font-style: italic;">
-                        Este contenido es propiedad exclusiva de Holismo. Queda prohibida su reproducción o distribución sin autorización.
+                        Recordá que este video es una guía orientativa. Los requisitos específicos pueden variar según la jurisdicción (CABA, Provincia de Buenos Aires, etc.).
                     </p>
                 </div>
             </div>
