@@ -39,20 +39,8 @@
         .modal-info h4 { color: #E5A88A; text-transform: uppercase; font-size: 14px; letter-spacing: 2px; margin-bottom: 20px; font-weight: 700; }
         .modal-bio { line-height: 1.8; color: #5A5A5A; font-family: 'Quicksand', sans-serif; font-size: 15px; white-space: pre-line; margin-bottom: 30px; }
         
-        /* BOTÓN TURNO WHATSAPP EN MODAL */
         .btn-turno-modal {
-            display: inline-block;
-            background-color: #8DA18E;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-            font-size: 13px;
-            text-transform: uppercase;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(141, 161, 142, 0.3);
+            display: inline-block; background-color: #8DA18E; color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; transition: 0.3s; box-shadow: 0 4px 15px rgba(141, 161, 142, 0.3);
         }
         .btn-turno-modal:hover { background-color: #7A8D7B; transform: scale(1.05); }
 
@@ -101,15 +89,14 @@
             </div>
 
             <div class="equipo-grid-container">
-               
                 <div class="pro-card">
                     <div class="img-wrapper"><img src="miriam.jpg" alt="Miriam"></div>
                     <h3>Miriam Borda</h3><p>PSICOLOGÍA</p>
                     <button class="btn-conoceme" onclick="abrirPresentacion('miriam')">Conoceme más</button>
                 </div>
-                 <div class="pro-card">
-                    <div class="img-wrapper"><img src="miriam.jpg" alt="Miriam"></div>
-                    <h3>Gabriela Bovina </h3><p>PSICOLOGÍA</p>
+                <div class="pro-card">
+                    <div class="img-wrapper"><img src="gabriela.jpg" alt="Gabriela Bovina"></div>
+                    <h3>Gabriela Bovina</h3><p>PSICOLOGÍA</p>
                     <button class="btn-conoceme" onclick="abrirPresentacion('gabriela')">Conoceme más</button>
                 </div>
                 <div class="pro-card">
@@ -153,12 +140,16 @@
                     <button class="btn-conoceme" onclick="abrirPresentacion('cynthia')">Conoceme más</button>
                 </div>
                 <div class="pro-card">
-    <div class="img-wrapper"><img src="antonella.jpg" alt="Antonella Marengone"></div>
-    <h3>Antonella Marengone</h3>
-    <p>PSICOPEDAGOGÍA</p>
-    <button class="btn-conoceme" onclick="abrirPresentacion('antonella')">Conoceme más</button>
-</div>
-               
+                    <div class="img-wrapper"><img src="antonella.jpg" alt="Antonella Marengone"></div>
+                    <h3>Antonella Marengone</h3><p>PSICOPEDAGOGÍA</p>
+                    <button class="btn-conoceme" onclick="abrirPresentacion('antonella')">Conoceme más</button>
+                </div>
+                 <div class="pro-card">
+                    <div class="img-wrapper"><img src="carolina.jpg" alt="Carolina"></div>
+                    <h3>Carolina Morello</h3><p>PSICOLOGÍA</p>
+                    <button class="btn-conoceme" onclick="abrirPresentacion('carolina')">Conoceme más</button>
+                </div>
+            </div>
         </main>
 
         <div id="modal-presentacion" class="modal">
@@ -185,23 +176,17 @@
 
     <script>
         const equipoData = {
-         antonella: { 
-    nombre: "Lic. Antonella Marengone", 
-    cargo: "Lic. en Psicopedagogía", 
-    foto: "antonella.jpg", 
-    bio: "Soy Licenciada en Psicopedagogía. Mi práctica se enfoca en comprender y acompañar los procesos de aprendizaje en las diferentes etapas de la vida. Trabajo desde una mirada clínica y preventiva, brindando herramientas que permitan potenciar las capacidades de cada persona en un entorno de confianza y calidez." 
-},
+            antonella: { 
+                nombre: "Lic. Antonella Marengone", cargo: "Lic. en Psicopedagogía", foto: "antonella.jpg", 
+                bio: "Soy Licenciada en Psicopedagogía. Mi práctica se enfoca en comprender y acompañar los procesos de aprendizaje en las diferentes etapas de la vida. Trabajo desde una mirada clínica y preventiva, brindando herramientas que permitan potenciar las capacidades de cada persona en un entorno de confianza y calidez." 
+            },
             miriam: { 
                 nombre: "Lic. Miriam Borda", cargo: "Psicóloga - Coordinadora Holismo", foto: "miriam.jpg", 
                 bio: "Soy Psicóloga egresada de la Universidad del Salvador, con 34 años de trayectoria en el ámbito clínico. Formada en psicoanálisis, amplié mi mirada hacia una orientación holística incorporando herramientas como constelaciones familiares, terapia de regresión y terapias energéticas (Reiki y sanación pránica).\n\nHe trabajado en clínica psiquiátrica de adultos, brindando atención individual y conduciendo terapias grupales, y también con niños y adolescentes con discapacidad. Soy co-fundadora y coordinadora del equipo interdisciplinario Holismo, donde priorizo el trabajo colaborativo para ofrecer tratamientos integrales que involucren a la familia." 
             },
-           gabriela: { 
-                nombre: "Lic. Gabriela Bovina", cargo: "Psicóloga - Coordinadora Holismo", foto: "gabriela.jpg", 
-                bio: "Soy psicóloga desde 1992 y a lo largo de mi trayectoria he acompañado a niños, adolescentes y adultos en distintos momentos de sus vidas. Mi trabajo se centra especialmente en el acompañamiento de personas con discapacidad, con experiencia en discapacidad intelectual y autismo, brindando un espacio de escucha, comprensión y desarrollo personal.
-
-Creo profundamente en la importancia de generar espacios terapéuticos respetuosos, cálidos y personalizados, donde cada persona pueda desplegar sus recursos, fortalecer su bienestar emocional y construir herramientas para su vida cotidiana.
-
-Además del trabajo clínico, acompaño a familias, padres y hermanos, ofreciendo orientación y talleres que ayudan a comprender mejor los desafíos y potenciar las capacidades de cada persona." 
+            gabriela: { 
+                nombre: "Lic. Gabriela Bovina", cargo: "Psicóloga - Coordinadora Holismo", foto: "gabriela.jpeg", 
+                bio: "Soy psicóloga desde 1992 y a lo largo de mi trayectoria he acompañado a niños, adolescentes y adultos en distintos momentos de sus vidas. Mi trabajo se centra especialmente en el acompañamiento de personas con discapacidad, con experiencia en discapacidad intelectual y autismo, brindando un espacio de escucha, comprensión y desarrollo personal.\n\nCreo profundamente en la importancia de generar espacios terapéuticos respetuosos, cálidos y personalizados, donde cada persona pueda desplegar sus recursos, fortalecer su bienestar emocional y construir herramientas para su vida cotidiana.\n\nAdemás del trabajo clínico, acompaño a familias, padres y hermanos, ofreciendo orientación y talleres que ayudan a comprender mejor los desafíos y potenciar las capacidades de cada persona." 
             },
             maria: { 
                 nombre: "Lic. María Rosa Donnini", cargo: "Lic. en Psicopedagogía", foto: "maria.jpg", 
@@ -241,7 +226,7 @@ Además del trabajo clínico, acompaño a familias, padres y hermanos, ofreciend
             },
             noelia: { 
                 nombre: "M. Noelia Gomez", cargo: "Psicóloga", foto: "foto5.jpg", 
-                bio: "Soy Psicóloga clínica con enfoque holístico e integral. Formo parte de la red interdisciplinaria de Holismo, acompañando procesos terapéuticos con calidez y compromiso profesional." 
+                bio: "Soy Psicóloga clínica con enfoque holístico e integral. Formo parte del equipo interdisciplinario de Holismo, acompañando procesos terapéuticos con calidez y compromiso profesional." 
             }
         };
 
@@ -278,5 +263,3 @@ Además del trabajo clínico, acompaño a familias, padres y hermanos, ofreciend
     </script>
 </body>
 </html>
-
-
