@@ -132,7 +132,6 @@
     });
 </script>
 <div id="ventana-chat" style="display: none;">
-    
     <div style="background: #8DA18E; color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 25px 25px 0 0;">
         <div style="display: flex; align-items: center; gap: 10px;">
             <div style="width: 10px; height: 10px; background: #2ecc71; border-radius: 50%; border: 2px solid white;"></div>
@@ -147,10 +146,8 @@
         <div id="mensaje-asistente" style="background: #F7F9F7; padding: 15px; border-radius: 20px 20px 20px 5px; font-size: 14px; color: #5A5A5A; margin-bottom: 20px; line-height: 1.6; border: 1px solid #edf2ed;">
             ¡Hola! Soy el asistente de Holismo. ¿Cómo podemos acompañarte hoy?
         </div>
-        
         <div id="opciones-chat" style="display: flex; flex-direction: column; gap: 10px;">
-            <a href="https://api.whatsapp.com/send/?phone=5491153432264" target="_blank" class="btn-chat" style="background: #E8EDE8; border: 1px solid #8DA18E; color: #8DA18E; font-weight: bold; text-align: center; text-decoration: none; border-radius: 12px; padding: 12px;">Quiero hablar con un profesional</a>
-            
+            <a href="https://wa.me/5491153432264" target="_blank" class="btn-chat" style="background: #E8EDE8; border: 1px solid #8DA18E; color: #8DA18E; font-weight: bold; text-align: center; text-decoration: none; border-radius: 12px; padding: 12px;">Quiero hablar con un profesional</a>
             <button class="btn-chat" onclick="responder('obras')">¿Trabajan con Obras Sociales / CUD?</button>
             <button class="btn-chat" onclick="responder('primeravez')">Nunca hice terapia, ¿puedo empezar?</button>
             <button class="btn-chat" onclick="responder('talleres')">¿Cómo pago los talleres?</button>
@@ -164,7 +161,6 @@
 <div id="btn-abrir-chat" onclick="toggleChat()" style="position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; background-color: #8DA18E; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10000; box-shadow: 0 6px 20px rgba(141, 161, 142, 0.4); transition: 0.3s;">
     <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
 </div>
-
 <style>
     #ventana-chat {
         position: fixed; bottom: 100px; right: 25px; width: 340px; background: white; border-radius: 25px;
@@ -192,43 +188,49 @@
 </style>
 
 <script>
-    function toggleChat() {
-        const ventana = document.getElementById('ventana-chat');
-        if (ventana.style.display === 'none' || ventana.style.display === '') {
-            ventana.style.display = 'block';
-        } else {
-            ventana.style.display = 'none';
-        }
+   function toggleChat() {
+    const ventana = document.getElementById('ventana-chat');
+    const botonAbrir = document.getElementById('btn-abrir-chat');
+    
+    if (ventana.style.display === 'none' || ventana.style.display === '') {
+        ventana.style.display = 'block';
+        if(botonAbrir) botonAbrir.style.display = 'none';
+    } else {
+        ventana.style.display = 'none';
+        if(botonAbrir) botonAbrir.style.display = 'flex';
     }
+}
 
-    function responder(tipo) {
-        const m = document.getElementById('mensaje-asistente');
-        const o = document.getElementById('opciones-chat');
-        
-        let respuesta = "";
-        if(tipo === 'obras') respuesta = "Trabajamos de forma particular y con <b>Obras Sociales</b> por reintegro. Somos especialistas en el abordaje con <b>CUD</b>.";
-        if(tipo === 'primeravez') respuesta = "¡Es el momento ideal! Holismo es un espacio seguro para conocerse y sanar. Te orientamos desde el primer encuentro.";
-        if(tipo === 'talleres') respuesta = "Los pagos se gestionan de forma segura a través de <b>Mercado Pago</b> o transferencia bancaria.";
-        if(tipo === 'presencial') respuesta = "Estamos en <b>Del Candil 3500, Parque Leloir</b>. Un entorno natural pensado para la calma.";
-        if(tipo === 'edades') respuesta = "Atendemos a niños, adolescentes, adultos y familias. Contamos con un equipo interdisciplinario.";
-        if(tipo === 'turnos') respuesta = "Para coordinar, escribinos directamente por <b>WhatsApp</b> haciendo clic en el botón verde arriba.";
-        
-        m.innerHTML = respuesta;
-        o.innerHTML = '<button class="btn-chat" onclick="resetChat()" style="text-align:center; background:#f9f9f9; font-weight:bold;">← Volver a las opciones</button>';
-    }
+function responder(tipo) {
+    const m = document.getElementById('mensaje-asistente');
+    const o = document.getElementById('opciones-chat');
+    let respuesta = "";
+    
+    if(tipo === 'obras') respuesta = "Trabajamos de forma particular y con <b>Obras Sociales</b>. Somos especialistas en el abordaje con <b>CUD</b>.";
+    if(tipo === 'primeravez') respuesta = "¡Es el momento ideal! Holismo es un espacio seguro para conocerse y sanar.";
+    if(tipo === 'talleres') respuesta = "Los pagos se gestionan de forma segura a través de <b>Mercado Pago</b> o transferencia.";
+    if(tipo === 'presencial') respuesta = "Estamos en <b>Del Candil 3500, Parque Leloir</b>. Un entorno natural para la calma.";
+    if(tipo === 'edades') respuesta = "Atendemos a niños, adolescentes, adultos y familias.";
+    if(tipo === 'turnos') respuesta = "Para coordinar, escribinos directamente por <b>WhatsApp</b>.";
+    
+    m.innerHTML = respuesta;
+    o.innerHTML = '<button class="btn-chat" onclick="resetChat()" style="text-align:center; background:#f9f9f9; font-weight:bold; color:#8DA18E;">← Volver a las opciones</button>';
+}
 
-    function resetChat() {
-        document.getElementById('mensaje-asistente').innerText = "¿En qué más podemos ayudarte?";
-        document.getElementById('opciones-chat').innerHTML = `
-            <a href="https://api.whatsapp.com/send/?phone=5491153432264" target="_blank" class="btn-chat" style="background: #E8EDE8; border: 1px solid #8DA18E; color: #8DA18E; font-weight: bold; text-align: center; text-decoration: none; border-radius: 12px; padding: 12px;">Quiero hablar con un profesional</a>
-            <button class="btn-chat" onclick="responder('obras')">¿Trabajan con Obras Sociales / CUD?</button>
-            <button class="btn-chat" onclick="responder('primeravez')">Nunca hice terapia, ¿puedo empezar?</button>
-            <button class="btn-chat" onclick="responder('talleres')">¿Cómo pago los talleres?</button>
-            <button class="btn-chat" onclick="responder('presencial')">¿Dónde están ubicados?</button>
-            <button class="btn-chat" onclick="responder('edades')">¿A quiénes atienden?</button>
-            <button class="btn-chat" onclick="responder('turnos')">¿Cómo pido un turno?</button>
-        `;
-    }
+function resetChat() {
+    const m = document.getElementById('mensaje-asistente');
+    const o = document.getElementById('opciones-chat');
+    m.innerText = "¿En qué más podemos ayudarte?";
+    o.innerHTML = `
+        <a href="https://wa.me/5491153432264" target="_blank" class="btn-chat" style="background: #E8EDE8; border: 1px solid #8DA18E; color: #8DA18E; font-weight: bold; text-align: center; text-decoration: none; border-radius: 12px; padding: 12px;">Quiero hablar con un profesional</a>
+        <button class="btn-chat" onclick="responder('obras')">¿Trabajan con Obras Sociales / CUD?</button>
+        <button class="btn-chat" onclick="responder('primeravez')">Nunca hice terapia, ¿puedo empezar?</button>
+        <button class="btn-chat" onclick="responder('talleres')">¿Cómo pago los talleres?</button>
+        <button class="btn-chat" onclick="responder('presencial')">¿Dónde están ubicados?</button>
+        <button class="btn-chat" onclick="responder('edades')">¿A quiénes atienden?</button>
+        <button class="btn-chat" onclick="responder('turnos')">¿Cómo pido un turno?</button>
+    `;
+}
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
