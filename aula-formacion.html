@@ -9,41 +9,40 @@
         :root { --azul: #3A7BD5; --verde: #8DA18E; --salmon: #E5A88A; --crema: #FDFBF7; }
         body { background: #f8f9fa; font-family: 'Quicksand', sans-serif; margin: 0; display: flex; }
         
-        /* Sidebar de Clases */
+        /* Sidebar lateral */
         .sidebar-aula { width: 320px; background: white; height: 100vh; position: sticky; top: 0; border-right: 1px solid #eee; overflow-y: auto; }
         .sidebar-header { padding: 30px; border-bottom: 1px solid #f0f0f0; text-align: center; }
         .sidebar-header img { width: 120px; }
         
         .lista-encuentros { padding: 0; margin: 0; list-style: none; }
         .item-encuentro { border-bottom: 1px solid #f9f9f9; cursor: pointer; }
-        .item-encuentro div { 
-            display: block; padding: 18px 25px; color: #5A5A5A; 
-            font-size: 13.5px; transition: 0.3s; border-left: 4px solid transparent;
-        }
+        .item-encuentro div { display: block; padding: 18px 25px; color: #777; font-size: 13.5px; transition: 0.3s; border-left: 4px solid transparent; }
         .item-encuentro:hover div { background: #fcfcfc; color: var(--azul); }
         .item-encuentro.activo div { background: #F0F7FF; border-left-color: var(--azul); color: var(--azul); font-weight: 700; }
         .numero-clase { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--salmon); margin-bottom: 5px; }
 
-        /* Contenido Principal */
+        /* Contenido */
         .contenido-aula { flex: 1; padding: 40px 5%; max-width: 900px; margin: 0 auto; min-height: 100vh; }
-        .seccion-contenido { display: none; } /* Ocultos por defecto */
+        .seccion-contenido { display: none; }
         .seccion-contenido.activa { display: block; animation: fadeIn 0.5s ease; }
-
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .header-clase h1 { font-family: 'Lora', serif; color: var(--azul); font-size: 28px; margin-bottom: 10px; }
-        .video-player { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); margin-bottom: 40px; }
-        .seccion-texto { background: white; padding: 40px; border-radius: 25px; border: 1px solid #eee; margin-bottom: 30px; }
-        .seccion-texto h3 { font-family: 'Lora', serif; color: var(--verde); border-left: 4px solid var(--salmon); padding-left: 15px; margin-top: 30px; }
-        
-        /* Estilos específicos del HOME */
-        .hero-home { background: linear-gradient(135deg, #3A7BD5 0%, #2A5FB0 100%); padding: 40px; border-radius: 30px; color: white; margin-bottom: 30px; }
-        .hoja-ruta { border-left: 2px dashed #DDE7F2; padding-left: 30px; margin-left: 10px; }
-        .ruta-paso { position: relative; margin-bottom: 20px; padding: 15px; background: white; border-radius: 15px; border: 1px solid #eee; }
-        .ruta-paso::before { content: ''; position: absolute; left: -39px; top: 20px; width: 15px; height: 15px; background: var(--azul); border-radius: 50%; border: 3px solid white; }
+        /* Tarjeta de Acceso En Vivo */
+        .card-acceso { 
+            background: white; padding: 40px; border-radius: 30px; border: 2px solid var(--azul); 
+            text-align: center; margin-bottom: 40px; box-shadow: 0 15px 35px rgba(58, 123, 213, 0.1);
+        }
+        .btn-zoom { 
+            display: inline-flex; align-items: center; gap: 10px; background: var(--azul); color: white; 
+            padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; 
+            font-size: 18px; margin-top: 20px; transition: 0.3s; 
+        }
+        .btn-zoom:hover { transform: translateY(-3px); background: #2A5FB0; box-shadow: 0 10px 20px rgba(58, 123, 213, 0.3); }
 
-        .recursos-descarga { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .card-descarga { background: #FDFBF7; padding: 20px; border-radius: 20px; border: 1px solid #F2E9D0; display: flex; align-items: center; gap: 15px; text-decoration: none; color: #5A5A5A; }
+        .info-clase { background: white; padding: 40px; border-radius: 25px; border: 1px solid #eee; }
+        .info-clase h3 { font-family: 'Lora', serif; color: var(--verde); border-left: 4px solid var(--salmon); padding-left: 15px; margin-top: 30px; }
+        
+        .badge-live { display: inline-block; padding: 5px 12px; background: #ffebee; color: #d32f2f; border-radius: 5px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
 
         @media (max-width: 900px) { body { flex-direction: column; } .sidebar-aula { width: 100%; height: auto; position: relative; } }
     </style>
@@ -56,137 +55,89 @@
             <p style="font-size: 10px; font-weight: 700; color: var(--verde); letter-spacing: 2px;">AULA VIRTUAL</p>
         </div>
         <ul class="lista-encuentros">
-            <li class="item-encuentro activo" onclick="mostrarSeccion('home', this)">
-                <div><span class="numero-clase">Inicio</span>Presentación y Hoja de Ruta</div>
-            </li>
-            <li class="item-encuentro" onclick="mostrarSeccion('e1', this)">
-                <div><span class="numero-clase">Encuentro 1</span>La enfermedad como camino de sentido</div>
-            </li>
-            <li class="item-encuentro" onclick="mostrarSeccion('e2', this)">
-                <div><span class="numero-clase">Encuentro 2</span>Conciencia, intención y coherencia</div>
-            </li>
-            <li class="item-encuentro" onclick="mostrarSeccion('e3', this)">
-                <div><span class="numero-clase">Encuentro 3</span>El Campo Cuántico y la sanación</div>
-            </li>
-            <li class="item-encuentro" onclick="mostrarSeccion('e4', this)">
-                <div><span class="numero-clase">Encuentro 4</span>Herramientas de sanación</div>
-            </li>
-            <li class="item-encuentro" onclick="mostrarSeccion('e5', this)">
-                <div><span class="numero-clase">Encuentro 5</span>Cerebro y Biología</div>
-            </li>
-            <li class="item-encuentro" onclick="mostrarSeccion('e6', this)">
-                <div><span class="numero-clase">Encuentro 6</span>Las 5 Leyes Biológicas</div>
-            </li>
-            <li class="item-encuentro" onclick="mostrarSeccion('e7', this)">
-                <div><span class="numero-clase">Encuentro 7</span>Emoción y Cuerpo</div>
-            </li>
-            <li class="item-encuentro" onclick="mostrarSeccion('e8', this)">
-                <div><span class="numero-clase">Encuentro 8</span>Constelaciones Individuales</div>
-            </li>
-            <li class="item-encuentro" onclick="mostrarSeccion('e9', this)">
-                <div><span class="numero-clase">Encuentro 9</span>Integración Energética y Cierre</div>
-            </li>
+            <li class="item-encuentro activo" onclick="mostrarSeccion('home', this)"><div><span class="numero-clase">Inicio</span>Hoja de Ruta y Objetivos</div></li>
+            <li class="item-encuentro" onclick="mostrarSeccion('e1', this)"><div><span class="numero-clase">Encuentro 1</span>La enfermedad como camino</div></li>
+            <li class="item-encuentro" onclick="mostrarSeccion('e2', this)"><div><span class="numero-clase">Encuentro 2</span>Conciencia e Intención</div></li>
+            <li class="item-encuentro" onclick="mostrarSeccion('e3', this)"><div><span class="numero-clase">Encuentro 3</span>Campo Cuántico</div></li>
+            <li class="item-encuentro" onclick="mostrarSeccion('e4', this)"><div><span class="numero-clase">Encuentro 4</span>Herramientas de sanación</div></li>
+            <li class="item-encuentro" onclick="mostrarSeccion('e5', this)"><div><span class="numero-clase">Encuentro 5</span>Cerebro y Biología</div></li>
+            <li class="item-encuentro" onclick="mostrarSeccion('e6', this)"><div><span class="numero-clase">Encuentro 6</span>Las 5 Leyes Biológicas</div></li>
+            <li class="item-encuentro" onclick="mostrarSeccion('e7', this)"><div><span class="numero-clase">Encuentro 7</span>Emoción y Cuerpo</div></li>
+            <li class="item-encuentro" onclick="mostrarSeccion('e8', this)"><div><span class="numero-clase">Encuentro 8</span>Constelaciones Individuales</div></li>
+            <li class="item-encuentro" onclick="mostrarSeccion('e9', this)"><div><span class="numero-clase">Encuentro 9</span>Integración y Cierre</div></li>
         </ul>
     </aside>
 
     <main class="contenido-aula">
         
         <div id="home" class="seccion-contenido activa">
-            <div class="hero-home">
-                <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 11px; font-weight: 700; margin-bottom: 5px;">BIENVENIDOS PROFESIONALES</p>
-                <h1>Curso de Formación de Terapeutas Holísticos</h1>
-                <p style="opacity: 0.9; font-size: 15px;">Orientado a la práctica clínica con discapacidad.</p>
+            <div style="background: linear-gradient(135deg, #3A7BD5 0%, #2A5FB0 100%); padding: 40px; border-radius: 30px; color: white; margin-bottom: 30px;">
+                <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 11px; font-weight: 700;">BIENVENIDOS</p>
+                <h1 style="font-family: 'Lora'; margin: 10px 0;">Hoja de Ruta de la Formación</h1>
             </div>
-            
-            <div class="seccion-texto">
-                <h2>Presentación</h2>
-                <p style="line-height: 1.8; color: #5A5A5A;">La práctica clínica contemporánea exige una mirada cada vez más amplia, integradora y respetuosa de la complejidad humana. Este programa propone ampliar la mirada clínica tradicional, incorporando herramientas para comprender al paciente como un ser integral (cuerpo físico, mental, emocional, espiritual y energético).</p>
-                
-                <h3>Hoja de Ruta (Los 9 Encuentros)</h3>
-                <div class="hoja-ruta">
-                    <div class="ruta-paso"><strong>Fase 1: El Sentido</strong> (Clases 1-3) Conceptos base, campo cuántico y el síntoma.</div>
-                    <div class="ruta-paso"><strong>Fase 2: La Biología</strong> (Clases 4-6) Leyes biológicas, cerebro y procesos de sanación.</div>
-                    <div class="ruta-paso"><strong>Fase 3: El Sistema</strong> (Clases 7-9) Constelaciones, energía y cierre clínico.</div>
-                </div>
-
-                <div style="background: var(--crema); padding: 25px; border-radius: 20px; border: 1px solid #F2E9D0; margin-top: 30px; display: flex; gap: 20px; align-items: center;">
-                    <img src="miriam.jpg" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
-                    <div>
-                        <strong style="display:block; color: var(--verde);">Tu Docente</strong>
-                        <span style="font-size: 14px; color: #777;">Lic. Miriam Borda - Psicóloga Clínica</span>
-                    </div>
-                </div>
+            <div class="info-clase">
+                <p>Este espacio será nuestra guía durante los 9 encuentros. Aquí encontrarás los accesos a las salas virtuales y los resúmenes de lo que trabajaremos en cada jornada profesional.</p>
+                <h3>Objetivos Generales</h3>
+                <ul>
+                    <li>Ampliar la mirada clínica tradicional hacia una visión holística integrativa.</li>
+                    <li>Incorporar herramientas sistémicas para el abordaje de la discapacidad.</li>
+                    <li>Fortalecer la presencia consciente del terapeuta.</li>
+                </ul>
             </div>
         </div>
 
         <div id="e1" class="seccion-contenido">
-            <div class="header-clase">
-                <span class="numero-clase">Clase 01</span>
-                <h1>La enfermedad y discapacidad como camino de sentido</h1>
-                <p style="color: #888;">Libro eje: La enfermedad como camino (Dethlefsen & Dahlke)</p>
+            <div class="card-acceso">
+                <span class="badge-live">En vivo por Zoom</span>
+                <h2 style="font-family: 'Lora'; color: var(--azul); margin: 10px 0;">Encuentro 1: La enfermedad como camino</h2>
+                <p style="color: #666;">Te invitamos a sumarte a nuestro primer encuentro sincrónico.</p>
+                <a href="LINK_DE_ZOOM_AQUI" target="_blank" class="btn-zoom">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+                    Ingresar al Encuentro
+                </a>
             </div>
-            <div class="video-player">
-                <iframe src="https://iframe.mediadelivery.net/embed/TU_ID" style="border:0; width:100%; height:100%;" allowfullscreen></iframe>
-            </div>
-            <div class="seccion-texto">
-                <h3>Integración Conceptual</h3>
-                <p>Introducción a la mirada holística del ser humano, comprendiendo al paciente como una unidad cuerpo-mente-emoción-espíritu-energía, inserta en un sistema familiar y social.</p>
-                <h3>Ejes de Trabajo</h3>
+
+            <div class="info-clase">
+                <h3>Introducción</h3>
+                <p>Iniciamos el recorrido comprendiendo al paciente como una unidad total. Analizaremos cómo el síntoma en la discapacidad puede ser un lenguaje del sistema familiar.</p>
+                <h3>Objetivos de la Clase</h3>
                 <ul>
-                    <li>El síntoma y la discapacidad como lenguaje del sistema.</li>
-                    <li>Diferencia entre déficit, limitación y sentido.</li>
-                    <li>El niño como portador de información sistémica.</li>
+                    <li>Diferenciar déficit de sentido biológico.</li>
+                    <li>Comprender al niño como portador de información sistémica.</li>
                 </ul>
+                <h3>Contenidos</h3>
+                <p>Mirada holística • Diferencia entre limitación y sentido • La familia como campo de influencia.</p>
             </div>
         </div>
 
         <div id="e2" class="seccion-contenido">
-            <div class="header-clase">
-                <span class="numero-clase">Clase 02</span>
-                <h1>Conciencia, intención y coherencia</h1>
-                <p style="color: #888;">Libro eje: La intención (Lynne McTaggart)</p>
+            <div class="card-acceso">
+                <span class="badge-live">En vivo por Zoom</span>
+                <h2 style="font-family: 'Lora'; color: var(--azul); margin: 10px 0;">Encuentro 2: Conciencia, intención y coherencia</h2>
+                <p style="color: #666;">Hacé clic abajo para unirte a la clase del día.</p>
+                <a href="LINK_DE_ZOOM_AQUI" target="_blank" class="btn-zoom">Ingresar al Encuentro</a>
             </div>
-            <div class="video-player"><iframe src="" style="border:0; width:100%; height:100%;"></iframe></div>
-            <div class="seccion-texto">
-                <h3>Integración Conceptual</h3>
-                <p>La conciencia del terapeuta como factor de sanación. El poder de la intención en el encuadre clínico.</p>
-                <h3>Ejes de Trabajo</h3>
+            <div class="info-clase">
+                <h3>Introducción</h3>
+                <p>Exploraremos el poder de la intención del terapeuta y cómo la coherencia cardíaca afecta el campo relacional en la consulta clínica.</p>
+                <h3>Objetivos de la Clase</h3>
                 <ul>
-                    <li>Coherencia cardíaca y su efecto en el campo relacional.</li>
-                    <li>El pensamiento como frecuencia energética.</li>
-                    <li>La presencia del profesional: estar vs. ser en consulta.</li>
+                    <li>Incorporar la presencia consciente en el encuadre profesional.</li>
+                    <li>Entender el pensamiento como frecuencia energética.</li>
                 </ul>
+                <h3>Contenidos</h3>
+                <p>Coherencia cardíaca • El campo relacional • Estar vs. Ser en la consulta.</p>
             </div>
         </div>
 
-        <div class="recursos-descarga">
-            <a href="#" class="card-descarga">
-                <div style="background: var(--salmon); color:white; width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center;">PDF</div>
-                <div><span style="display:block; font-weight:700;">Programa Completo</span><span style="font-size:12px;">Descargar PDF</span></div>
-            </a>
-            <a href="#" class="card-descarga">
-                <div style="background: var(--verde); color:white; width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center;">BIB</div>
-                <div><span style="display:block; font-weight:700;">Bibliografía Eje</span><span style="font-size:12px;">Acceder a carpetas</span></div>
-            </a>
-        </div>
-
-    </main>
+        </main>
 
     <script>
         function mostrarSeccion(id, elementoMenu) {
-            // 1. Ocultar todas las secciones
-            const secciones = document.querySelectorAll('.seccion-contenido');
-            secciones.forEach(s => s.classList.remove('activa'));
-
-            // 2. Mostrar la seleccionada
+            document.querySelectorAll('.seccion-contenido').forEach(s => s.classList.remove('activa'));
             document.getElementById(id).classList.add('activa');
-
-            // 3. Cambiar estilo del menú lateral
-            const items = document.querySelectorAll('.item-encuentro');
-            items.forEach(i => i.classList.remove('activo'));
+            document.querySelectorAll('.item-encuentro').forEach(i => i.classList.remove('activo'));
             elementoMenu.classList.add('activo');
-
-            // 4. Hacer scroll hacia arriba en el contenido
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
