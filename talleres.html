@@ -7,17 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos para el bloqueo temporal */
         .contenedor-talleres { position: relative; padding: 20px 0; }
-        .capa-proximamente {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(8px);
-            z-index: 20; display: flex; justify-content: center; align-items: center;
-        }
-        .cartel-aviso {
-            background: white; padding: 40px; border-radius: 40px; border: 2px solid #3A7BD5;
-            text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-        }
+        /* La capa-proximamente ha sido eliminada para habilitar el acceso */
     </style>
 </head>
 <body>
@@ -46,18 +37,30 @@
         </section>
 
         <main class="contenedor-talleres">
-            <div class="capa-proximamente">
-                <div class="cartel-aviso">
-                    <h2 style="font-family: 'Lora'; color: #3A7BD5; font-size: 32px; margin-bottom: 10px;">Próximamente</h2>
-                    <p style="color: #5A5A5A; font-weight: 600;">Estamos preparando nuevos espacios de formación para vos.</p>
-                </div>
-            </div>
-
             <div class="talleres-grid">
+                
+                <div class="taller-card">
+                    <div>
+                        <span>Profesional / Interdisciplinario</span>
+                        <h3>Formación de Terapeutas Holísticos</h3>
+                        <p class="taller-info">Orientado a la práctica profesional en el equipo interdisciplinario de atención a la discapacidad. Una mirada integradora y sistémica.</p>
+                    </div>
+                    <a href="terapeutasholisticos.html" class="btn-taller">Ingresar al Aula</a>
+                </div>
+
+                <div class="taller-card">
+                    <div>
+                        <span>Demo / Hoja de Ruta</span>
+                        <h3>Taller de Prueba: Introducción al Campus</h3>
+                        <p class="taller-info">Explora nuestra metodología de 3 clases. Incluye hoja de ruta, videos, materiales descargables, evaluación final y certificación.</p>
+                    </div>
+                    <a href="aula-prueba.html" class="btn-taller">Realizar Prueba</a>
+                </div>
+
                 <div class="taller-card">
                     <div>
                         <span>Virtual / Asincrónico</span>
-                        <h3>Taller para hermanos/as de personas con discapacidad</h3>
+                        <h3>Taller para hermanos/as</h3>
                         <p class="taller-info">Un espacio para re pensar los roles de los hermanos y hermanas de personas con discapacidad.</p>
                     </div>
                     <a href="#" class="btn-taller">Quiero realizar el taller</a>
@@ -65,21 +68,13 @@
 
                 <div class="taller-card">
                     <div>
-                        <span>Asincrónico/Teórico</span>
+                        <span>Asincrónico / Teórico</span>
                         <h3>Cómo tramitar el CUD</h3>
-                        <p class="taller-info">Taller grabado para tener toda la información necesaria para tramitar el CUD.</p>
+                        <p class="taller-info">Taller grabado para tener toda la información necesaria para tramitar el CUD de manera efectiva.</p>
                     </div>
                     <a href="#" class="btn-taller">Quiero realizar el taller</a>
                 </div>
 
-                <div class="taller-card">
-                    <div>
-                        <span>Bienestar / Adultos</span>
-                        <h3>Mindfulness y Respiración</h3>
-                        <p class="taller-info">Herramientas prácticas para gestionar el estrés y conectar con el presente en la vida cotidiana.</p>
-                    </div>
-                    <a href="#" class="btn-taller">Consultar fechas</a>
-                </div>
             </div>
         </main>
     </div>
@@ -90,14 +85,12 @@
     </footer>
 
     <script>
-        // Menú Hamburguesa
         const menuToggle = document.getElementById('menu-toggle');
         const navMenu = document.getElementById('nav-menu');
         if(menuToggle) {
             menuToggle.addEventListener('click', () => { navMenu.classList.toggle('mostrar'); });
         }
 
-        // Animaciones al hacer scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
