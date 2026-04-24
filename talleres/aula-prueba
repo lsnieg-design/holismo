@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula de Prueba | Holismo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --azul: #3A7BD5; --verde: #8DA18E; --salmon: #E5A88A; --crema: #FDFBF7; }
+        body { background: #f8f9fa; font-family: 'Quicksand', sans-serif; margin: 0; display: flex; flex-direction: column; }
+        
+        .header-movil { display: none; background: white; padding: 15px 20px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10002; border-bottom: 1px solid #eee; }
+        .sidebar-aula { width: 320px; background: white; height: 100vh; position: fixed; left: 0; top: 0; border-right: 1px solid #eee; overflow-y: auto; z-index: 10001; transition: 0.3s; }
+        .sidebar-header { padding: 30px; border-bottom: 1px solid #f0f0f0; text-align: center; }
+        .sidebar-header img { width: 120px; }
+        
+        .lista-encuentros { padding: 0; margin: 0; list-style: none; }
+        .item-encuentro { border-bottom: 1px solid #f9f9f9; cursor: pointer; }
+        .item-encuentro div { display: block; padding: 18px 25px; color: #777; font-size: 13.5px; transition: 0.3s; border-left: 4px solid transparent; }
+        .item-encuentro.activo div { background: #F0F7FF; border-left-color: var(--azul); color: var(--azul); font-weight: 700; }
+        
+        .contenido-aula { margin-left: 320px; padding: 40px 5%; transition: 0.3s; }
+        .seccion-contenido { display: none; max-width: 900px; margin: 0 auto; }
+        .seccion-contenido.activa { display: block; animation: fadeIn 0.5s ease; }
+        
+        .info-clase { background: white; padding: 40px; border-radius: 30px; border: 1px solid #eee; margin-bottom: 30px; }
+        .video-container { width: 100%; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; margin: 20px 0; background: #000; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0; }
+
+        .btn-accion { display: inline-flex; align-items: center; gap: 10px; background: var(--azul); color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; margin-top: 10px; border: none; cursor: pointer; }
+        .btn-biblio { background: var(--salmon); }
+
+        /* Estilos Examen */
+        .pregunta { margin-bottom: 25px; padding: 20px; background: #F8FAFD; border-radius: 15px; }
+        .opcion { display: block; margin: 10px 0; cursor: pointer; }
+        #resultado-examen { display: none; padding: 20px; border-radius: 15px; margin-top: 20px; font-weight: 700; text-align: center; }
+
+        @media (max-width: 900px) {
+            .header-movil { display: flex; }
+            .sidebar-aula { transform: translateX(-100%); width: 280px; }
+            .sidebar-aula.abierta { transform: translateX(0); }
+            .contenido-aula { margin-left: 0; padding: 20px 5%; }
+            .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; }
+            .overlay.activa { display: block; }
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="header-movil">
+        <img src="logo.png" style="height: 30px;">
+        <button onclick="toggleMenu()" style="background:none; border:none; font-size:24px; color:var(--azul);">☰</button>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
+
+    <aside id="sidebar" class="sidebar-aula">
+        <div class="sidebar-header">
+            <img src="logo.png" alt="Holismo">
+            <p style="font-size: 10px; font-weight: 700; color: var(--verde); letter-spacing: 2px;">TALLER PRUEBA</p>
+        </div>
+        <ul class="lista-encuentros">
+            <li class="item-encuentro activo" onclick="mostrarSeccion('home', this)"><div><span>Inicio</span>Presentación</div></li>
+            <li class="item-encuentro" onclick="mostrarSeccion('c1', this)"><div><span>Clase 1</span>Contenido Inicial</div></li>
+            <li class="item-encuentro" onclick="mostrarSeccion('c2', this)"><div><span>Clase 2</span>Profundización</div></li>
+            <li class="item-encuentro" onclick="mostrarSeccion('c3', this)"><div><span>Clase 3</span>Integración</div></li>
+            <li class="item-encuentro" onclick="mostrarSeccion('examen', this)"><div><span style="color: var(--salmon); font-weight: 700;">EVALUACIÓN</span>Examen Final</div></li>
+        </ul>
+    </aside>
+
+    <main class="contenido-aula">
+        
+        <div id="home" class="seccion-contenido activa">
+            <div style="background: var(--azul); padding: 50px; border-radius: 40px; color: white; margin-bottom: 30px;">
+                <h1 style="font-family: 'Lora'; margin: 0;">Taller de Prueba</h1>
+                <p>Bienvenido a la demostración del aula virtual autoasistida.</p>
+            </div>
+            <div class="info-clase">
+                <h2>Hoja de Ruta</h2>
+                <p>Este taller consta de 3 clases grabadas. Al finalizar, deberás completar una evaluación de 10 preguntas. Si apruebas con el 70% o más, podrás descargar tu certificado automáticamente.</p>
+            </div>
+        </div>
+
+        <div id="c1" class="seccion-contenido">
+            <div class="info-clase">
+                <h2 style="font-family: 'Lora'; color: var(--azul);">Clase 1: Introducción al Tema</h2>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+                </div>
+                <a href="#" class="btn-accion btn-biblio">Descargar PDF Clase 1</a>
+                <h3 style="margin-top:30px;">Contenidos</h3>
+                <p>Texto explicativo sobre los conceptos base de la clase 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </div>
+
+        <div id="c2" class="seccion-contenido">
+            <div class="info-clase">
+                <h2 style="font-family: 'Lora'; color: var(--azul);">Clase 2: Desarrollo Avanzado</h2>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+                </div>
+                <a href="#" class="btn-accion btn-biblio">Descargar PDF Clase 2</a>
+                <h3 style="margin-top:30px;">Contenidos</h3>
+                <p>Profundización en los ejes de trabajo de la segunda jornada de estudio.</p>
+            </div>
+        </div>
+
+        <div id="c3" class="seccion-contenido">
+            <div class="info-clase">
+                <h2 style="font-family: 'Lora'; color: var(--azul);">Clase 3: Cierre e Integración</h2>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+                </div>
+                <a href="#" class="btn-accion btn-biblio">Descargar Material Final</a>
+                <h3 style="margin-top:30px;">Contenidos</h3>
+                <p>Resumen de todo lo visto y preparación para la evaluación final.</p>
+            </div>
+        </div>
+
+        <div id="examen" class="seccion-contenido">
+            <div class="info-clase">
+                <h2 style="font-family: 'Lora'; color: var(--azul);">Evaluación Final</h2>
+                <p>Responde las siguientes preguntas para obtener tu certificado.</p>
+                
+                <form id="quiz-form">
+                    <div class="pregunta">
+                        <p>1. ¿Cuál es el objetivo principal de la mirada holística?</p>
+                        <label class="opcion"><input type="radio" name="p1" value="0"> Tratar solo el síntoma físico.</label>
+                        <label class="opcion"><input type="radio" name="p1" value="1"> Comprender al ser de forma integral.</label>
+                    </div>
+                    <div class="pregunta">
+                        <p>2. ¿El taller es sincrónico o asincrónico?</p>
+                        <label class="opcion"><input type="radio" name="p2" value="1"> Asincrónico (Grabado).</label>
+                        <label class="opcion"><input type="radio" name="p2" value="0"> Sincrónico (En vivo).</label>
+                    </div>
+
+                    <button type="button" onclick="corregirExamen()" class="btn-accion">Enviar Examen</button>
+                </form>
+
+                <div id="resultado-examen"></div>
+                
+                <div id="bloque-certificado" style="display:none; text-align: center; margin-top: 30px;">
+                    <h3 style="color: var(--verde);">¡Felicitaciones! Has aprobado.</h3>
+                    <button onclick="descargarCertificado()" class="btn-accion" style="background: var(--verde);">Descargar Certificado</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function toggleMenu() { document.getElementById('sidebar').classList.toggle('abierta'); document.getElementById('overlay').classList.toggle('activa'); }
+
+        function mostrarSeccion(id, elementoMenu) {
+            document.querySelectorAll('.seccion-contenido').forEach(s => s.classList.remove('activa'));
+            document.getElementById(id).classList.add('activa');
+            document.querySelectorAll('.item-encuentro').forEach(i => i.classList.remove('activo'));
+            elementoMenu.classList.add('activo');
+            if(window.innerWidth < 900) toggleMenu();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function corregirExamen() {
+            let puntos = 0;
+            const form = document.getElementById('quiz-form');
+            const data = new FormData(form);
+            
+            // Lógica simple de conteo
+            for (let value of data.values()) {
+                if (value === "1") puntos++;
+            }
+
+            const resultado = document.getElementById('resultado-examen');
+            resultado.style.display = "block";
+            
+            if (puntos >= 1) { // Aquí pondrías 7 para un examen de 10
+                resultado.innerHTML = "Resultado: " + puntos + "/2. ¡Aprobado!";
+                resultado.style.color = "green";
+                document.getElementById('bloque-certificado').style.display = "block";
+            } else {
+                resultado.innerHTML = "Resultado: " + puntos + "/2. No alcanzaste el puntaje necesario. Intenta de nuevo.";
+                resultado.style.color = "red";
+            }
+        }
+
+        function descargarCertificado() {
+            alert("Generando PDF... (Aquí conectaremos la librería jsPDF)");
+        }
+    </script>
+</body>
+</html>
