@@ -150,36 +150,43 @@
     </main>
 
     <script>
-        // LÓGICA DE TIEMPO Y PAGO
         function gestionarAcceso() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const pagoExitoso = urlParams.get('pago');
-            let expiracion = localStorage.getItem("expiracionPrueba");
-            const ahora = new Date().getTime();
+    const urlParams = new URLSearchParams(window.location.search);
+    const pagoExitoso = urlParams.get('pago');
+    
+    // ESTA ES TU LLAVE MAESTRA
+    // Si entrás a: aula-prueba.html?admin=holismo
+    const esAdmin = urlParams.get('admin');
 
-            // 1. Si viene de Mercado Pago, seteamos los 10 días
-            if (pagoExitoso === "exitoso") {
-                const diezDias = ahora + (10 * 24 * 60 * 60 * 1000);
-                localStorage.setItem("expiracionPrueba", diezDias);
-                expiracion = diezDias;
-                // Limpiamos la URL para que no se resetee el reloj si refresca
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
+    let expiracion = localStorage.getItem("expiracionPrueba");
+    const ahora = new Date().getTime();
 
-            // 2. Verificar si tiene acceso activo
-            if (!expiracion || ahora > parseInt(expiracion)) {
-                document.getElementById('pantalla-bloqueo').style.display = "flex";
-                if(expiracion && ahora > parseInt(expiracion)) {
-                    document.getElementById('bloqueo-titulo').innerText = "Acceso Expirado";
-                    document.getElementById('bloqueo-mensaje').innerText = "Tu tiempo de 10 días para ver este taller ha terminado.";
-                }
-            } else {
-                // Calcular días restantes para el cartel del home
-                const dias = Math.ceil((parseInt(expiracion) - ahora) / (1000 * 60 * 60 * 24));
-                document.getElementById('contador-dias').innerText = dias;
-            }
-        }
+    // 1. MODO ADMIN: Si escribís ?admin=holismo en el link, te da acceso por 100 años
+    if (esAdmin === "holismo") {
+        const accesoEterno = ahora + (1000 * 60 * 60 * 24 * 365 * 100); // 100 años
+        localStorage.setItem("expiracionPrueba", accesoEterno);
+        expiracion = accesoEterno;
+        alert("Modo Administrador Activado");
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
 
+    // 2. Si viene de Mercado Pago, seteamos los 10 días normales
+    if (pagoExitoso === "exitoso") {
+        const diezDias = ahora + (10 * 24 * 60 * 60 * 1000);
+        localStorage.setItem("expiracionPrueba", diezDias);
+        expiracion = diezDias;
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    // 3. Verificar si tiene acceso activo
+    if (!expiracion || ahora > parseInt(expiracion)) {
+        document.getElementById('pantalla-bloqueo').style.display = "flex";
+    } else {
+        const dias = Math.ceil((parseInt(expiracion) - ahora) / (1000 * 60 * 60 * 24));
+        // Si es admin, mostramos "Admin", si no, los días
+        document.getElementById('contador-dias').innerText = dias > 30000 ? "Ilimitado (Admin)" : dias;
+    }
+}
         function toggleMenu() { document.getElementById('sidebar').classList.toggle('abierta'); document.getElementById('overlay').classList.toggle('activa'); }
 
         function mostrarSeccion(id, elementoMenu) {
