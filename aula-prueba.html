@@ -47,6 +47,7 @@
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
@@ -215,7 +216,74 @@
             }
         }
 
-        function descargarCertificado() { alert("Generando Certificado..."); }
+       async function descargarCertificado() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a4'
+    });
+
+    // Pedir nombre al alumno
+    const nombreAlumno = prompt("Por favor, ingresá tu Nombre y Apellido tal como querés que aparezca en el certificado:");
+    
+    if (!nombreAlumno) return; // Si cancela, no hace nada
+
+    // --- DISEÑO DEL CERTIFICADO ---
+    
+    // 1. Fondo y Marco
+    doc.setFillColor(253, 251, 247); // Color Crema de Holismo
+    doc.rect(0, 0, 297, 210, 'F');
+    
+    doc.setDrawColor(58, 123, 213); // Azul Holismo
+    doc.setLineWidth(2);
+    doc.rect(10, 10, 277, 190); // Marco exterior
+    doc.setLineWidth(0.5);
+    doc.rect(13, 13, 271, 184); // Marco interior fino
+
+    // 2. Título
+    doc.setTextColor(58, 123, 213);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(40);
+    doc.text("Certificado de Finalización", 148.5, 60, { align: "center" });
+
+    // 3. Texto de otorgamiento
+    doc.setTextColor(80, 80, 80);
+    doc.setFontSize(18);
+    doc.setFont("helvetica", "normal");
+    doc.text("Se otorga el presente diploma a:", 148.5, 85, { align: "center" });
+
+    // 4. Nombre del Alumno
+    doc.setTextColor(141, 161, 142); // Verde Holismo
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(35);
+    doc.text(nombreAlumno, 148.5, 105, { align: "center" });
+
+    // 5. Detalle del curso
+    doc.setTextColor(80, 80, 80);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "italic");
+    doc.text("Por haber completado y aprobado el", 148.5, 125, { align: "center" });
+    
+    doc.setFont("helvetica", "bold");
+    doc.text("Taller de Prueba: Introducción al Campus Holístico", 148.5, 135, { align: "center" });
+
+    // 6. Fecha y Firma (Simulada)
+    const fecha = new Date().toLocaleDateString();
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.text("Fecha de emisión: " + fecha, 148.5, 155, { align: "center" });
+
+    // Línea de firma
+    doc.setDrawColor(229, 168, 138); // Salmón Holismo
+    doc.line(110, 175, 187, 175);
+    doc.text("Lic. Miriam Borda", 148.5, 182, { align: "center" });
+    doc.setFontSize(10);
+    doc.text("Coordinación Holismo", 148.5, 187, { align: "center" });
+
+    // 7. Descargar
+    doc.save(`Certificado-Holismo-${nombreAlumno}.pdf`);
+}
 
         // Iniciar verificación al cargar
         window.onload = gestionarAcceso;
