@@ -327,6 +327,35 @@
             if(window.innerWidth < 900) toggleMenu();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+        // Función para verificar la contraseña
+function verificarAcceso() {
+    const passInput = document.getElementById('input-password').value;
+    const errorMsg = document.getElementById('error-msg');
+    const puerta = document.getElementById('puerta-acceso');
+
+    if (passInput === "holismo2026") {
+        // Guardamos en el navegador que ya entró con éxito para que no la pida cada vez que refresca
+        sessionStorage.setItem("accesoPermitido", "true");
+        puerta.style.display = "none";
+    } else {
+        errorMsg.style.display = "block";
+        document.getElementById('input-password').style.borderColor = "#d32f2f";
+    }
+}
+
+// Al cargar la página, chequeamos si ya puso la clave antes
+window.onload = function() {
+    if (sessionStorage.getItem("accesoPermitido") === "true") {
+        document.getElementById('puerta-acceso').style.display = "none";
+    }
+};
+
+// Permitir entrar apretando "Enter"
+document.getElementById("input-password").addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        verificarAcceso();
+    }
+});
     </script>
 </body>
 </html>
