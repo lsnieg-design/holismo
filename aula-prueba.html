@@ -9,6 +9,9 @@
         :root { --azul: #3A7BD5; --verde: #8DA18E; --salmon: #E5A88A; --crema: #FDFBF7; }
         body { background: #f8f9fa; font-family: 'Quicksand', sans-serif; margin: 0; display: flex; flex-direction: column; }
         
+        /* --- BLOQUEO DE EXPIRACIÓN --- */
+        #pantalla-bloqueo { position: fixed; top:0; left:0; width:100%; height:100%; background:white; z-index: 30000; display:none; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:20px; box-sizing:border-box; }
+
         .header-movil { display: none; background: white; padding: 15px 20px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10002; border-bottom: 1px solid #eee; }
         .sidebar-aula { width: 320px; background: white; height: 100vh; position: fixed; left: 0; top: 0; border-right: 1px solid #eee; overflow-y: auto; z-index: 10001; transition: 0.3s; }
         .sidebar-header { padding: 30px; border-bottom: 1px solid #f0f0f0; text-align: center; }
@@ -30,7 +33,6 @@
         .btn-accion { display: inline-flex; align-items: center; gap: 10px; background: var(--azul); color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; margin-top: 10px; border: none; cursor: pointer; }
         .btn-biblio { background: var(--salmon); }
 
-        /* Estilos Examen */
         .pregunta { margin-bottom: 25px; padding: 20px; background: #F8FAFD; border-radius: 15px; }
         .opcion { display: block; margin: 10px 0; cursor: pointer; }
         #resultado-examen { display: none; padding: 20px; border-radius: 15px; margin-top: 20px; font-weight: 700; text-align: center; }
@@ -48,8 +50,15 @@
 </head>
 <body>
 
+    <div id="pantalla-bloqueo">
+        <img src="logo.png" style="width:150px; margin-bottom:20px;">
+        <h2 id="bloqueo-titulo" style="color:var(--azul); font-family:'Lora';">Acceso no detectado</h2>
+        <p id="bloqueo-mensaje">Debes completar el pago para acceder a este taller por 10 días.</p>
+        <a href="talleres.html" class="btn-accion">Volver a Talleres</a>
+    </div>
+
     <div class="header-movil">
-        <img src="logo.png" style="height: 30px;">
+        <a href="index.html"><img src="logo.png" style="height: 30px;"></a>
         <button onclick="toggleMenu()" style="background:none; border:none; font-size:24px; color:var(--azul);">☰</button>
     </div>
 
@@ -57,7 +66,7 @@
 
     <aside id="sidebar" class="sidebar-aula">
         <div class="sidebar-header">
-            <img src="logo.png" alt="Holismo">
+            <a href="index.html"><img src="logo.png" alt="Holismo"></a>
             <p style="font-size: 10px; font-weight: 700; color: var(--verde); letter-spacing: 2px;">TALLER PRUEBA</p>
         </div>
         <ul class="lista-encuentros">
@@ -74,11 +83,11 @@
         <div id="home" class="seccion-contenido activa">
             <div style="background: var(--azul); padding: 50px; border-radius: 40px; color: white; margin-bottom: 30px;">
                 <h1 style="font-family: 'Lora'; margin: 0;">Taller de Prueba</h1>
-                <p>Bienvenido a la demostración del aula virtual autoasistida.</p>
+                <p>Tu acceso expira en <span id="contador-dias">--</span> días.</p>
             </div>
             <div class="info-clase">
                 <h2>Hoja de Ruta</h2>
-                <p>Este taller consta de 3 clases grabadas. Al finalizar, deberás completar una evaluación de 10 preguntas. Si apruebas con el 70% o más, podrás descargar tu certificado automáticamente.</p>
+                <p>Este taller consta de 3 clases grabadas. Al finalizar, deberás completar una evaluación. Si apruebas con el 70% o más, obtendrás tu certificado.</p>
             </div>
         </div>
 
@@ -90,7 +99,7 @@
                 </div>
                 <a href="#" class="btn-accion btn-biblio">Descargar PDF Clase 1</a>
                 <h3 style="margin-top:30px;">Contenidos</h3>
-                <p>Texto explicativo sobre los conceptos base de la clase 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p>Texto explicativo sobre los conceptos base de la clase 1.</p>
             </div>
         </div>
 
@@ -101,8 +110,6 @@
                     <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
                 </div>
                 <a href="#" class="btn-accion btn-biblio">Descargar PDF Clase 2</a>
-                <h3 style="margin-top:30px;">Contenidos</h3>
-                <p>Profundización en los ejes de trabajo de la segunda jornada de estudio.</p>
             </div>
         </div>
 
@@ -113,16 +120,12 @@
                     <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
                 </div>
                 <a href="#" class="btn-accion btn-biblio">Descargar Material Final</a>
-                <h3 style="margin-top:30px;">Contenidos</h3>
-                <p>Resumen de todo lo visto y preparación para la evaluación final.</p>
             </div>
         </div>
 
         <div id="examen" class="seccion-contenido">
             <div class="info-clase">
                 <h2 style="font-family: 'Lora'; color: var(--azul);">Evaluación Final</h2>
-                <p>Responde las siguientes preguntas para obtener tu certificado.</p>
-                
                 <form id="quiz-form">
                     <div class="pregunta">
                         <p>1. ¿Cuál es el objetivo principal de la mirada holística?</p>
@@ -134,12 +137,9 @@
                         <label class="opcion"><input type="radio" name="p2" value="1"> Asincrónico (Grabado).</label>
                         <label class="opcion"><input type="radio" name="p2" value="0"> Sincrónico (En vivo).</label>
                     </div>
-
                     <button type="button" onclick="corregirExamen()" class="btn-accion">Enviar Examen</button>
                 </form>
-
                 <div id="resultado-examen"></div>
-                
                 <div id="bloque-certificado" style="display:none; text-align: center; margin-top: 30px;">
                     <h3 style="color: var(--verde);">¡Felicitaciones! Has aprobado.</h3>
                     <button onclick="descargarCertificado()" class="btn-accion" style="background: var(--verde);">Descargar Certificado</button>
@@ -150,6 +150,36 @@
     </main>
 
     <script>
+        // LÓGICA DE TIEMPO Y PAGO
+        function gestionarAcceso() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const pagoExitoso = urlParams.get('pago');
+            let expiracion = localStorage.getItem("expiracionPrueba");
+            const ahora = new Date().getTime();
+
+            // 1. Si viene de Mercado Pago, seteamos los 10 días
+            if (pagoExitoso === "exitoso") {
+                const diezDias = ahora + (10 * 24 * 60 * 60 * 1000);
+                localStorage.setItem("expiracionPrueba", diezDias);
+                expiracion = diezDias;
+                // Limpiamos la URL para que no se resetee el reloj si refresca
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // 2. Verificar si tiene acceso activo
+            if (!expiracion || ahora > parseInt(expiracion)) {
+                document.getElementById('pantalla-bloqueo').style.display = "flex";
+                if(expiracion && ahora > parseInt(expiracion)) {
+                    document.getElementById('bloqueo-titulo').innerText = "Acceso Expirado";
+                    document.getElementById('bloqueo-mensaje').innerText = "Tu tiempo de 10 días para ver este taller ha terminado.";
+                }
+            } else {
+                // Calcular días restantes para el cartel del home
+                const dias = Math.ceil((parseInt(expiracion) - ahora) / (1000 * 60 * 60 * 24));
+                document.getElementById('contador-dias').innerText = dias;
+            }
+        }
+
         function toggleMenu() { document.getElementById('sidebar').classList.toggle('abierta'); document.getElementById('overlay').classList.toggle('activa'); }
 
         function mostrarSeccion(id, elementoMenu) {
@@ -165,28 +195,23 @@
             let puntos = 0;
             const form = document.getElementById('quiz-form');
             const data = new FormData(form);
-            
-            // Lógica simple de conteo
-            for (let value of data.values()) {
-                if (value === "1") puntos++;
-            }
-
+            for (let value of data.values()) { if (value === "1") puntos++; }
             const resultado = document.getElementById('resultado-examen');
             resultado.style.display = "block";
-            
-            if (puntos >= 1) { // Aquí pondrías 7 para un examen de 10
-                resultado.innerHTML = "Resultado: " + puntos + "/2. ¡Aprobado!";
+            if (puntos >= 1) {
+                resultado.innerHTML = "Aprobado: " + puntos + "/2";
                 resultado.style.color = "green";
                 document.getElementById('bloque-certificado').style.display = "block";
             } else {
-                resultado.innerHTML = "Resultado: " + puntos + "/2. No alcanzaste el puntaje necesario. Intenta de nuevo.";
+                resultado.innerHTML = "No aprobado. Intenta de nuevo.";
                 resultado.style.color = "red";
             }
         }
 
-        function descargarCertificado() {
-            alert("Generando PDF... (Aquí conectaremos la librería jsPDF)");
-        }
+        function descargarCertificado() { alert("Generando Certificado..."); }
+
+        // Iniciar verificación al cargar
+        window.onload = gestionarAcceso;
     </script>
 </body>
 </html>
