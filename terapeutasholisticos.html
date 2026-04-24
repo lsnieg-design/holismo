@@ -61,10 +61,12 @@
     <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
 
     <aside id="sidebar" class="sidebar-aula">
-        <div class="sidebar-header">
-            <img src="logo.png" alt="Holismo">
-            <p style="font-size: 10px; font-weight: 700; color: var(--verde); letter-spacing: 2px;">AULA VIRTUAL</p>
-        </div>
+       <div class="sidebar-header">
+    <a href="index.html" style="text-decoration: none; display: block;">
+        <img src="logo.png" alt="Holismo" style="cursor: pointer; transition: 0.3s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+        <p style="font-size: 10px; font-weight: 700; color: var(--verde); letter-spacing: 2px; margin-top: 10px;">AULA VIRTUAL</p>
+    </a>
+</div>
         <ul class="lista-encuentros">
             <li class="item-encuentro activo" id="menu-home" onclick="mostrarSeccion('home', this)"><div><span class="numero-clase">Inicio</span>Presentación y Objetivos</div></li>
             <li class="item-encuentro" id="menu-e1" onclick="mostrarSeccion('e1', this)"><div><span class="numero-clase">Encuentro 1</span>La enfermedad como camino</div></li>
