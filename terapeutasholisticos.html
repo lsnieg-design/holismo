@@ -92,26 +92,7 @@
 
             <div class="info-clase">
                 <h2 style="font-family: 'Lora'; color: var(--azul);">Fundamentación</h2>
-                <p style="line-height: 1.9; color: #5A5A5A; text-align: justify;">
-                    La práctica clínica contemporánea en contextos de discapacidad infantil exige una mirada cada vez más amplia, integradora y respetuosa de la complejidad humana. Como equipo interdisciplinario —integrando la psicología, psicopedagogía, fonoaudiología, musicoterapia y terapia ocupacional en el trabajo interdisciplinario— nos encontramos diariamente con situaciones que exceden lo estrictamente sintomático o funcional, involucrando dimensiones emocionales, vinculares, familiares, sistémicas y existenciales.
-                </p>
-                <p style="line-height: 1.9; color: #5A5A5A; text-align: justify;">
-                    El presente programa propone una formación en Terapia Holística Integrativa orientada a profesionales de la salud, con el objetivo de ampliar la mirada clínica tradicional, incorporando herramientas que permitan comprender al paciente como un <b>ser integral</b>, conformado por múltiples dimensiones interrelacionadas:
-                </p>
-                <ul style="line-height: 2; color: #5A5A5A; column-count: 2; list-style-type: '• '; padding-left: 20px;">
-                    <li>Cuerpo físico</li>
-                    <li>Cuerpo mental</li>
-                    <li>Cuerpo emocional</li>
-                    <li>Dimensión espiritual</li>
-                    <li>Campo energético</li>
-                    <li>Sistemas familiares y transgeneracionales</li>
-                </ul>
-                <p style="line-height: 1.9; color: #5A5A5A; text-align: justify; margin-top: 20px;">
-                    Desde esta perspectiva, la discapacidad no es abordada únicamente como un déficit o limitación, sino como una expression compleja del sistema, que involucra al niño, a su familia y al entramado vincular e institucional que lo rodea. La mirada holística que fundamenta este programa no se contrapone ni reemplaza ninguna corriente teórica o abordaje clínico existente. Por el contrario, se plantea como un enfoque complementario, que suma herramientas de comprensión, observación y acompañamiento, enriqueciendo la práctica profesional sin invalidar los marcos conceptuales de cada disciplina.
-                </p>
-                <p style="line-height: 1.9; color: #5A5A5A; text-align: justify; margin-top: 20px;">
-                    Asimismo, se pone especial énfasis en el <b>rol del terapeuta como instrumento de intervención</b>, destacando la importancia de la presencia, la actitud de no-juicio, la ética del ayudar y el cuidado del propio profesional, especialmente en contextos de alta carga emocional como el trabajo con niños y familias atravesadas por la discapacidad. El programa integra aportes de la psicología humanista, la mirada sistémica y transgeneracional, la conciencia corporal y emocional, la espiritualidad aplicada a la salud y la percepción energética, ofreciendo un recorrido teórico-vivencial cuidadosamente estructurado para profesionales de la salud.
-                </p>
+                <div id="texto-fundamentacion-limpio"></div>
             </div>
 
             <div class="info-clase">
@@ -148,16 +129,7 @@
 
             <div class="info-clase" style="background: #fcfcfc;">
                 <h2 style="font-family: 'Lora'; color: var(--azul);">Perfil del Profesional al finalizar la formación</h2>
-                <p style="line-height: 1.7; color: #5A5A5A;">Al finalizar la formación, se espera que el profesional:</p>
-                <ul style="line-height: 1.8; color: #5A5A5A; padding-left: 20px;">
-                    <li>Posea una mirada ampliada e integradora del niño y su familia, reconociendo la complejidad de los procesos de salud y discapacidad.</li>
-                    <li>Sea capaz de articular su disciplina específica con una comprensión holística del paciente, sin perder rigor clínico.</li>
-                    <li>Pueda sostener una actitud terapéutica de presencia, no-juicio y respeto, especialmente en situaciones de alta vulnerabilidad emocional.</li>
-                    <li>Reconozca el impacto de las dinámicas familiares y transgeneracionales en el desarrollo y el síntoma.</li>
-                    <li>Cuente con herramientas para cuidar su propio equilibrio emocional y energético, fortaleciendo su rol dentro del equipo interdisciplinario.</li>
-                    <li>Comprenda su función como parte de un sistema mayor, evitando posiciones de sobre-responsabilidad o salvataje.</li>
-                    <li>Integre lo holístico como un enfoque complementario, ético y consciente dentro de su práctica profesional cotidiana.</li>
-                </ul>
+                <div id="texto-perfil-limpio"></div>
             </div>
 
             <div style="margin: 50px 0; display: flex; align-items: center; gap: 30px; background: var(--crema); padding: 40px; border-radius: 35px; border: 1px solid #F2E9D0;">
@@ -333,6 +305,40 @@
     </main>
 
     <script>
+        // TRUCO DE OPERACIÓN INVISIBLE: Inyectamos los textos dinámicamente mediante JS
+        // Esto previene de raíz que el sistema inyecte marcas raras en tu maquetado.
+        document.addEventListener("DOMContentLoaded", () => {
+            const parrafosFundacion = [
+                "La práctica clínica contemporánea en contextos de discapacidad infantil exige una mirada cada vez más amplia, integradora y respetuosa de la complejidad humana. Como equipo interdisciplinario —integrando la psicología, psicopedagogía, fonoaudiología, musicoterapia y terapia ocupacional en el trabajo interdisciplinario— nos encontramos diariamente con situaciones que exceden lo estrictamente sintomático o funcional, involucrando dimensiones emocionales, vinculares, familiares, sistémicas y existenciales.",
+                "El presente programa propone una formación en Terapia Holística Integrativa orientada a profesionales de la salud, con el objetivo de ampliar la mirada clínica tradicional, incorporando herramientas que permitan comprender al paciente como un <b>ser integral</b>, conformado por múltiples dimensiones interrelacionadas: cuerpo físico, cuerpo mental, cuerpo emocional, dimensión espiritual, campo energético y su pertenencia a sistemas familiares y transgeneracionales.",
+                "Desde esta perspectiva, la discapacidad no es abordada únicamente como un déficit o limitación, sino como una expresión compleja del sistema, que involucra al niño, a su familia y al entramado vincular e institucional que lo rodea.",
+                "La mirada holística que fundamenta este programa no se contrapone ni reemplaza ninguna corriente teórica o abordaje clínico existente. Por el contrario, se plantea como un enfoque complementario, que suma herramientas de comprensión, observación y acompañamiento, enriqueciendo la práctica profesional sin invalidar los marcos conceptuales de cada disciplina.",
+                "Asimismo, se pone especial énfasis en el <b>rol del terapeuta como instrumento de intervención</b>, destacando la importancia de la presencia, la actitud de no-juicio, la ética del ayudar y el cuidado del propio profesional, especialmente en contextos de alta carga emocional como el trabajo con niños y familias atravesadas por la discapacidad. El programa integra aportes de la psicología humanista, la mirada sistémica y transgeneracional, la conciencia corporal y emocional, la espiritualidad aplicada a la salud y la percepción energética, ofreciendo un recorrido teórico-vivencial de acompañamiento para procesos de sanación integral."
+            ];
+
+            const itemsPerfil = [
+                "Posea una mirada ampliada e integradora del niño y su familia, reconociendo la complejidad de los procesos de salud y discapacidad.",
+                "Sea capaz de articular su disciplina específica con una comprensión holística del paciente, sin perder rigor clínico.",
+                "Pueda sostener una actitud terapéutica de presencia, no-juicio y respeto, especialmente en situaciones de alta vulnerabilidad emocional.",
+                "Reconozca el impacto de las dinámicas familiares y transgeneracionales en el desarrollo y el síntoma.",
+                "Cuente con herramientas para cuidar su propio equilibrio emocional y energético, fortaleciendo su rol dentro del equipo interdisciplinario.",
+                "Comprenda su función como parte de un sistema mayor, evitando posiciones de sobre-responsabilidad o salvataje.",
+                "Integre lo holístico como un enfoque complementario, ético y consciente dentro de su práctica profesional cotidiana."
+            ];
+
+            // Inyectamos Fundamentación
+            const contenedorFundacion = document.getElementById("texto-fundamentacion-limpio");
+            if(contenedorFundacion) {
+                contenedorFundacion.innerHTML = parrafosFundacion.map(p => `<p style="line-height: 1.9; color: #5A5A5A; text-align: justify; margin-bottom: 20px;">${p}</p>`).join("");
+            }
+
+            // Inyectamos Perfil Profesional
+            const contenedorPerfil = document.getElementById("texto-perfil-limpio");
+            if(contenedorPerfil) {
+                contenedorPerfil.innerHTML = `<ul style="line-height: 1.8; color: #5A5A5A; padding-left: 20px;">${itemsPerfil.map(item => `<li>${item}</li>`).join("")}</ul>`;
+            }
+        });
+
         const fechasApertura = {
             'e1': new Date(2026, 3, 1), 'e2': new Date(2026, 4, 1), 'e3': new Date(2026, 5, 1),
             'e4': new Date(2026, 6, 1), 'e5': new Date(2026, 7, 1), 'e6': new Date(2026, 8, 1),
