@@ -8,6 +8,7 @@
     <style>
         :root { --azul: #3A7BD5; --verde: #8DA18E; --salmon: #E5A88A; --crema: #FDFBF7; --gris-bloqueo: #bdc3c7; }
         body { background: #f8f9fa; font-family: 'Quicksand', sans-serif; margin: 0; display: flex; flex-direction: column; }
+        
         .header-movil { display: none; background: white; padding: 15px 20px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10002; border-bottom: 1px solid #eee; }
         .sidebar-aula { width: 320px; background: white; height: 100vh; position: fixed; left: 0; top: 0; border-right: 1px solid #eee; overflow-y: auto; z-index: 10001; transition: 0.3s; }
         .sidebar-header { padding: 30px; border-bottom: 1px solid #f0f0f0; text-align: center; }
@@ -16,8 +17,7 @@
         .item-encuentro { border-bottom: 1px solid #f9f9f9; cursor: pointer; }
         .item-encuentro div { display: block; padding: 18px 25px; color: #777; font-size: 13.5px; transition: 0.3s; border-left: 4px solid transparent; }
         .item-encuentro.activo div { background: #F0F7FF; border-left-color: var(--azul); color: var(--azul); font-weight: 700; }
-        .item-encuentro.bloqueado { cursor: not-allowed; opacity: 0.6; }
-        .numero-clase { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--salmon); margin-bottom: 5px; }
+        
         .contenido-aula { margin-left: 320px; padding: 40px 5%; transition: 0.3s; }
         .seccion-contenido { display: none; max-width: 900px; margin: 0 auto; }
         .seccion-contenido.activa { display: block; animation: fadeIn 0.5s ease; }
@@ -27,9 +27,15 @@
         .info-clase { background: white; padding: 40px; border-radius: 30px; border: 1px solid #eee; margin-bottom: 30px; }
         .info-clase h3 { font-family: 'Lora', serif; color: var(--verde); border-left: 4px solid var(--salmon); padding-left: 15px; margin-top: 30px; }
         .badge-live { display: inline-block; padding: 5px 12px; background: #ffebee; color: #d32f2f; border-radius: 5px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
-        .hoja-ruta { border-left: 3px solid #E9F0F8; padding-left: 45px; margin-left: 15px; position: relative; }
-        .ruta-paso { margin-bottom: 30px; background: #F8FAFD; padding: 25px; border-radius: 20px; border: 1px solid #EDF2F9; position: relative; }
-        .ruta-paso::before { content: ''; position: absolute; left: -59px; top: 25px; width: 24px; height: 24px; background: var(--azul); border-radius: 50%; border: 5px solid white; box-shadow: 0 4px 10px rgba(58,123,213,0.3); }
+        
+        /* Formulario del Editor para Docentes */
+        .panel-editor { background: #fff; padding: 30px; border-radius: 30px; border: 2px dashed var(--verde); margin-bottom: 40px; display: none; }
+        .panel-editor h2 { font-family: 'Lora'; color: var(--verde); margin-top: 0; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 13px; color: #555; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-family: 'Quicksand'; box-sizing: border-box; }
+        .btn-publicar { background: var(--verde); color: white; padding: 12px 25px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-family: 'Quicksand'; }
+
         @media (max-width: 900px) {
             .header-movil { display: flex; }
             .sidebar-aula { transform: translateX(-100%); width: 280px; }
@@ -63,26 +69,33 @@
     <aside id="sidebar" class="sidebar-aula">
         <div class="sidebar-header">
             <a href="talleres.html" style="text-decoration: none; display: block;">
-                <img src="logo.png" alt="Holismo" style="cursor: pointer; transition: 0.3s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+                <img src="logo.png" alt="Holismo" style="cursor: pointer; transition: 0.3s;">
                 <p style="font-size: 10px; font-weight: 700; color: var(--verde); letter-spacing: 2px; margin-top: 10px;">AULA VIRTUAL</p>
             </a>
         </div>
-        <ul class="lista-encuentros">
+        <ul class="lista-encuentros" id="contenedor-menu-encuentros">
             <li class="item-encuentro activo" id="menu-home" onclick="mostrarSeccion('home', this)"><div><span class="numero-clase">Inicio</span>Presentación y Objetivos</div></li>
             <li class="item-encuentro" id="menu-e1" onclick="mostrarSeccion('e1', this)"><div><span class="numero-clase">Encuentro 1</span>La enfermedad como camino</div></li>
             <li class="item-encuentro" id="menu-e2" onclick="mostrarSeccion('e2', this)"><div><span class="numero-clase">Encuentro 2</span>Conciencia e Intención</div></li>
-            <li class="item-encuentro" id="menu-e3" onclick="mostrarSeccion('e3', this)"><div><span class="numero-clase">Encuentro 3</span>Presencia y No-juicio</div></li>
-            <li class="item-encuentro" id="menu-e4" onclick="mostrarSeccion('e4', this)"><div><span class="numero-clase">Encuentro 4</span>Creencias y Vínculo</div></li>
-            <li class="item-encuentro" id="menu-e5" onclick="mostrarSeccion('e5', this)"><div><span class="numero-clase">Encuentro 5</span>Diálogo Interno y Emoción</div></li>
-            <li class="item-encuentro" id="menu-e6" onclick="mostrarSeccion('e6', this)"><div><span class="numero-clase">Encuentro 6</span>Órdenes del Amor</div></li>
-            <li class="item-encuentro" id="menu-e7" onclick="mostrarSeccion('e7', this)"><div><span class="numero-clase">Encuentro 7</span>Sanación Emocional</div></li>
-            <li class="item-encuentro" id="menu-e8" onclick="mostrarSeccion('e8', this)"><div><span class="numero-clase">Encuentro 8</span>Constelaciones Individuales</div></li>
-            <li class="item-encuentro" id="menu-e9" onclick="mostrarSeccion('e9', this)"><div><span class="numero-clase">Encuentro 9</span>Integración Energética</div></li>
         </ul>
     </aside>
 
-    <main class="contenido-aula">
+    <main class="contenido-aula" id="bloque-principal-contenidos">
         
+        <div id="panel-carga-docente" class="panel-editor">
+            <h2>Panel Docente: Agregar Nueva Clase / Encuentro</h2>
+            <form id="form-clase-nueva">
+                <div class="form-group"><label>Nombre del Encuentro / Clase:</label><input type="text" id="form-nombre" placeholder="Ej: Encuentro 3: Campo Cuántico" required></div>
+                <div class="form-group"><label>Introducción Conceptual:</label><textarea id="form-intro" rows="3" placeholder="Breve resumen o encuadre de la clase..."></textarea></div>
+                <div class="form-group"><label>Objetivos de la Clase:</label><textarea id="form-objetivos" rows="3" placeholder="Objetivo 1, Objetivo 2... (separados por comas)"></textarea></div>
+                <div class="form-group"><label>Ejes de Trabajo / Contenidos:</label><input type="text" id="form-ejes" placeholder="Ej: Resonancia • Epigenética • Campo relacional"></div>
+                <div class="form-group"><label>Link de la Grabación (URL de Drive, YouTube o Vimeo):</label><input type="url" id="form-grabacion" placeholder="https://drive.google.com/..."></div>
+                <div class="form-group"><label>Link de Zoom (Si es un vivo próximo):</label><input type="url" id="form-zoom" placeholder="https://zoom.us/j/..."></div>
+                <div class="form-group"><label>Link a la Bibliografía / Material PDF:</label><input type="url" id="form-biblio" placeholder="https://..."></div>
+                <button type="button" onclick="publicarClaseNueva()" class="btn-publicar">🚀 Publicar Encuentro</button>
+            </form>
+        </div>
+
         <div id="home" class="seccion-contenido activa">
             <div style="background: linear-gradient(135deg, #3A7BD5 0%, #2A5FB0 100%); padding: 60px 50px; border-radius: 40px; color: white; margin-bottom: 50px; position: relative; overflow: hidden;">
                 <p style="text-transform: uppercase; letter-spacing: 4px; font-size: 11px; font-weight: 700; opacity: 0.9;">Formación Profesional</p>
@@ -95,50 +108,9 @@
                 <div id="texto-fundamentacion-limpio"></div>
             </div>
 
-            <div class="info-clase">
-                <h2 style="font-family: 'Lora'; color: var(--azul); margin-bottom: 25px;">Objetivos de la Formación</h2>
-                <h4 style="color: var(--verde);">Objetivo General</h4>
-                <p style="color: #5A5A5A; margin-bottom: 20px;">Brindar a profesionales de la salud que trabajan en equipos interdisciplinarios una formación holística integrativa que amplíe la comprensión del paciente, la familia y el sistema, fortaleciendo una práctica clínica consciente, ética y respetuosa de la complejidad humana.</p>
-                <h4 style="color: var(--verde);">Objetivos Específicos</h4>
-                <ul style="line-height: 1.8; color: #5A5A5A; padding-left: 20px;">
-                    <li>Desarrollar una mirada integral del paciente, considerando las dimensiones física, mental, emocional, espiritual, energética y sistémica.</li>
-                    <li>Comprender la enfermedad y el síntoma como expresiones con sentido dentro de un proceso vital y relacional.</li>
-                    <li>Incorporar herramientas para el trabajo con familias y sistemas, especialmente en contextos de discapacidad infantil.</li>
-                    <li>Fortalecer la actitud terapéutica basada en la presencia, el no-juicio y la escucha profunda.</li>
-                    <li>Reconocer las dinámicas transgeneracionales y su impacto en los procesos de salud, desarrollo y vínculo.</li>
-                    <li>Promover la autorregulación emocional y energética del terapeuta, previniendo el desgaste profesional.</li>
-                    <li>Integrar herramientas holísticas como complemento del abordaje clínico interdisciplinario.</li>
-                    <li>Favorecer una práctica profesional coherente, respetuosa de los límites del rol y del proceso del paciente.</li>
-                </ul>
-            </div>
-
-            <div class="info-clase">
-                <h2 style="font-family: 'Lora'; color: var(--azul); margin-bottom: 40px; text-align: center;">Cronograma de Encuentros 2026</h2>
-                <div class="hoja-ruta">
-                    <div class="ruta-paso"><div class="ruta-header" style="display:flex; justify-content:space-between; align-items:center;"><strong style="color: var(--azul);">E1: La enfermedad y la discapacidad como camino de sentido</strong><span style="background: var(--salmon); color: white; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700;">ABRIL</span></div><p style="font-size: 14px; color: #777; margin-top: 10px;">Sentido biológico del síntoma y la discapacidad. El niño portador de información sistémica.</p></div>
-                    <div class="ruta-paso"><div class="ruta-header" style="display:flex; justify-content:space-between; align-items:center;"><strong style="color: var(--azul);">E2: Conciencia, intención y coherencia en la práctica profesional</strong><span style="background: var(--salmon); color: white; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700;">MAYO</span></div><p style="font-size: 14px; color: #777; margin-top: 10px;">Coherencia cardíaca, rol del terapeuta y el pensamiento como frecuencia.</p></div>
-                    <div class="ruta-paso"><div class="ruta-header" style="display:flex; justify-content:space-between; align-items:center;"><strong style="color: var(--azul);">E3: Presencia y no-juicio: base de la actitud terapéutica</strong><span style="background: var(--salmon); color: white; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700;">JUNIO</span></div><p style="font-size: 14px; color: #777; margin-top: 10px;">No-juicio vs indiferencia clínica, resonancia biológica y escucha profunda.</p></div>
-                    <div class="ruta-paso"><div class="ruta-header" style="display:flex; justify-content:space-between; align-items:center;"><strong style="color: var(--azul);">E4: Creencias, acuerdos internos y vínculo terapéutico</strong><span style="background: var(--salmon); color: white; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700;">JULIO</span></div><p style="font-size: 14px; color: #777; margin-top: 10px;">Juicio, expectativa, proyección e impacto del lenguaje en la discapacidad.</p></div>
-                    <div class="ruta-paso"><div class="ruta-header" style="display:flex; justify-content:space-between; align-items:center;"><strong style="color: var(--azul);">E5: Diálogo interno, emoción y acompañamiento terapéutico</strong><span style="background: var(--salmon); color: white; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700;">AGOSTO</span></div><p style="font-size: 14px; color: #777; margin-top: 10px;">Conflictos internos, regulación emocional y el arte de acompañar sin invadir.</p></div>
-                    <div class="ruta-paso"><div class="ruta-header" style="display:flex; justify-content:space-between; align-items:center;"><strong style="color: var(--azul);">E6: Órdenes del amor y ética del ayudar</strong><span style="background: var(--salmon); color: white; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700;">SEPTIEMBRE</span></div><p style="font-size: 14px; color: #777; margin-top: 10px;">Lugar del niño, dinámicas de dar y tomar, y límites del rol profesional.</p></div>
-                    <div class="ruta-paso"><div class="ruta-header" style="display:flex; justify-content:space-between; align-items:center;"><strong style="color: var(--azul);">E7: Sanación emocional, cuerpo y energía</strong><span style="background: var(--salmon); color: white; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700;">OCTUBRE</span></div><p style="font-size: 14px; color: #777; margin-top: 10px;">Memoria somática y corporal. Regulación del sistema nervioso autónomo.</p></div>
-                    <div class="ruta-paso"><div class="ruta-header" style="display:flex; justify-content:space-between; align-items:center;"><strong style="color: var(--azul);">E8: Constelaciones individuales y matrices relacionales</strong><span style="background: var(--salmon); color: white; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700;">NOVIEMBRE</span></div><p style="font-size: 14px; color: #777; margin-top: 10px;">Lealtades invisibles, repeticiones transgeneracionales y ritmos familiares.</p></div>
-                    <div class="ruta-paso"><div class="ruta-header" style="display:flex; justify-content:space-between; align-items:center;"><strong style="color: var(--azul);">E9: Integración energética y cierre del proceso formativo</strong><span style="background: var(--salmon); color: white; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700;">DICIEMBRE</span></div><p style="font-size: 14px; color: #777; margin-top: 10px;">Percepción energética consciente, radiestesia básica integral y síntesis final.</p></div>
-                </div>
-            </div>
-
             <div class="info-clase" style="background: #fcfcfc;">
                 <h2 style="font-family: 'Lora'; color: var(--azul);">Perfil del Profesional al finalizar la formación</h2>
                 <div id="texto-perfil-limpio"></div>
-            </div>
-
-            <div style="margin: 50px 0; display: flex; align-items: center; gap: 30px; background: var(--crema); padding: 40px; border-radius: 35px; border: 1px solid #F2E9D0;">
-                <img src="miriam.jpg" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid white; object-fit: cover;">
-                <div>
-                    <h3 style="margin: 0; font-family: 'Lora'; color: var(--verde);">Lic. Miriam Borda</h3>
-                    <p style="font-size: 13px; color: var(--salmon); font-weight: 700; text-transform: uppercase;">Psicóloga - Coordinadora Holismo</p>
-                    <p style="font-size: 14px; color: #5A5A5A; line-height: 1.6; margin-top: 10px;">Egresada de la USAL con 34 años de trayectoria clínica. Formada en psicoanálisis, integrando herramientas holísticas como constelaciones familiares, terapia de regresión y terapias energéticas (Reiki y sanación pránica).</p>
-                </div>
             </div>
         </div>
 
@@ -159,10 +131,9 @@
                 <ul>
                     <li>Diferenciar limitación funcional de sentido biológico.</li>
                     <li>Introducir la mirada holística integrativa en la clínica diaria.</li>
-                    <li>Comprender al niño portador de información y su vinculación sistémica.</li>
                 </ul>
                 <h3>Ejes de Trabajo</h3>
-                <p>Mirada holística • Déficit vs Sentido • El niño portador de información sistémica • Campo de influencia familiar.</p>
+                <p>Mirada holística • Déficit vs Sentido • El niño portador de información sistémica.</p>
             </div>
         </div>
 
@@ -171,198 +142,156 @@
                 <span class="badge-live">En Vivo</span>
                 <h2 style="font-family: 'Lora'; color: var(--azul); margin: 10px 0;">2. Conciencia, intención y coherencia en la práctica profesional</h2>
                 <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                    <a href="LINK_ZOOM" target="_blank" class="btn-zoom">Unirse al Vivo</a>
-                    <a href="https://www.colomos.ceti.mx/documentos/goe/sieteLeyesEspiritualesdelExito.pdf" target="_blank" class="btn-zoom" style="background: var(--salmon);">Bibliografía: 7 Leyes</a>
+                    <a href="#" target="_blank" class="btn-zoom">Unirse al Vivo</a>
+                    <a href="#" target="_blank" class="btn-zoom" style="background: var(--salmon);">Bibliografía Eje</a>
                 </div>
             </div>
             <div class="info-clase">
                 <p><b>Libro eje de estudio:</b> Las 7 leyes espirituales del éxito - Deepak Chopra</p>
                 <h3>Introducción Conceptual</h3>
-                <p>Analizaremos cómo la presencia, la coherencia interna y la mentalidad del profesional actúan como herramientas vibracionales y factores de sanación dentro del encuadre clínico interdisciplinario.</p>
-                <h3>Objetivos de la Clase</h3>
-                <ul>
-                    <li>Incorporar la coherencia cardíaca y la autorregulación en la práctica diaria.</li>
-                    <li>Diferenciar el plano del "Estar" frente al "Ser" durante la consulta.</li>
-                    <li>Comprender el impacto de la intención clara en los resultados de la intervención.</li>
-                </ul>
+                <p>Analizaremos cómo la presencia, la coherencia interna y la mentalidad del profesional actúan como factores de sanación dentro del encuadre clínico.</p>
                 <h3>Ejes de Trabajo</h3>
-                <p>Pensamiento como frecuencia • Campo relacional y resonancia • Presencia profesional • Coherencia interna.</p>
-            </div>
-        </div>
-
-        <div id="e3" class="seccion-contenido">
-            <div class="card-acceso"><span class="badge-live">En Vivo</span><h2 style="font-family:'Lora'; color:var(--azul);">3. Presencia y no-juicio: base de la actitud terapéutica</h2><a href="#" class="btn-zoom">Ingresar al Vivo</a></div>
-            <div class="info-clase">
-                <p><b>Libro eje de estudio:</b> El poder del ahora - Eckhart Tolle</p>
-                <h3>Introducción Conceptual</h3>
-                <p>La presencia absoluta como pilar fundamental para sostener una intervención ética, consciente y respetuosa ante situaciones de alta vulnerabilidad emocional.</p>
-                <h3>Objetivos de la Clase</h3>
-                <ul>
-                    <li>Consolidar el espacio de no-juicio en el acompañamiento a las familias.</li>
-                    <li>Reconocer la diferencia clínica entre la neutralidad compasiva y la indiferencia.</li>
-                </ul>
-                <h3>Ejes de Trabajo</h3>
-                <p>Escucha profunda • El no-juicio terapéutico • Resonancia consciente • Atención al presente.</p>
-            </div>
-        </div>
-
-        <div id="e4" class="seccion-contenido">
-            <div class="card-acceso"><span class="badge-live">En Vivo</span><h2 style="font-family:'Lora'; color:var(--azul);">4. Creencias, acuerdos internos y vínculo terapéutico</h2><a href="#" class="btn-zoom">Ingresar al Vivo</a></div>
-            <div class="info-clase">
-                <p><b>Libro eje de estudio:</b> Los cuatro acuerdos - Don Miguel Ruiz</p>
-                <h3>Introducción Conceptual</h3>
-                <p>Exploración de las creencias limitantes y los acuerdos invisibles que condicionan las proyecciones del terapeuta, el paciente y el entorno institucional.</p>
-                <h3>Objetivos de la Clase</h3>
-                <ul>
-                    <li>Romper diagnósticos rígidos y estancos a través de la apertura vincular.</li>
-                    <li>Analizar el impacto del lenguaje y la impecabilidad de la palabra en la discapacidad.</li>
-                </ul>
-                <h3>Ejes de Trabajo</h3>
-                <p>Ciclo pensamiento-sentimiento • Proyecciones y expectativas • Comunicación en equipos • Impecabilidad clínica.</p>
-            </div>
-        </div>
-
-        <div id="e5" class="seccion-contenido">
-            <div class="card-acceso"><span class="badge-live">En Vivo</span><h2 style="font-family:'Lora'; color:var(--azul);">5. Diálogo interno, emoción y acompañamiento terapéutico</h2><a href="#" class="btn-zoom">Ingresar al Vivo</a></div>
-            <div class="info-clase">
-                <p><b>Libro eje de estudio:</b> La silla vacía - Mike Boxhall</p>
-                <h3>Introducción Conceptual</h3>
-                <p>Abordaje del diálogo interno y las estructuras emocionales como respuestas biológicas protectoras frente al trauma y las crisis de desarrollo.</p>
-                <h3>Objetivos de la Clase</h3>
-                <ul>
-                    <li>Desarrollar herramientas de integración vertical y horizontal de las emociones.</li>
-                    <li>Fortalecer el rol del terapeuta como facilitador de corregulación emocional.</li>
-                </ul>
-                <h3>Ejes de Trabajo</h3>
-                <p>Conflictos internos • Apego seguro • El arte de acompañar sin invadir • Sostén de la carga emocional.</p>
-            </div>
-        </div>
-
-        <div id="e6" class="seccion-contenido">
-            <div class="card-acceso"><span class="badge-live">En Vivo</span><h2 style="font-family:'Lora'; color:var(--azul);">6. Las 5 Leyes Biológicas y Órdenes de la Ayuda</h2><a href="#" class="btn-zoom">Ingresar al Vivo</a></div>
-            <div class="info-clase">
-                <p><b>Libro eje de estudio:</b> Los órdenes de la ayuda - Bert Hellinger</p>
-                <h3>Introducción Conceptual</h3>
-                <p>Análisis de las dinámicas sistémicas y de las leyes de la naturaleza que ordenan el equilibrio relacional entre el terapeuta, el niño y su red familiar.</p>
-                <h3>Objetivos de la Clase</h3>
-                <ul>
-                    <li>Identificar desórdenes sistémicos en los cuadros clínicos de discapacidad.</li>
-                    <li>Aprender a diferenciar el verdadero acompañamiento de las dinámicas inconscientes de sobre-responsabilidad o salvataje.</li>
-                </ul>
-                <h3>Ejes de Trabajo</h3>
-                <p>Lugar del niño • Leyes de Hamer aplicadas • Dar y Tomar en la consulta • Ética del ayudar.</p>
-            </div>
-        </div>
-
-        <div id="e7" class="seccion-contenido">
-            <div class="card-acceso"><span class="badge-live">En Vivo</span><h2 style="font-family:'Lora'; color:var(--azul);">7. Sanación emocional, cuerpo y energía</h2><a href="#" class="btn-zoom">Ingresar al Vivo</a></div>
-            <div class="info-clase">
-                <p><b>Libro eje de estudio:</b> Sanar las emociones - Chris Griscom</p>
-                <h3>Introducción Conceptual</h3>
-                <p>Estudio de la memoria somática: la huella energética y corporal que el trauma estanca en la biología y las técnicas conscientes para su liberación.</p>
-                <h3>Objetivos de la Clase</h3>
-                <ul>
-                    <li>Aplicar técnicas holísticas de conciencia y descarga somática en la sesión.</li>
-                    <li>Comprender los mapas y centros de energía del sistema nervioso autónomo.</li>
-                </ul>
-                <h3>Ejes de Trabajo</h3>
-                <p>Teoría polivagal • Huella del trauma biológico • Conciencia del cuerpo • Liberación de bloqueos.</p>
-            </div>
-        </div>
-
-        <div id="e8" class="seccion-contenido">
-            <div class="card-acceso"><span class="badge-live">En Vivo</span><h2 style="font-family:'Lora'; color:var(--azul);">8. Constelaciones individuales y matrices relacionales</h2><a href="#" class="btn-zoom">Ingresar al Vivo</a></div>
-            <div class="info-clase">
-                <p><b>Libro eje de estudio:</b> Constelaciones individuales y sus matrices relacionales - Dr. Eduardo Fain</p>
-                <h3>Introducción Conceptual</h3>
-                <p>Abordaje transgeneracional del síntoma y el uso práctico de plantillas y objetos terapéuticos como herramientas de proyección del inconsciente.</p>
-                <h3>Objetivos de la Clase</h3>
-                <ul>
-                    <li>Reconocer lealtades invisibles y repeticiones familiares que detienen el desarrollo del niño.</li>
-                    <li>Implementar abordajes sistémicos individuales respetando la autonomía de la familia.</li>
-                </ul>
-                <h3>Ejes de Trabajo</h3>
-                <p>Matrices relacionales • Ritmo transgeneracional • Dinámicas familiares • Intervención con plantillas.</p>
-            </div>
-        </div>
-
-        <div id="e9" class="seccion-contenido">
-            <div class="card-acceso"><span class="badge-live">En Vivo</span><h2 style="font-family:'Lora'; color:var(--azul);">9. Integración energética y cierre del proceso formativo</h2><a href="#" class="btn-zoom">Ingresar al Vivo</a></div>
-            <div class="info-clase">
-                <p><b>Libro eje de estudio:</b> Radiestesia integral - Ricardo Gerula</p>
-                <h3>Introducción Conceptual</h3>
-                <p>El campo energético como herramienta diagnóstica y terapéutica complementaria. Cierre pedagógico e integración total de los cuerpos del ser.</p>
-                <h3>Objetivos de la Clase</h3>
-                <ul>
-                    <li>Aprender el uso ético, clínico y consciente de la radiestesia básica.</li>
-                    <li>Lograr la integración final de los planos físico, mental, emocional, energético y espiritual.</li>
-                </ul>
-                <h3>Ejes de Trabajo</h3>
-                <p>Radiestesia integral básica • Ética y campo energético • Integración de los cuerpos • Cierre pedagógico.</p>
+                <p>Pensamiento como frecuencia • Campo relacional y resonancia • Coherencia interna.</p>
             </div>
         </div>
 
     </main>
 
     <script>
-        // TRUCO DE OPERACIÓN INVISIBLE: Inyectamos los textos dinámicamente mediante JS
-        // Esto previene de raíz que el sistema inyecte marcas raras en tu maquetado.
+        // BASE DE DATOS LOCAL PARA LOS ENCUENTROS DINÁMICOS
+        let encuentrosDinamicos = JSON.parse(localStorage.getItem("clasesCargadasHolismo")) || [];
+
         document.addEventListener("DOMContentLoaded", () => {
+            // Inyección blindada de textos iniciales
             const parrafosFundacion = [
-                "La práctica clínica contemporánea en contextos de discapacidad infantil exige una mirada cada vez más amplia, integradora y respetuosa de la complejidad humana. Como equipo interdisciplinario —integrando la psicología, psicopedagogía, fonoaudiología, musicoterapia y terapia ocupacional en el trabajo interdisciplinario— nos encontramos diariamente con situaciones que exceden lo estrictamente sintomático o funcional, involucrando dimensiones emocionales, vinculares, familiares, sistémicas y existenciales.",
-                "El presente programa propone una formación en Terapia Holística Integrativa orientada a profesionales de la salud, con el objetivo de ampliar la mirada clínica tradicional, incorporando herramientas que permitan comprender al paciente como un <b>ser integral</b>, conformado por múltiples dimensiones interrelacionadas: cuerpo físico, cuerpo mental, cuerpo emocional, dimensión espiritual, campo energético y su pertenencia a sistemas familiares y transgeneracionales.",
-                "Desde esta perspectiva, la discapacidad no es abordada únicamente como un déficit o limitación, sino como una expresión compleja del sistema, que involucra al niño, a su familia y al entramado vincular e institucional que lo rodea.",
-                "La mirada holística que fundamenta este programa no se contrapone ni reemplaza ninguna corriente teórica o abordaje clínico existente. Por el contrario, se plantea como un enfoque complementario, que suma herramientas de comprensión, observación y acompañamiento, enriqueciendo la práctica profesional sin invalidar los marcos conceptuales de cada disciplina.",
-                "Asimismo, se pone especial énfasis en el <b>rol del terapeuta como instrumento de intervención</b>, destacando la importancia de la presencia, la actitud de no-juicio, la ética del ayudar y el cuidado del propio profesional, especialmente en contextos de alta carga emocional como el trabajo con niños y familias atravesadas por la discapacidad. El programa integra aportes de la psicología humanista, la mirada sistémica y transgeneracional, la conciencia corporal y emocional, la espiritualidad aplicada a la salud y la percepción energética, ofreciendo un recorrido teórico-vivencial de acompañamiento para procesos de sanación integral."
+                "La práctica clínica contemporánea en contextos de discapacidad infantil exige una mirada cada vez más amplia, integradora y respetuosa de la complejidad humana. Como equipo interdisciplinario —nos encontramos diariamente con situaciones que exceden lo estrictamente sintomático, involucrando dimensiones emocionales, vinculares, familiares y sistémicas.",
+                "El presente programa propone una formación en Terapia Holística Integrativa orientada a profesionales de la salud, con el objetivo de ampliar la mirada clínica tradicional, incorporando herramientas que permitan comprender al paciente como un ser integral."
             ];
-
             const itemsPerfil = [
-                "Posea una mirada ampliada e integradora del niño y su familia, reconociendo la complejidad de los procesos de salud y discapacidad.",
-                "Sea capaz de articular su disciplina específica con una comprensión holística del paciente, sin perder rigor clínico.",
-                "Pueda sostener una actitud terapéutica de presencia, no-juicio y respeto, especialmente en situaciones de alta vulnerabilidad emocional.",
-                "Reconozca el impacto de las dinámicas familiares y transgeneracionales en el desarrollo y el síntoma.",
-                "Cuente con herramientas para cuidar su propio equilibrio emocional y energético, fortaleciendo su rol dentro del equipo interdisciplinario.",
-                "Comprenda su función como parte de un sistema mayor, evitando posiciones de sobre-responsabilidad o salvataje.",
-                "Integre lo holístico como un enfoque complementario, ético y consciente dentro de su práctica profesional cotidiana."
+                "Posea una mirada ampliada e integradora del niño y su familia.",
+                "Sea capaz de articular su disciplina específica con una comprensión holística sin perder rigor clínico.",
+                "Pueda sostener una actitud terapéutica de presencia y no-juicio."
             ];
 
-            // Inyectamos Fundamentación
-            const contenedorFundacion = document.getElementById("texto-fundamentacion-limpio");
-            if(contenedorFundacion) {
-                contenedorFundacion.innerHTML = parrafosFundacion.map(p => `<p style="line-height: 1.9; color: #5A5A5A; text-align: justify; margin-bottom: 20px;">${p}</p>`).join("");
+            document.getElementById("texto-fundamentacion-limpio").innerHTML = parrafosFundacion.map(p => `<p style="line-height:1.9; color:#5A5A5A; text-align:justify; margin-bottom:20px;">${p}</p>`).join("");
+            document.getElementById("texto-perfil-limpio").innerHTML = `<ul style="line-height:1.8; color:#5A5A5A; padding-left:20px;">${itemsPerfil.map(item => `<li>${item}</li>`).join("")}</ul>`;
+
+            // Verificar si entramos en Modo Editor Docente (?admin=editor)
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('admin') === 'editor') {
+                document.getElementById('panel-carga-docente').style.display = 'block';
             }
 
-            // Inyectamos Perfil Profesional
-            const contenedorPerfil = document.getElementById("texto-perfil-limpio");
-            if(contenedorPerfil) {
-                contenedorPerfil.innerHTML = `<ul style="line-height: 1.8; color: #5A5A5A; padding-left: 20px;">${itemsPerfil.map(item => `<li>${item}</li>`).join("")}</ul>`;
-            }
+            // Pintar las clases creadas por el usuario
+            renderizarClasesDocente();
         });
 
-        const fechasApertura = {
-            'e1': new Date(2026, 3, 1), 'e2': new Date(2026, 4, 1), 'e3': new Date(2026, 5, 1),
-            'e4': new Date(2026, 6, 1), 'e5': new Date(2026, 7, 1), 'e6': new Date(2026, 8, 1),
-            'e7': new Date(2026, 9, 1), 'e8': new Date(2026, 10, 1), 'e9': new Date(2026, 11, 1)
-        };
+        // LÓGICA DEL EDITOR PARA CREAR CLASES AL INSTANTE
+        function publicarClaseNueva() {
+            const nombre = document.getElementById('form-nombre').value;
+            const intro = document.getElementById('form-intro').value;
+            const objetivos = document.getElementById('form-objetivos').value;
+            const ejes = document.getElementById('form-ejes').value;
+            const grabacion = document.getElementById('form-grabacion').value;
+            const zoom = document.getElementById('form-zoom').value;
+            const biblio = document.getElementById('form-biblio').value;
 
-        function verificarBloqueos() {
-            const hoy = new Date();
-            for (const id in fechasApertura) {
-                const itemMenu = document.getElementById('menu-' + id);
-                if (hoy < fechasApertura[id]) itemMenu.classList.add('bloqueado');
-            }
+            if(!nombre) { alert("El nombre de la clase es obligatorio."); return; }
+
+            const idNuevaClase = "dinamica-" + Date.now();
+            const nroEncuentro = encuentrosDinamicos.length + 3; // Comienza desde el Encuentro 3
+
+            const nuevaClase = {
+                id: idNuevaClase,
+                numero: nroEncuentro,
+                titulo: nombre,
+                introduccion: intro,
+                objetivos: objetivos ? objetivos.split(",") : [],
+                ejes: ejes,
+                linkGrabacion: grabacion,
+                linkZoom: zoom,
+                linkBiblio: biblio
+            };
+
+            encuentrosDinamicos.push(nuevaClase);
+            localStorage.setItem("clasesCargadasHolismo", JSON.stringify(encuentrosDinamicos));
+
+            // Resetear formulario y actualizar pantalla
+            document.getElementById('form-clase-nueva').reset();
+            renderizarClasesDocente();
+            alert("¡Clase publicada con éxito y agregada al aula virtual!");
         }
 
+        function renderizarClasesDocente() {
+            // Limpiar lo dinámico anterior de los contenedores
+            document.querySelectorAll('.item-dinamico-menu').forEach(el => el.remove());
+            document.querySelectorAll('.seccion-dinamica-contenido').forEach(el => el.remove());
+
+            const menuContainer = document.getElementById('contenedor-menu-encuentros');
+            const mainContainer = document.getElementById('bloque-principal-contenidos');
+
+            encuentrosDinamicos.forEach(clase => {
+                // 1. Crear el botón correspondiente en el menú lateral
+                const li = document.createElement('li');
+                li.className = "item-encuentro item-dinamico-menu";
+                li.onclick = function() { mostrarSeccion(clase.id, this); };
+                li.innerHTML = `<div><span class="numero-clase">Encuentro ${clase.numero}</span>${clase.titulo}</div>`;
+                menuContainer.appendChild(li);
+
+                // 2. Crear la sección completa del contenido a la derecha
+                const seccion = document.createElement('div');
+                seccion.id = clase.id;
+                seccion.className = "seccion-contenido seccion-dinamica-contenido";
+
+                // Armar bloque de video o accesos directos
+                let bloqueAcceso = '';
+                if(clase.linkGrabacion) {
+                    bloqueAcceso = `
+                        <div class="card-acceso" style="padding: 30px;">
+                            <span class="badge-live" style="background: var(--azul); color: white;">Grabación disponible</span>
+                            <h2 style="font-family:'Lora'; color:var(--azul); margin: 20px 0;">${clase.titulo}</h2>
+                            <div style="width: 100%; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; margin-bottom: 30px;">
+                                <iframe src="${clase.linkGrabacion}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
+                            </div>
+                            ${clase.linkBiblio ? `<a href="${clase.linkBiblio}" target="_blank" class="btn-zoom" style="background: var(--salmon);">Descargar Bibliografía</a>` : ''}
+                        </div>`;
+                } else {
+                    bloqueAcceso = `
+                        <div class="card-acceso">
+                            <span class="badge-live">Próximamente En Vivo</span>
+                            <h2 style="font-family: 'Lora'; color: var(--azul); margin: 10px 0;">${clase.titulo}</h2>
+                            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                                ${clase.linkZoom ? `<a href="${clase.linkZoom}" target="_blank" class="btn-zoom">Unirse al Vivo por Zoom</a>` : '<p style="color:#777;">Enlace de Zoom aún no cargado</p>'}
+                                ${clase.linkBiblio ? `<a href="${clase.linkBiblio}" target="_blank" class="btn-zoom" style="background: var(--salmon);">Bibliografía de Estudio</a>` : ''}
+                            </div>
+                        </div>`;
+                }
+
+                // Armar la caja informativa inferior
+                let listaObjetivos = clase.objetivos.map(obj => `<li>${obj.trim()}</li>`).join("");
+
+                seccion.innerHTML = `
+                    ${bloqueAcceso}
+                    <div class="info-clase">
+                        <h3>Introducción Conceptual</h3>
+                        <p>${clase.introduccion || 'Sin descripción conceptual cargada.'}</p>
+                        ${listaObjetivos ? `<h3>Objetivos de la Clase</h3><ul>${listaObjetivos}</ul>` : ''}
+                        <h3>Ejes de Trabajo</h3>
+                        <p>${clase.ejes || 'No se detallaron ejes temáticos.'}</p>
+                    </div>
+                `;
+                mainContainer.appendChild(seccion);
+            });
+        }
+
+        // LÓGICA TRADICIONAL DE NAVEGACIÓN
         function toggleMenu() { document.getElementById('sidebar').classList.toggle('abierta'); document.getElementById('overlay').classList.toggle('activa'); }
 
         function mostrarSeccion(id, elementoMenu) {
-            const hoy = new Date();
-            if (id !== 'home' && hoy < fechasApertura[id]) {
-                alert("Este encuentro se habilitará el primer día del mes correspondiente.");
-                return;
-            }
             document.querySelectorAll('.seccion-contenido').forEach(s => s.classList.remove('activa'));
-            document.getElementById(id).classList.add('activa');
+            const objetivo = document.getElementById(id);
+            if(objetivo) objetivo.classList.add('activa');
+            
             document.querySelectorAll('.item-encuentro').forEach(i => i.classList.remove('activo'));
             elementoMenu.classList.add('activo');
             if(window.innerWidth < 900) toggleMenu();
@@ -375,11 +304,6 @@
                 document.getElementById('puerta-acceso').style.display = "none";
             } else { document.getElementById('error-msg').style.display = "block"; }
         }
-
-        window.onload = function() {
-            if (sessionStorage.getItem("accesoPermitido") === "true") document.getElementById('puerta-acceso').style.display = "none";
-            verificarBloqueos();
-        };
     </script>
 </body>
 </html>
