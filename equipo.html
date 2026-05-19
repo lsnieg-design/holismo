@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <style>
-        /* Estilos de la sección Equipo */
+   <style>
+        /* --- ESTILOS GENERALES Y SECCIÓN EQUIPO --- */
         .equipo-intro-container { padding: 40px 20px; text-align: center; font-family: 'Quicksand', sans-serif; }
         .equipo-titulo { font-family: 'Lora', serif; font-size: clamp(28px, 4vw, 36px); color: #8E44AD; margin-bottom: 20px; }
         .equipo-texto { color: #5A5A5A; font-size: 18px; line-height: 1.8; max-width: 800px; margin: 0 auto 15px; }
@@ -28,13 +28,53 @@
         .btn-conoceme { background-color: #ffffff; border: 1.5px solid #B298C1; color: #8E44AD; padding: 10px 22px; border-radius: 50px; cursor: pointer; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 11px; text-transform: uppercase; transition: 0.3s; }
         .btn-conoceme:hover { background-color: #B298C1; color: white; }
 
-        /* MODAL */
-        .modal { display: none; position: fixed; z-index: 11000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(8px); justify-content: center; align-items: center; padding: 20px; }
-        .modal-contenido { background-color: white; padding: 50px 40px; border-radius: 40px; width: 100%; max-width: 850px; position: relative; max-height: 90vh; overflow-y: auto; }
-        .modal-flex { display: flex; gap: 40px; align-items: flex-start; }
-        .modal-img { flex: 1; max-width: 280px; position: sticky; top: 0; }
-        .modal-img img { width: 100%; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .modal-info { flex: 1.5; text-align: left; }
+        /* --- MODAL PANORÁMICO OPTIMIZADO (Sin scroll interno en PC) --- */
+        .modal { 
+            display: none; 
+            position: fixed; 
+            z-index: 11000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.6); 
+            backdrop-filter: blur(8px); 
+            justify-content: center; 
+            align-items: center; 
+            padding: 40px 20px; 
+            box-sizing: border-box;
+            overflow-y: auto; /* Permite que la pantalla completa haga scroll si el texto es muy largo */
+        }
+        .modal-contenido { 
+            background-color: white; 
+            padding: 50px 50px; 
+            border-radius: 40px; 
+            width: 100%; 
+            max-width: 1150px; /* Ensanchado a 1150px para dar amplitud panorámica en PC */
+            position: relative; 
+            height: auto; /* Se adapta automáticamente hacia abajo sin cortar los textos */
+            box-shadow: 0 30px 70px rgba(0,0,0,0.2);
+        }
+        .modal-flex { 
+            display: flex; 
+            gap: 50px; 
+            align-items: flex-start; 
+        }
+        .modal-img { 
+            flex: 1; 
+            max-width: 320px; 
+            position: sticky; 
+            top: 10px; /* La foto acompaña la lectura fijándose a un costado de manera estética */
+        }
+        .modal-img img { 
+            width: 100%; 
+            border-radius: 30px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+        }
+        .modal-info { 
+            flex: 2; /* Mayor espacio horizontal para que entren los párrafos extensos */
+            text-align: left; 
+        }
         .modal-info h2 { font-family: 'Lora', serif; color: #8E44AD; margin-bottom: 5px; font-size: 32px; }
         .modal-info h4 { color: #E5A88A; text-transform: uppercase; font-size: 14px; letter-spacing: 2px; margin-bottom: 20px; font-weight: 700; }
         .modal-bio { line-height: 1.8; color: #5A5A5A; font-family: 'Quicksand', sans-serif; font-size: 15px; white-space: pre-line; margin-bottom: 30px; }
@@ -47,7 +87,7 @@
         .cerrar-modal { position: absolute; right: 30px; top: 25px; font-size: 40px; cursor: pointer; color: #ccc; transition: 0.3s; line-height: 1; }
         .cerrar-modal:hover { color: #8E44AD; }
 
-        /* CHAT STYLE */
+        /* --- ESTILOS DEL CHAT DE ASISTENCIA --- */
         #ventana-chat {
             position: fixed; bottom: 25px; right: 25px; width: 340px; background: white; border-radius: 25px;
             box-shadow: 0 15px 45px rgba(0,0,0,0.15); z-index: 12000; overflow: hidden;
@@ -58,11 +98,13 @@
         .btn-chat { background: white; border: 1px solid #eee; padding: 12px 15px; border-radius: 12px; font-family: 'Quicksand', sans-serif; font-size: 13.5px; color: #5A5A5A; cursor: pointer; width: 100%; text-align: left; transition: all 0.3s ease; }
         .btn-chat:hover { background: #FDFBF7; border-color: #E5A88A; color: #E5A88A; }
 
+        /* --- DISEÑO RESPONSIVO (Móviles) --- */
         @media (max-width: 768px) {
-            .modal-flex { flex-direction: column; align-items: center; text-align: center; }
+            .modal-flex { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
             .modal-info { text-align: center; }
             .modal-img { max-width: 200px; position: relative; }
-            #ventana-chat { width: 90%; right: 5%; }
+            .modal-contenido { padding: 40px 25px; }
+            #ventana-chat { width: 90%; right: 5%; bottom: 15px; }
         }
     </style>
 </head>
