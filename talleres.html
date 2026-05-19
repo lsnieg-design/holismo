@@ -8,7 +8,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         .contenedor-talleres { position: relative; padding: 20px 0; }
-        /* La capa-proximamente ha sido eliminada para habilitar el acceso */
+        
+        /* Estilo para el aviso destacado de "Ya comenzó" */
+        .badge-estado-taller {
+            display: inline-block;
+            background-color: #ffebee;
+            color: #d32f2f;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -41,28 +54,27 @@
                 
                 <div class="taller-card">
                     <div>
-                        <span>Profesional / Interdisciplinario</span>
+                        <span>Virtual / Sincrónico</span>
                         <h3>Formación de Terapeutas Holísticos</h3>
                         <p class="taller-info">Orientado a la práctica profesional en el equipo interdisciplinario de atención a la discapacidad. Una mirada integradora y sistémica.</p>
+                        <div class="badge-estado-taller">Ya comenzó</div>
                     </div>
                     <a href="terapeutasholisticos.html" class="btn-taller">Ingresar al Aula</a>
                 </div>
 
-                <div class="taller-card">
-    <div>
-        <span>Curso Grabado / Autoasistido</span>
-        <h3>Taller de Prueba: Introducción al Campus</h3>
-        <p class="taller-info">Acceso inmediato. Incluye 3 clases, evaluación y certificado.</p>
-        <div style="margin: 20px 0; font-size: 24px; font-weight: 700; color: var(--azul);">
-            $ 5.000 <span style="font-size: 14px; color: #aaa; font-weight: 400;">(Pago único)</span>
-        </div>
-    </div>
-    <a href="https://mpago.la/15yj8UC" class="btn-taller" style="background: #009EE3; border: none;">
-        Comprar con Mercado Pago
-    </a>
-</div>
-
-               
+                <div class="taller-card" id="taller-privado-prueba" style="display: none;">
+                    <div>
+                        <span style="color: #d32f2f; font-weight: bold;">[VISTA ADMIN] Curso Grabado</span>
+                        <h3>Taller de Prueba: Introducción al Campus</h3>
+                        <p class="taller-info">Acceso inmediato. Incluye 3 clases, evaluación y certificado.</p>
+                        <div style="margin: 20px 0; font-size: 24px; font-weight: 700; color: var(--azul);">
+                            $ 5.000 <span style="font-size: 14px; color: #aaa; font-weight: 400;">(Pago único)</span>
+                        </div>
+                    </div>
+                    <a href="https://mpago.la/15yj8UC" class="btn-taller" style="background: #009EE3; border: none;">
+                        Comprar con Mercado Pago
+                    </a>
+                </div>
 
             </div>
         </main>
@@ -74,6 +86,25 @@
     </footer>
 
     <script>
+        // LÓGICA DE CONTROL DE VISIBILIDAD (MODO ADMIN)
+        function verificarFiltroAdmin() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const modo = urlParams.get('modo');
+            const tarjetaPrueba = document.getElementById('taller-privado-prueba');
+
+            // Si entrás con ?modo=admin guardamos el permiso permanente en tu navegador
+            if (modo === "admin") {
+                localStorage.setItem("verTallerPrueba", "true");
+                // Limpiamos el link para que quede estético
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // Si tenés el permiso activo, te mostramos la tarjeta
+            if (localStorage.getItem("verTallerPrueba") === "true") {
+                tarjetaPrueba.style.display = "flex";
+            }
+        }
+
         const menuToggle = document.getElementById('menu-toggle');
         const navMenu = document.getElementById('nav-menu');
         if(menuToggle) {
@@ -95,6 +126,9 @@
             el.style.transition = "all 0.8s ease-out";
             observer.observe(el);
         });
+
+        // Ejecutamos el filtro apenas carga la página
+        window.onload = verificarFiltroAdmin;
     </script>
 </body>
 </html>
