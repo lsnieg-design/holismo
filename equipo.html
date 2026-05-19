@@ -22,7 +22,7 @@
         .img-wrapper { width: 160px; height: 160px; border-radius: 50%; overflow: hidden; margin-bottom: 20px; border: 4px solid #F3E5F5; box-shadow: 0 10px 25px rgba(0,0,0,0.05); background-color: #eee; }
         .img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
 
-        .pro-card h3 { font-family: 'Lora', serif; font-size: 19px; color: #5A5A5A; margin-bottom: 5px; min-height: 44px; display: flex; align-items: center; }
+        .pro-card h3 { font-family: 'Lora', serif; font-size: 19px; color: #5A5A5A; margin-bottom: 5px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
         .pro-card p { font-size: 11px; color: #E5A88A; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 15px; }
 
         .btn-conoceme { background-color: #ffffff; border: 1.5px solid #B298C1; color: #8E44AD; padding: 10px 22px; border-radius: 50px; cursor: pointer; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 11px; text-transform: uppercase; transition: 0.3s; }
@@ -161,10 +161,20 @@
                     <h3>Antonella Marengone</h3><p>PSICOPEDAGOGÍA</p>
                     <button class="btn-conoceme" onclick="abrirPresentacion('antonella')">Conoceme más</button>
                 </div>
-                 <div class="pro-card">
+                <div class="pro-card">
                     <div class="img-wrapper"><img src="carolina.jpg" alt="Carolina"></div>
                     <h3>Carolina Morello</h3><p>PSICOLOGÍA</p>
                     <button class="btn-conoceme" onclick="abrirPresentacion('carolina')">Conoceme más</button>
+                </div>
+                <div class="pro-card">
+                    <div class="img-wrapper"><img src="cecilia.jpg" alt="María Florencia Carpineta"></div>
+                    <h3>M. Florencia Carpineta</h3><p>TERAPIA OCUPACIONAL</p>
+                    <button class="btn-conoceme" onclick="abrirPresentacion('florencia_to')">Conoceme más</button>
+                </div>
+                <div class="pro-card">
+                    <div class="img-wrapper"><img src="fono.jpg" alt="Fonoaudióloga"></div>
+                    <h3>Fonoaudióloga</h3><p>FONOAUDIOLOGÍA</p>
+                    <button class="btn-conoceme" onclick="abrirPresentacion('fonoaudiologa')">Conoceme más</button>
                 </div>
             </div>
         </main>
@@ -236,9 +246,31 @@
             florencia: { nombre: "Lic. Florencia Torreadrado", cargo: "Lic. en Psicopedagogía", foto: "flor.jpg", bio: "Soy Licenciada en Psicopedagogía. Mi práctica clínica está orientada al acompañamiento integral de niños y adolescentes." },
             valeria: { nombre: "Lic. Valeria De Risio", cargo: "Musicoterapeuta - Reflexóloga", foto: "valeria.jpg", bio: "Soy Licenciada en Musicoterapia y Reflexóloga. Trabajo desde un enfoque integrador que articula herramientas clínicas con recursos terapéuticos complementarios." },
             gabriela_mt: { nombre: "Lic. Gabriela Nancy Matina", cargo: "Musicoterapeuta", foto: "gaby.jpg", bio: "Soy Musicoterapeuta con más de 30 años de ejercicio profesional. Mi formación incluye posgrados en TCC y desarrollo temprano." },
-            cynthia: { nombre: "Lic. Cynthia Rossi", cargo: "Psicóloga", foto: "cynthia.jpg", bio: "Soy Licenciada en Psicología (UBA) y Profesora de Psicología con más de 20 años de experiencia." },
-            carolina: { nombre: "Lic. Carolina Morello", cargo: "Psicóloga", foto: "carolina.jpg", bio: "Soy Carolina R. Morello, Licenciada en Psicología. Me especializo en clínica de niños, adolescentes y adultos." },
-            Macarena: { nombre: "Lic. Macarena Abritta", cargo: "Fonoudióloga", foto: "maca.jpeg", bio: "Soy Licenciada en Fonoaudiología egresada de la Universidad del Museo Social Argentino, con experiencia en el ámbito clínico, educativo e interdisciplinario. A lo largo de mi trayectoria he trabajado con niños, adolescentes y personas con discapacidad, con especial interés en el abordaje de los trastornos del lenguaje y la comunicación dentro del espectro autista." }
+            cynthia: { 
+                nombre: "Lic. Cynthia C. Rossi Dauliac", 
+                cargo: "Licenciada en Psicología (UBA) y Profesora de Psicología", 
+                foto: "cynthia.jpg", 
+                bio: "Soy Lic. Cynthia C. Rossi Dauliac, Licenciada en Psicología (UBA) y Profesora de Enseñanza Media y Superior en Psicología, con más de 20 años de experiencia en el ámbito clínico, educativo y hospitalario.\n\nMe especializo en la atención de niños, adolescentes y adultos, con amplia trayectoria en el abordaje de Trastornos del Espectro Autista, discapacidad, trastornos del desarrollo y diversas problemáticas emocionales y vinculares.\n\nA lo largo de mi recorrido profesional me he desempeñado en hospitales públicos, escuelas especiales y consultorio particular. Actualmente formo parte de diversos centros de tratamientos interdisciplinarios, integrando equipos profesionales dedicados al abordaje integral de cada paciente, articulando el trabajo terapéutico con otras áreas de intervención.\n\nAsimismo, integro el equipo de inclusión en escuela especial, desarrollando estrategias que favorecen la integración escolar y el trabajo conjunto con docentes y familias.\n\nMi enfoque se basa en la escucha, el respeto por la singularidad de cada persona y el compromiso con procesos terapéuticos que promuevan bienestar, autonomía y crecimiento subjetivo. Considero fundamental el trabajo interdisciplinario y el acompañamiento a las familias como parte esencial del proceso terapéutico.\n\nÁreas de trabajo:\n• Psicoterapia para niños, adolescentes y adultos\n• Orientación a padres\n• Acompañamiento en procesos de inclusión escolar\n• Trabajo en equipos interdisciplinarios\n• Evaluaciones y orientación profesional" 
+            },
+            carolina: { 
+                nombre: "Lic. Carolina R. Morello", 
+                cargo: "Licenciada en Psicología", 
+                foto: "carolina.jpg", 
+                bio: "Soy Carolina R. Morello, Licenciada en Psicología. Me especialicé en Clínica de Niños, Adolescentes y Adultos. Trabajé en Centros Médicos, Consultorios Externos y Centros de atención a niños con Discapacidad. También cuento con experiencia en internación psiquiátrica y atención ambulatoria." 
+            },
+            Macarena: { nombre: "Lic. Macarena Abritta", cargo: "Fonoaudióloga", foto: "maca.jpeg", bio: "Soy Licenciada en Fonoaudiología egresada de la Universidad del Museo Social Argentino, con experiencia en el ámbito clínico, educativo e interdisciplinario. A lo largo de mi trayectoria he trabajado con niños, adolescentes y personas con discapacidad, con especial interés en el abordaje de los trastornos del lenguaje y la comunicación dentro del espectro autista." },
+            florencia_to: {
+                nombre: "Lic. María Florencia Carpineta",
+                cargo: "Licenciada en Terapia Ocupacional",
+                foto: "cecilia.jpg",
+                bio: "Soy Licenciada en Terapia Ocupacional desde el año 2013. Trabajo en consultorios interdisciplinarios con niños, adolescentes y adultos, así como también en atención domiciliaria, persiguiendo el objetivo constante de lograr la mayor autonomía posible tanto dentro del hogar como en los ámbitos escolares, laborales, de socialización y en su comunidad.\n\nAdemás, me desarrollo en centros gerontológicos trabajando con adultos mayores para estimular su nivel cognitivo e independencia funcional en las actividades de la vida diaria primarias e instrumentales."
+            },
+            fonoaudiologa: {
+                nombre: "Fonoaudióloga",
+                cargo: "Fonoaudióloga y Profesora Especializada",
+                foto: "fono.jpg",
+                bio: "Fonoaudióloga por la Universidad del Salvador (Argentina), con título convalidado como Logopeda en España y profesora especializada en discapacidad de la audición, voz y lenguaje. Cuenta con más de 30 años de experiencia en el ámbito educativo, clínico y socio-sanitario, especializada en discapacidad auditiva y en la intervención en audición, voz y lenguaje.\n\nActualmente es responsable del área de audiología en Fundación ASPAS Mallorca, donde coordina la evaluación y el seguimiento de personas con pérdida auditiva, así como la articulación con familias, profesionales, hospitales y servicios educativos y sanitarios de las Islas Baleares. Participa en la coordinación con hospitales del archipiélago y colabora en iniciativas orientadas al impulso y desarrollo del Grado de Logopedia en Mallorca.\n\nSu práctica profesional se basa en un enfoque interdisciplinario, centrado en la persona y en la familia, promoviendo la accesibilidad comunicativa, la inclusión y el desarrollo integral de las personas con discapacidad auditiva."
+            }
         };
 
         function abrirPresentacion(id) {
