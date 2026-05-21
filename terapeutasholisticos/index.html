@@ -22,7 +22,7 @@
         .seccion-contenido { display: none; max-width: 900px; margin: 0 auto; }
         .seccion-contenido.activa { display: block; animation: fadeIn 0.5s ease; }
         .card-acceso { background: white; padding: 40px; border-radius: 30px; border: 2px solid var(--azul); text-align: center; margin-bottom: 40px; box-shadow: 0 15px 35px rgba(58,123,213,0.1); }
-        .btn-zoom { display: inline-flex; align-items: center; gap: 10px; background: var(--azul); color: white; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; margin-top: 20px; transition: 0.3s; border:none; cursor:pointer; }
+        .btn-zoom { display: inline-flex; align-items: center; gap: 10px; background: var(--azul); color: white; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; margin-top: 20px; transition: 0.3s; border:none; cursor:pointer; text-align: center; justify-content: center; }
         .btn-zoom:hover { transform: translateY(-3px); background: #2A5FB0; }
         .info-clase { background: white; padding: 40px; border-radius: 30px; border: 1px solid #eee; margin-bottom: 30px; }
         .info-clase h3 { font-family: 'Lora', serif; color: var(--verde); border-left: 4px solid var(--salmon); padding-left: 15px; margin-top: 30px; }
@@ -34,6 +34,11 @@
         .form-group { margin-bottom: 15px; text-align: left; }
         .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 13px; color: #555; }
         .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-family: 'Quicksand'; box-sizing: border-box; }
+        
+        /* Contenedor flexible para enlaces dobles (Nombre + Link) */
+        .recurso-inputs { display: flex; gap: 10px; }
+        .recurso-inputs input { flex: 1; }
+
         .btn-publicar { background: var(--verde); color: white; padding: 12px 25px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-family: 'Quicksand'; transition: 0.3s; }
         .btn-cancelar-edicion { background: #95a5a6; color: white; padding: 12px 25px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-family: 'Quicksand'; margin-left: 10px; }
 
@@ -44,6 +49,7 @@
             .contenido-aula { margin-left: 0; padding: 20px 5%; }
             .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; }
             .overlay.activa { display: block; }
+            .recurso-inputs { flex-direction: column; gap: 5px; } /* En celular se apilan nombre y link */
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -97,7 +103,28 @@
                 <div class="form-group"><label>Ejes de Trabajo:</label><input type="text" id="form-ejes" placeholder="Ej: Resonancia • Epigenética • Campo relacional"></div>
                 <div class="form-group"><label>Link de la Grabación (Drive, YouTube o Vimeo):</label><input type="text" id="form-grabacion" placeholder="www.drive.google.com/..."></div>
                 <div class="form-group"><label>Link de Zoom (Para próximos vivos):</label><input type="text" id="form-zoom" placeholder="www.zoom.us/j/..."></div>
-                <div class="form-group"><label>Link a la Bibliografía / Material PDF:</label><input type="text" id="form-biblio" placeholder="www.u-cursos.cl/..."></div>
+                
+                <div class="form-group">
+                    <label>Recurso o Bibliografía 1:</label>
+                    <div class="recurso-inputs">
+                        <input type="text" id="form-rec1-nombre" placeholder="Nombre del botón (Ej: Descargar PDF)">
+                        <input type="text" id="form-rec1-link" placeholder="Link del material">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Recurso o Bibliografía 2 (Opcional):</label>
+                    <div class="recurso-inputs">
+                        <input type="text" id="form-rec2-nombre" placeholder="Nombre del botón">
+                        <input type="text" id="form-rec2-link" placeholder="Link del material">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Recurso o Bibliografía 3 (Opcional):</label>
+                    <div class="recurso-inputs">
+                        <input type="text" id="form-rec3-nombre" placeholder="Nombre del botón">
+                        <input type="text" id="form-rec3-link" placeholder="Link del material">
+                    </div>
+                </div>
                 
                 <button type="button" onclick="publicarOEditarClase()" id="btn-submit-editor" class="btn-publicar">🚀 Publicar Encuentro</button>
                 <button type="button" onclick="cancelarEdicionActual()" id="btn-cancel-editor" class="btn-cancelar-edicion">Cancelar</button>
@@ -131,7 +158,8 @@
                 objetivos: ["Diferenciar limitación funcional de sentido biológico.", "Introducir la mirada holística integrativa en la práctica clínica diaria."],
                 ejes: "Mirada holística • Déficit vs Sentido • El niño portador de información sistémica.",
                 linkGrabacion: "https://drive.google.com/file/d/1N6s-dRKIN0KRXsZgP3QFuRvxewN4V9j-/preview", linkZoom: "",
-                linkBiblio: "https://www.u-cursos.cl/diplomados/2008/0/DIPDGP/1/material_docente/bajar?id_material=181945",
+                rec1Nombre: "Descargar Bibliografía Eje",
+                rec1Link: "https://www.u-cursos.cl/diplomados/2008/0/DIPDGP/1/material_docente/bajar?id_material=181945",
                 libro: "La enfermedad como camino - Dethlefsen & Dahlke"
             },
             {
@@ -140,7 +168,8 @@
                 objetivos: ["Incorporar la coherencia cardíaca y la autorregulación en la práctica diaria.", "Diferenciar el plano del 'Estar' frente al 'Ser' durante la consulta."],
                 ejes: "Pensamiento como frecuencia • Campo relacional y resonancia • Coherencia interna.",
                 linkGrabacion: "https://drive.google.com/file/d/1N6s-dRKIN0KRXsZgP3QFuRvxewN4V9j-/preview", linkZoom: "",
-                linkBiblio: "https://www.colomos.ceti.mx/documentos/goe/sieteLeyesEspiritualesdelExito.pdf",
+                rec1Nombre: "Bibliografía: 7 Leyes",
+                rec1Link: "https://www.colomos.ceti.mx/documentos/goe/sieteLeyesEspiritualesdelExito.pdf",
                 libro: "Las 7 leyes espirituales del éxito - Deepak Chopra"
             },
             {
@@ -148,49 +177,49 @@
                 introduccion: "La presencia absoluta como pilar fundamental para sostener una intervención ética, consciente y respetuosa ante situaciones de alta vulnerabilidad emocional.",
                 objetivos: ["Consolidar el espacio de no-juicio en el acompañamiento a las familias.", "Reconocer la diferencia clínica entre la neutralidad compasiva y la indiferencia."],
                 ejes: "Escucha profunda • El no-juicio terapéutico • Resonancia consciente • Atención al presente.",
-                linkGrabacion: "", linkZoom: "", linkBiblio: "", libro: "El poder del ahora - Eckhart Tolle"
+                linkGrabacion: "", linkZoom: "", libro: "El poder del ahora - Eckhart Tolle"
             },
             {
                 id: "e4", numero: 4, titulo: "Creencias, acuerdos internos y vínculo terapéutico",
                 introduccion: "Exploración de las creencias limitantes y los acuerdos invisibles que condicionan las proyecciones del terapeuta, el paciente y el entorno de la discapacidad.",
                 objetivos: ["Romper diagnósticos rígidos a través de la apertura vincular.", "Analizar el impacto de la impecabilidad de la palabra en la discapacidad."],
                 ejes: "Ciclo pensamiento-sentimiento • Proyecciones y expectativas • Comunicación en equipos.",
-                linkGrabacion: "", linkZoom: "", linkBiblio: "", libro: "Los cuatro acuerdos - Don Miguel Ruiz"
+                linkGrabacion: "", linkZoom: "", libro: "Los cuatro acuerdos - Don Miguel Ruiz"
             },
             {
                 id: "e5", numero: 5, titulo: "Diálogo interno, emoción y acompañamiento terapéutico",
                 introduccion: "Abordaje del diálogo interno y las estructuras emocionales como respuestas biológicas protectoras frente al trauma y las crisis de desarrollo.",
                 objetivos: ["Desarrollar herramientas de integración de las emociones.", "Fortalecer el rol del terapeuta como facilitador de corregulación emocional."],
                 ejes: "Conflictos internos • El arte de acompañar sin invadir • Sostén de la carga emocional.",
-                linkGrabacion: "", linkZoom: "", linkBiblio: "", libro: "La silla vacía - Mike Boxhall"
+                linkGrabacion: "", linkZoom: "", libro: "La silla vacía - Mike Boxhall"
             },
             {
                 id: "e6", numero: 6, titulo: "Las 5 Leyes Biológicas y Órdenes de la Ayuda",
                 introduccion: "Análisis de las dinámicas sistémicas y de las leyes de la naturaleza que ordenan el equilibrio relacional entre el terapeuta, el niño y su red familiar.",
                 objetivos: ["Identificar desórdenes sistémicos en los cuadros clínicos de discapacidad.", "Evitar dinámicas inconscientes de sobre-responsabilidad o salvataje."],
                 ejes: "Lugar del niño • Leyes de Hamer aplicadas • Dar y Tomar en la consulta • Ética del ayudar.",
-                linkGrabacion: "", linkZoom: "", linkBiblio: "", libro: "Los órdenes de la ayuda - Bert Hellinger"
+                linkGrabacion: "", linkZoom: "", libro: "Los órdenes de la ayuda - Bert Hellinger"
             },
             {
                 id: "e7", numero: 7, titulo: "Sanación emocional, cuerpo y energía",
                 introduccion: "Estudio de la memoria somática: la huella energética y corporal que el trauma estanca en la biología y las técnicas conscientes para su liberación.",
                 objetivos: ["Aplicar técnicas holísticas de conciencia y descarga somática en la sesión.", "Comprender los mapas y centros de energía del sistema nervioso autónomo."],
                 ejes: "Teoría polivagal • Huella del trauma biológico • Conciencia del cuerpo • Liberación de bloqueos.",
-                linkGrabacion: "", linkZoom: "", linkBiblio: "", libro: "Sanar las emociones - Chris Griscom"
+                linkGrabacion: "", linkZoom: "", libro: "Sanar las emociones - Chris Griscom"
             },
             {
                 id: "e8", numero: 8, titulo: "Constelaciones individuales y matrices relacionales",
                 introduccion: "Abordaje transgeneracional del síntoma y el uso práctico de plantillas y objetos terapéuticos como herramientas de proyección del inconsciente.",
                 objetivos: ["Reconocer lealtades invisibles y repeticiones familiares que detienen el desarrollo.", "Implementar abordajes sistémicos individuales respetando la autonomía familiar."],
                 ejes: "Matrices relacionales • Ritmo transgeneracional • Dinámicas familiares • Intervención con plantillas.",
-                linkGrabacion: "", linkZoom: "", linkBiblio: "", libro: "Constelaciones individuales y sus matrices relacionales - Dr. Eduardo Fain"
+                linkGrabacion: "", linkZoom: "", libro: "Constelaciones individuales y sus matrices relacionales - Dr. Eduardo Fain"
             },
             {
                 id: "e9", numero: 9, titulo: "Integración energética y cierre del proceso formativo",
                 introduccion: "El campo energético como herramienta diagnóstica y terapéutica complementaria. Cierre pedagógico e integración total de los cuerpos del ser.",
                 objetivos: ["Aprender el uso ético, clínico y consciente de la radiestesia básica.", "Lograr la integración final de los planos físico, mental, emocional y energético."],
                 ejes: "Radiestesia integral básica • Ética y campo energético • Integración de los cuerpos • Cierre pedagógico.",
-                linkGrabacion: "", linkZoom: "", linkBiblio: "", libro: "Radiestesia integral - Ricardo Gerula"
+                linkGrabacion: "", linkZoom: "", libro: "Radiestesia integral - Ricardo Gerula"
             }
         ];
 
@@ -218,7 +247,6 @@
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('admin') === 'editor') {
                 esModoEditor = true;
-                // Mostrar solo el botón de Crear Clase, no el formulario
                 document.getElementById('btn-container-crear').style.display = 'block';
             }
 
@@ -248,7 +276,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // PUBLICAR O GUARDAR EDICIÓN
+        // PUBLICAR O GUARDAR EDICIÓN (Acepta ahora los 3 recursos)
         function publicarOEditarClase() {
             const idEdicion = document.getElementById('form-edit-id').value;
             const nombre = document.getElementById('form-nombre').value;
@@ -258,38 +286,43 @@
             
             const grabacion = asegurarProtocoloUrl(document.getElementById('form-grabacion').value);
             const zoom = asegurarProtocoloUrl(document.getElementById('form-zoom').value);
-            const biblio = asegurarProtocoloUrl(document.getElementById('form-biblio').value);
+            
+            // Los 3 enlaces extra
+            const r1Nombre = document.getElementById('form-rec1-nombre').value;
+            const r1Link = asegurarProtocoloUrl(document.getElementById('form-rec1-link').value);
+            const r2Nombre = document.getElementById('form-rec2-nombre').value;
+            const r2Link = asegurarProtocoloUrl(document.getElementById('form-rec2-link').value);
+            const r3Nombre = document.getElementById('form-rec3-nombre').value;
+            const r3Link = asegurarProtocoloUrl(document.getElementById('form-rec3-link').value);
 
             if(!nombre) { alert("El nombre de la clase es obligatorio."); return; }
+
+            const nuevaData = {
+                titulo: nombre,
+                introduccion: intro,
+                objetivos: objetivos ? objetivos.split(",") : [],
+                ejes: ejes,
+                linkGrabacion: grabacion,
+                linkZoom: zoom,
+                rec1Nombre: r1Nombre,
+                rec1Link: r1Link,
+                rec2Nombre: r2Nombre,
+                rec2Link: r2Link,
+                rec3Nombre: r3Nombre,
+                rec3Link: r3Link
+            };
 
             if (idEdicion) {
                 let index = listaEncuentrosCompleta.findIndex(c => c.id === idEdicion);
                 if (index !== -1) {
-                    listaEncuentrosCompleta[index].titulo = nombre;
-                    listaEncuentrosCompleta[index].introduccion = intro;
-                    listaEncuentrosCompleta[index].objetivos = objetivos ? objetivos.split(",") : [];
-                    listaEncuentrosCompleta[index].ejes = ejes;
-                    listaEncuentrosCompleta[index].linkGrabacion = grabacion;
-                    listaEncuentrosCompleta[index].linkZoom = zoom;
-                    listaEncuentrosCompleta[index].linkBiblio = biblio;
+                    // Mantenemos ID, numero y libro intactos y actualizamos el resto
+                    listaEncuentrosCompleta[index] = { ...listaEncuentrosCompleta[index], ...nuevaData };
                     alert("¡Cambios guardados con éxito!");
                 }
             } else {
                 const idNuevaClase = "dinamica-" + Date.now();
                 const nroEncuentro = listaEncuentrosCompleta.length + 1;
-
-                const nuevaClase = {
-                    id: idNuevaClase,
-                    numero: nroEncuentro,
-                    titulo: nombre,
-                    introduccion: intro,
-                    objetivos: objetivos ? objetivos.split(",") : [],
-                    ejes: ejes,
-                    linkGrabacion: grabacion,
-                    linkZoom: zoom,
-                    linkBiblio: biblio
-                };
-                listaEncuentrosCompleta.push(nuevaClase);
+                listaEncuentrosCompleta.push({ id: idNuevaClase, numero: nroEncuentro, ...nuevaData });
                 alert("¡Nuevo encuentro agregado al programa!");
             }
 
@@ -310,7 +343,14 @@
             document.getElementById('form-ejes').value = clase.ejes || "";
             document.getElementById('form-grabacion').value = clase.linkGrabacion || "";
             document.getElementById('form-zoom').value = clase.linkZoom || "";
-            document.getElementById('form-biblio').value = clase.linkBiblio || "";
+            
+            // Cargar datos extra. Soporte legacy para linkBiblio por si quedó guardado viejo
+            document.getElementById('form-rec1-nombre').value = clase.rec1Nombre || (clase.linkBiblio ? "Bibliografía" : "");
+            document.getElementById('form-rec1-link').value = clase.rec1Link || clase.linkBiblio || "";
+            document.getElementById('form-rec2-nombre').value = clase.rec2Nombre || "";
+            document.getElementById('form-rec2-link').value = clase.rec2Link || "";
+            document.getElementById('form-rec3-nombre').value = clase.rec3Nombre || "";
+            document.getElementById('form-rec3-link').value = clase.rec3Link || "";
 
             document.getElementById('titulo-panel-editor').innerText = `✏️ Editando: Encuentro ${clase.numero}`;
             document.getElementById('btn-submit-editor').innerText = "💾 Guardar Cambios";
@@ -346,6 +386,15 @@
                 seccion.id = clase.id;
                 seccion.className = "seccion-contenido seccion-dinamica-contenido";
 
+                // Armar botones de recursos
+                let btnRecursosHTML = '';
+                let r1Link = clase.rec1Link || clase.linkBiblio || "";
+                let r1Nombre = clase.rec1Nombre || (clase.linkBiblio ? "Bibliografía de Estudio" : "Descargar Recurso 1");
+                
+                if(r1Link) btnRecursosHTML += `<a href="${r1Link}" target="_blank" class="btn-zoom" style="background: var(--salmon);">${r1Nombre}</a>`;
+                if(clase.rec2Link) btnRecursosHTML += `<a href="${clase.rec2Link}" target="_blank" class="btn-zoom" style="background: var(--salmon);">${clase.rec2Nombre || "Recurso 2"}</a>`;
+                if(clase.rec3Link) btnRecursosHTML += `<a href="${clase.rec3Link}" target="_blank" class="btn-zoom" style="background: var(--salmon);">${clase.rec3Nombre || "Recurso 3"}</a>`;
+
                 let bloqueAcceso = '';
                 if(clase.linkGrabacion) {
                     bloqueAcceso = `
@@ -355,7 +404,9 @@
                             <div style="width: 100%; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; margin-bottom: 30px;">
                                 <iframe src="${clase.linkGrabacion}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
                             </div>
-                            ${clase.linkBiblio ? `<a href="${clase.linkBiblio}" target="_blank" class="btn-zoom" style="background: var(--salmon);">Descargar Bibliografía</a>` : ''}
+                            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                                ${btnRecursosHTML}
+                            </div>
                         </div>`;
                 } else {
                     bloqueAcceso = `
@@ -363,8 +414,8 @@
                             <span class="badge-live">Próximamente En Vivo</span>
                             <h2 style="font-family: 'Lora'; color: var(--azul); margin: 10px 0;">${clase.titulo}</h2>
                             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                                ${clase.linkZoom ? `<a href="${clase.linkZoom}" target="_blank" class="btn-zoom">Unirse al Vivo por Zoom</a>` : '<p style="color:#777;">Enlace de Zoom aún no cargado</p>'}
-                                ${clase.linkBiblio ? `<a href="${clase.linkBiblio}" target="_blank" class="btn-zoom" style="background: var(--salmon);">Bibliografía de Estudio</a>` : ''}
+                                ${clase.linkZoom ? `<a href="${clase.linkZoom}" target="_blank" class="btn-zoom">Unirse al Vivo por Zoom</a>` : '<p style="color:#777; width: 100%; text-align:center; margin-bottom: 15px;">Enlace de Zoom aún no cargado</p>'}
+                                ${btnRecursosHTML}
                             </div>
                         </div>`;
                 }
