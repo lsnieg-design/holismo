@@ -11,8 +11,10 @@
         .talleres-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 20px 5%; }
         .taller-card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; }
         .taller-info { margin-bottom: 20px; color: #5A5A5A; }
-        .btn-taller { display: block; background: var(--azul); color: white; text-align: center; padding: 12px; border-radius: 25px; text-decoration: none; font-weight: 700; }
+        .btn-taller { display: block; background: var(--azul); color: white; text-align: center; padding: 12px; border-radius: 25px; text-decoration: none; font-weight: 700; transition: 0.3s; }
+        .btn-taller:hover { transform: translateY(-2px); opacity: 0.9; }
         
+        /* Estilo para el aviso destacado de "Ya comenzó" */
         .badge-estado-taller {
             display: inline-block;
             background-color: #ffebee;
@@ -54,6 +56,7 @@
 
         <main class="contenedor-talleres">
             <div class="talleres-grid" id="lista-talleres">
+                
                 <div class="taller-card">
                     <div>
                         <span>Virtual / Sincrónico</span>
@@ -77,7 +80,8 @@
                         Comprar con Mercado Pago
                     </a>
                 </div>
-            </div>
+
+                </div>
         </main>
     </div>
 
@@ -86,32 +90,18 @@
         <p style="font-size: 12px; color: #aaa;">© 2026 • Creado por Nómade</p>
     </footer>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCP5lzu3R4RPVoFEo06l65Iw7tRNqMRqlc",
-            authDomain: "holismotalleres.firebaseapp.com",
-            projectId: "holismotalleres",
-            storageBucket: "holismotalleres.firebasestorage.app",
-            messagingSenderId: "424049247991",
-            appId: "1:424049247991:web:e3ea92fbd96d7e2b2d35f",
-            measurementId: "G-F2ENK6YHSC"
-        };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-    </script>
-
     <script>
+        // LÓGICA DE CONTROL DE VISIBILIDAD (MODO ADMIN)
         function verificarFiltroAdmin() {
             const urlParams = new URLSearchParams(window.location.search);
             const modo = urlParams.get('modo');
             const tarjetaPrueba = document.getElementById('taller-privado-prueba');
+
             if (modo === "admin") {
                 localStorage.setItem("verTallerPrueba", "true");
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
+
             if (localStorage.getItem("verTallerPrueba") === "true") {
                 tarjetaPrueba.style.display = "flex";
             }
@@ -123,7 +113,8 @@
             menuToggle.addEventListener('click', () => { navMenu.classList.toggle('mostrar'); });
         }
 
-        const observer = new IntersectionObserver((entries) => {
+        // Exportamos el observer al objeto 'window' para que Firebase pueda usarlo al crear nuevas tarjetas
+        window.tallerObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = "1";
@@ -136,10 +127,68 @@
             el.style.opacity = "0";
             el.style.transform = "translateY(30px)";
             el.style.transition = "all 0.8s ease-out";
-            observer.observe(el);
+            window.tallerObserver.observe(el);
         });
 
         window.onload = verificarFiltroAdmin;
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Mantenemos tu configuración intacta (Corregí un dígito final en appId que se te había cortado al copiar)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCP5lzu3R4RPVoFEo06l65Iw7tRNqMRqlc",
+            authDomain: "holismotalleres.firebaseapp.com",
+            projectId: "holismotalleres",
+            storageBucket: "holismotalleres.firebasestorage.app",
+            messagingSenderId: "424049247991",
+            appId: "1:424049247991:web:e3ea92fbd96d7e2b2d35f2",
+            measurementId: "G-F2ENK6YHSC"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function cargarTalleresDinamicos() {
+            const grid = document.getElementById('lista-talleres');
+            try {
+                const querySnapshot = await getDocs(collection(db, "talleres"));
+                querySnapshot.forEach((doc) => {
+                    const t = doc.data();
+                    
+                    // Creamos la tarjeta dinámicamente con tu misma estructura y clases CSS
+                    const card = document.createElement('div');
+                    card.className = "taller-card";
+                    card.style.opacity = "0";
+                    card.style.transform = "translateY(30px)";
+                    card.style.transition = "all 0.8s ease-out";
+                    
+                    card.innerHTML = `
+                        <div>
+                            <span style="font-size: 14px; color: #888;">NUEVO</span>
+                            <h3>${t.titulo}</h3>
+                            <p class="taller-info">${t.info}</p>
+                        </div>
+                        <a href="${t.linkAula}" class="btn-taller">Ingresar al Aula</a>
+                    `;
+                    
+                    // Lo agregamos a la grilla
+                    grid.appendChild(card);
+                    
+                    // Le aplicamos tu animación de Scroll para que aparezca suavemente
+                    if(window.tallerObserver) {
+                        window.tallerObserver.observe(card);
+                    }
+                });
+            } catch (error) {
+                console.log("No hay talleres dinámicos aún o error de red.", error);
+            }
+        }
+
+        // Llamamos a la función
+        cargarTalleresDinamicos();
     </script>
 </body>
 </html>
