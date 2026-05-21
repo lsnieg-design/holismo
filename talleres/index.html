@@ -91,6 +91,39 @@
     </footer>
 
     <script>
+      // ... (dentro de tu script de Firebase en index.html)
+
+async function cargarTalleresDinamicos() {
+    const grid = document.getElementById('lista-talleres');
+    try {
+        const querySnapshot = await getDocs(collection(db, "talleres"));
+        querySnapshot.forEach((doc) => {
+            const t = doc.data();
+            // Creamos la tarjeta dinámicamente
+            const card = document.createElement('div');
+            card.className = "taller-card";
+            card.style.opacity = "0";
+            card.style.transform = "translateY(30px)";
+            card.style.transition = "all 0.8s ease-out";
+            
+            // AQUÍ LA CLAVE: El link apunta a aula.html?id=... pasando el ID de Firebase
+            card.innerHTML = `
+                <div>
+                    <span style="font-size: 14px; color: #888;">NUEVO</span>
+                    <h3>${t.titulo}</h3>
+                    <p class="taller-info">${t.info}</p>
+                </div>
+                <a href="aula.html?id=${doc.id}" class="btn-taller">Ingresar al Aula</a>
+            `;
+            
+            grid.appendChild(card);
+            if(window.tallerObserver) window.tallerObserver.observe(card);
+        });
+    } catch (error) {
+        console.log("No hay talleres dinámicos aún o error de red.", error);
+    }
+}
+cargarTalleresDinamicos();
         // LÓGICA DE CONTROL DE VISIBILIDAD (MODO ADMIN)
         function verificarFiltroAdmin() {
             const urlParams = new URLSearchParams(window.location.search);
