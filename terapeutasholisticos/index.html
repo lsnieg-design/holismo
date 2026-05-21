@@ -28,6 +28,7 @@
         .info-clase h3 { font-family: 'Lora', serif; color: var(--verde); border-left: 4px solid var(--salmon); padding-left: 15px; margin-top: 30px; }
         .badge-live { display: inline-block; padding: 5px 12px; background: #ffebee; color: #d32f2f; border-radius: 5px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
         
+        /* Formulario del Editor para Docentes */
         .panel-editor { background: #fff; padding: 30px; border-radius: 30px; border: 2px dashed var(--verde); margin-bottom: 40px; display: none; position: relative; }
         .panel-editor h2 { font-family: 'Lora'; color: var(--verde); margin-top: 0; }
         .form-group { margin-bottom: 15px; text-align: left; }
@@ -116,39 +117,87 @@
     </main>
 
     <script>
-        // PROGRAMA BASE OFICIAL DEL PDF (Ahora viven en memoria para ser editables)
-        const programaBaseEstatico = [
+        // PROGRAMA TEXTUAL COMPLETO EXTRAÍDO DEL PDF OFICIAL
+        const programaBaseOriginalInicial = [
             {
-                id: "e1",
-                numero: 1,
-                titulo: "La enfermedad y la discapacidad como camino de sentido",
+                id: "e1", numero: 1, titulo: "La enfermedad y la discapacidad como camino de sentido",
                 introduccion: "Introducción a la mirada holística del ser humano, comprendiendo al paciente como una unidad total y analizando cómo el síntoma en la discapacidad puede ser un lenguaje con sentido dentro del sistema familiar.",
                 objetivos: ["Diferenciar limitación funcional de sentido biológico.", "Introducir la mirada holística integrativa en la práctica clínica diaria."],
                 ejes: "Mirada holística • Déficit vs Sentido • El niño portador de información sistémica.",
-                linkGrabacion: "https://drive.google.com/file/d/1N6s-dRKIN0KRXsZgP3QFuRvxewN4V9j-/preview",
-                linkZoom: "",
+                linkGrabacion: "https://drive.google.com/file/d/1N6s-dRKIN0KRXsZgP3QFuRvxewN4V9j-/preview", linkZoom: "",
                 linkBiblio: "https://www.u-cursos.cl/diplomados/2008/0/DIPDGP/1/material_docente/bajar?id_material=181945",
                 libro: "La enfermedad como camino - Dethlefsen & Dahlke"
             },
             {
-                id: "e2",
-                numero: 2,
-                titulo: "Conciencia, intención y coherencia en la práctica profesional",
+                id: "e2", numero: 2, titulo: "Conciencia, intención y coherencia en la práctica profesional",
                 introduccion: "Analizaremos cómo la presencia, la coherencia interna y la mentalidad del profesional actúan como factores de sanación dentro del encuadre clínico.",
                 objetivos: ["Incorporar la coherencia cardíaca y la autorregulación en la práctica diaria.", "Diferenciar el plano del 'Estar' frente al 'Ser' durante la consulta."],
                 ejes: "Pensamiento como frecuencia • Campo relacional y resonancia • Coherencia interna.",
-                linkGrabacion: "https://drive.google.com/file/d/1N6s-dRKIN0KRXsZgP3QFuRvxewN4V9j-/preview",
-                linkZoom: "",
+                linkGrabacion: "https://drive.google.com/file/d/1N6s-dRKIN0KRXsZgP3QFuRvxewN4V9j-/preview", linkZoom: "",
                 linkBiblio: "https://www.colomos.ceti.mx/documentos/goe/sieteLeyesEspiritualesdelExito.pdf",
                 libro: "Las 7 leyes espirituales del éxito - Deepak Chopra"
+            },
+            {
+                id: "e3", numero: 3, titulo: "Presencia y no-juicio: base de la actitud terapéutica",
+                introduccion: "La presencia absoluta como pilar fundamental para sostener una intervención ética, consciente y respetuosa ante situaciones de alta vulnerabilidad emocional.",
+                objetivos: ["Consolidar el espacio de no-juicio en el acompañamiento a las familias.", "Reconocer la diferencia clínica entre la neutralidad compasiva y la indiferencia."],
+                ejes: "Escucha profunda • El no-juicio terapéutico • Resonancia consciente • Atención al presente.",
+                linkGrabacion: "", linkZoom: "", linkBiblio: "", libro: "El poder del ahora - Eckhart Tolle"
+            },
+            {
+                id: "e4", numero: 4, titulo: "Creencias, acuerdos internos y vínculo terapéutico",
+                introduccion: "Exploración de las creencias limitantes y los acuerdos invisibles que condicionan las proyecciones del terapeuta, el paciente y el entorno de la discapacidad.",
+                objetivos: ["Romper diagnósticos rígidos a través de la apertura vincular.", "Analizar el impacto de la impecabilidad de la palabra en la discapacidad."],
+                ejes: "Ciclo pensamiento-sentimiento • Proyecciones y expectativas • Comunicación en equipos.",
+                linkGrabacion: "", linkZoom: "", linkBiblio: "", libro: "Los cuatro acuerdos - Don Miguel Ruiz"
+            },
+            {
+                id: "e5", numero: 5, titulo: "Diálogo interno, emoción y acompañamiento terapéutico",
+                introduccion: "Abordaje del diálogo interno y las estructuras emocionales como respuestas biológicas protectoras frente al trauma y las crisis de desarrollo.",
+                objetivos: ["Desarrollar herramientas de integración de las emociones.", "Fortalecer el rol del terapeuta como facilitador de corregulación emocional."],
+                ejes: "Conflictos internos • El arte de acompañar sin invadir • Sostén de la carga emocional.",
+                linkGrabacion: "", linkZoom: "", linkBiblio: "", libro: "La silla vacía - Mike Boxhall"
+            },
+            {
+                id: "e6", numero: 6, titulo: "Las 5 Leyes Biológicas y Órdenes de la Ayuda",
+                introduccion: "Análisis de las dinámicas sistémicas y de las leyes de la naturaleza que ordenan el equilibrio relacional entre el terapeuta, el niño y su red familiar.",
+                objetivos: ["Identificar desórdenes sistémicos en los cuadros clínicos de discapacidad.", "Evitar dinámicas inconscientes de sobre-responsabilidad o salvataje."],
+                ejes: "Lugar del niño • Leyes de Hamer aplicadas • Dar y Tomar en la consulta • Ética del ayudar.",
+                linkGrabacion: "", linkZoom: "", linkBiblio: "", libro: "Los órdenes de la ayuda - Bert Hellinger"
+            },
+            {
+                id: "e7", numero: 7, titulo: "Sanación emocional, cuerpo y energía",
+                introduccion: "Estudio de la memoria somática: la huella energética y corporal que el trauma estanca en la biología y las técnicas conscientes para su liberación.",
+                objetivos: ["Aplicar técnicas holísticas de conciencia y descarga somática en la sesión.", "Comprender los mapas y centros de energía del sistema nervioso autónomo."],
+                ejes: "Teoría polivagal • Huella del trauma biológico • Conciencia del cuerpo • Liberación de bloqueos.",
+                linkGrabacion: "", linkZoom: "", linkBiblio: "", libro: "Sanar las emociones - Chris Griscom"
+            },
+            {
+                id: "e8", numero: 8, titulo: "Constelaciones individuales y matrices relacionales",
+                introduccion: "Abordaje transgeneracional del síntoma y el uso práctico de plantillas y objetos terapéuticos como herramientas de proyección del inconsciente.",
+                objetivos: ["Reconocer lealtades invisibles y repeticiones familiares que detienen el desarrollo.", "Implementar abordajes sistémicos individuales respetando la autonomía familiar."],
+                ejes: "Matrices relacionales • Ritmo transgeneracional • Dinámicas familiares • Intervención con plantillas.",
+                linkGrabacion: "", linkZoom: "", linkBiblio: "", libro: "Constelaciones individuales y sus matrices relacionales - Dr. Eduardo Fain"
+            },
+            {
+                id: "e9", numero: 9, titulo: "Integración energética y cierre del proceso formativo",
+                introduccion: "El campo energético como herramienta diagnóstica y terapéutica complementaria. Cierre pedagógico e integración total de los cuerpos del ser.",
+                objetivos: ["Aprender el uso ético, clínico y consciente de la radiestesia básica.", "Lograr la integración final de los planos físico, mental, emocional y energético."],
+                ejes: "Radiestesia integral básica • Ética y campo energético • Integración de los cuerpos • Cierre pedagógico.",
+                linkGrabacion: "", linkZoom: "", linkBiblio: "", libro: "Radiestesia integral - Ricardo Gerula"
             }
         ];
 
-        // Cargar encuentros adicionales guardados
-        let encuentrosDinamicos = JSON.parse(localStorage.getItem("clasesCargadasHolismo")) || [];
+        // INICIALIZACIÓN UNIFICADA DE BASE DE DATOS LOCAL
+        if (!localStorage.getItem("registroClasesHolismoUnificado")) {
+            localStorage.setItem("registroClasesHolismoUnificado", JSON.stringify(programaBaseOriginalInicial));
+        }
+
+        let listaEncuentrosCompleta = JSON.parse(localStorage.getItem("registroClasesHolismoUnificado"));
         let esModoEditor = false;
 
         document.addEventListener("DOMContentLoaded", () => {
+            // Textos institucionales fijos
             const parrafosFundacion = [
                 "La práctica clínica contemporánea en contextos de discapacidad infantil exige una mirada cada vez más amplia, integradora y respetuosa de la complejidad humana. Como equipo interdisciplinario —nos encontramos diariamente con situaciones que exceden lo estrictamente sintomático, involucrando dimensiones emocionales, vinculares, familiares y sistémicas.",
                 "El presente programa propone una formación en Terapia Holística Integrativa orientada a profesionales de la salud, con el objetivo de ampliar la mirada clínica tradicional, incorporando herramientas que permitan comprender al paciente como un ser integral."
@@ -168,21 +217,27 @@
                 document.getElementById('panel-textos-docente').style.display = 'block';
             }
 
-            renderizarTodasLasClases();
+            renderizarEstructuraClases();
         });
 
+        // FORMATEADOR AUTOMÁTICO SEGURO DE ENLACES
         function asegurarProtocoloUrl(link) {
             if (!link) return "";
             let enlaceLimpio = link.trim();
+            if (enlaceLimpio === "") return "";
+            
+            // Forzar protocolo HTTPS si no tiene esquema
             if (!/^https?:\/\//i.test(enlaceLimpio)) {
                 enlaceLimpio = "https://" + enlaceLimpio;
             }
+            // Parsear links de Drive compartidos a modo reproductor embebido
             if (enlaceLimpio.includes("drive.google.com") && enlaceLimpio.includes("/view")) {
-                enlaceLimpio = enlaceLMicro.replace("/view", "/preview");
+                enlaceLimpio = enlaceLimpio.replace("/view", "/preview");
             }
             return enlaceLimpio;
         }
 
+        // PUBLICAR O GUARDAR EDICIÓN SOBRE CUALQUIER CLASE (BASE O NUEVA)
         function publicarOEditarClase() {
             const idEdicion = document.getElementById('form-edit-id').value;
             const nombre = document.getElementById('form-nombre').value;
@@ -196,40 +251,23 @@
 
             if(!nombre) { alert("El nombre de la clase es obligatorio."); return; }
 
-            // Verificar si estamos editando un encuentro base (E1 o E2)
-            if (idEdicion === "e1" || idEdicion === "e2") {
-                let modificadosBase = JSON.parse(localStorage.getItem("programaBaseModificado")) || {};
-                modificadosBase[idEdicion] = {
-                    titulo: nombre,
-                    introduccion: intro,
-                    objetivos: objetivos ? objetivos.split(",") : [],
-                    ejes: ejes,
-                    linkGrabacion: grabacion,
-                    linkZoom: zoom,
-                    linkBiblio: biblio
-                };
-                localStorage.setItem("programaBaseModificado", JSON.stringify(modificadosBase));
-                alert("¡Encuentro base modificado con éxito!");
-            } 
-            // Editar encuentro dinámico creado anteriormente
-            else if (idEdicion) {
-                let index = encuentrosDinamicos.findIndex(c => c.id === idEdicion);
+            if (idEdicion) {
+                // Actualizar elemento existente en la lista unificada
+                let index = listaEncuentrosCompleta.findIndex(c => c.id === idEdicion);
                 if (index !== -1) {
-                    encuentrosDinamicos[index].titulo = nombre;
-                    encuentrosDinamicos[index].introduccion = intro;
-                    encuentrosDinamicos[index].objetivos = objetivos ? objetivos.split(",") : [];
-                    encuentrosDinamicos[index].ejes = ejes;
-                    encuentrosDinamicos[index].linkGrabacion = grabacion;
-                    encuentrosDinamicos[index].linkZoom = zoom;
-                    encuentrosDinamicos[index].linkBiblio = biblio;
-                    localStorage.setItem("clasesCargadasHolismo", JSON.stringify(encuentrosDinamicos));
-                    alert("¡Encuentro modificado con éxito!");
+                    listaEncuentrosCompleta[index].titulo = nombre;
+                    listaEncuentrosCompleta[index].introduccion = intro;
+                    listaEncuentrosCompleta[index].objetivos = objetivos ? objetivos.split(",") : [];
+                    listaEncuentrosCompleta[index].ejes = ejes;
+                    listaEncuentrosCompleta[index].linkGrabacion = grabacion;
+                    listaEncuentrosCompleta[index].linkZoom = zoom;
+                    listaEncuentrosCompleta[index].linkBiblio = biblio;
+                    alert("¡Cambios guardados con éxito!");
                 }
-            } 
-            // Crear nueva clase desde cero
-            else {
+            } else {
+                // Crear nueva clase extra (Encuentro 10, 11, etc.)
                 const idNuevaClase = "dinamica-" + Date.now();
-                const nroEncuentro = encuentrosDinamicos.length + 3;
+                const nroEncuentro = listaEncuentrosCompleta.length + 1;
 
                 const nuevaClase = {
                     id: idNuevaClase,
@@ -242,25 +280,18 @@
                     linkZoom: zoom,
                     linkBiblio: biblio
                 };
-                encuentrosDinamicos.push(nuevaClase);
-                localStorage.setItem("clasesCargadasHolismo", JSON.stringify(encuentrosDinamicos));
-                alert("¡Nuevo encuentro publicado con éxito!");
+                listaEncuentrosCompleta.push(nuevaClase);
+                alert("¡Nuevo encuentro agregado al programa!");
             }
 
+            localStorage.setItem("registroClasesHolismoUnificado", JSON.stringify(listaEncuentrosCompleta));
             cancelarEdicionActual();
-            renderizarTodasLasClases();
+            renderizarEstructuraClases();
         }
 
-        function activarModoEditarClase(idClase, esBase = false) {
-            let clase;
-            if (esBase) {
-                const modificadosBase = JSON.parse(localStorage.getItem("programaBaseModificado")) || {};
-                const baseOriginal = programaBaseEstatico.find(c => c.id === idClase);
-                clase = Object.assign({}, baseOriginal, modificadosBase[idClase] || {});
-            } else {
-                clase = encuentrosDinamicos.find(c => c.id === idClase);
-            }
-
+        // PRECARGAR FORMULARIO CON CUALQUIER CLASE SELECCIONADA
+        function activarModoEditarClase(idClase) {
+            const clase = listaEncuentrosCompleta.find(c => c.id === idClase);
             if (!clase) return;
 
             document.getElementById('form-edit-id').value = clase.id;
@@ -287,26 +318,16 @@
             document.getElementById('btn-cancel-editor').style.display = "none";
         }
 
-        function renderizarTodasLasClases() {
-            // Limpiar menú y cajas dinámicas anteriores
+        // PINTAR MENÚ Y CONTENIDOS UNIFICADOS EN PANTALLA
+        function renderizarEstructuraClases() {
             document.querySelectorAll('.item-dinamico-menu').forEach(el => el.remove());
             document.querySelectorAll('.seccion-dinamica-contenido').forEach(el => el.remove());
 
             const menuContainer = document.getElementById('contenedor-menu-encuentros');
             const mainContainer = document.getElementById('bloque-principal-contenidos');
 
-            // Leer modificaciones de los encuentros base E1 y E2
-            const modificadosBase = JSON.parse(localStorage.getItem("programaBaseModificado")) || {};
-
-            // Combinar lista base y lista dinámica
-            const listaCompleta = [
-                Object.assign({}, programaBaseEstatico[0], modificadosBase["e1"] || {}),
-                Object.assign({}, programaBaseEstatico[1], modificadosBase["e2"] || {}),
-                ...encuentrosDinamicos
-            ];
-
-            listaCompleta.forEach(clase => {
-                // Generar botón en menú lateral
+            listaEncuentrosCompleta.forEach(clase => {
+                // Agregar al menú lateral
                 const li = document.createElement('li');
                 li.className = "item-encuentro item-dinamico-menu";
                 li.id = "menu-" + clase.id;
@@ -314,7 +335,7 @@
                 li.innerHTML = `<div><span class="numero-clase">Encuentro ${clase.numero}</span>${clase.titulo}</div>`;
                 menuContainer.appendChild(li);
 
-                // Generar bloque de contenido
+                // Agregar caja de contenidos a la derecha
                 const seccion = document.createElement('div');
                 seccion.id = clase.id;
                 seccion.className = "seccion-contenido seccion-dinamica-contenido";
@@ -343,7 +364,6 @@
                 }
 
                 let listaObjetivos = clase.objetivos.map(obj => obj.trim() ? `<li>${obj.trim()}</li>` : '').join("");
-                const esBase = (clase.id === "e1" || clase.id === "e2");
 
                 seccion.innerHTML = `
                     ${bloqueAcceso}
@@ -355,7 +375,7 @@
                         <h3>Ejes de Trabajo</h3>
                         <p>${clase.ejes || 'No se detallaron ejes temáticos.'}</p>
                         
-                        ${esModoEditor ? `<button type="button" onclick="activarModoEditarClase('${clase.id}', ${esBase})" style="margin-top:30px; background:#8e44ad; color:white; padding:10px 20px; border:none; border-radius:50px; font-family:'Quicksand'; font-weight:bold; cursor:pointer;">✏️ Editar este encuentro</button>` : ''}
+                        ${esModoEditor ? `<button type="button" onclick="activarModoEditarClase('${clase.id}')" style="margin-top:30px; background:#8e44ad; color:white; padding:10px 20px; border:none; border-radius:50px; font-family:'Quicksand'; font-weight:bold; cursor:pointer;">✏️ Editar este encuentro</button>` : ''}
                     </div>
                 `;
                 mainContainer.appendChild(seccion);
