@@ -8,8 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         .contenedor-talleres { position: relative; padding: 20px 0; }
+        .talleres-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 20px 5%; }
+        .taller-card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; }
+        .taller-info { margin-bottom: 20px; color: #5A5A5A; }
+        .btn-taller { display: block; background: var(--azul); color: white; text-align: center; padding: 12px; border-radius: 25px; text-decoration: none; font-weight: 700; }
         
-        /* Estilo para el aviso destacado de "Ya comenzó" */
         .badge-estado-taller {
             display: inline-block;
             background-color: #ffebee;
@@ -50,8 +53,7 @@
         </section>
 
         <main class="contenedor-talleres">
-            <div class="talleres-grid">
-                
+            <div class="talleres-grid" id="lista-talleres">
                 <div class="taller-card">
                     <div>
                         <span>Virtual / Sincrónico</span>
@@ -75,7 +77,6 @@
                         Comprar con Mercado Pago
                     </a>
                 </div>
-
             </div>
         </main>
     </div>
@@ -85,21 +86,32 @@
         <p style="font-size: 12px; color: #aaa;">© 2026 • Creado por Nómade</p>
     </footer>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCP5lzu3R4RPVoFEo06l65Iw7tRNqMRqlc",
+            authDomain: "holismotalleres.firebaseapp.com",
+            projectId: "holismotalleres",
+            storageBucket: "holismotalleres.firebasestorage.app",
+            messagingSenderId: "424049247991",
+            appId: "1:424049247991:web:e3ea92fbd96d7e2b2d35f",
+            measurementId: "G-F2ENK6YHSC"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+    </script>
+
     <script>
-        // LÓGICA DE CONTROL DE VISIBILIDAD (MODO ADMIN)
         function verificarFiltroAdmin() {
             const urlParams = new URLSearchParams(window.location.search);
             const modo = urlParams.get('modo');
             const tarjetaPrueba = document.getElementById('taller-privado-prueba');
-
-            // Si entrás con ?modo=admin guardamos el permiso permanente en tu navegador
             if (modo === "admin") {
                 localStorage.setItem("verTallerPrueba", "true");
-                // Limpiamos el link para que quede estético
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
-
-            // Si tenés el permiso activo, te mostramos la tarjeta
             if (localStorage.getItem("verTallerPrueba") === "true") {
                 tarjetaPrueba.style.display = "flex";
             }
@@ -127,7 +139,6 @@
             observer.observe(el);
         });
 
-        // Ejecutamos el filtro apenas carga la página
         window.onload = verificarFiltroAdmin;
     </script>
 </body>
