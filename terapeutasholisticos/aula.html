@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Virtual | Holismo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    </head>
+<body>
+
+    <aside id="sidebar" class="sidebar-aula">
+        <div class="sidebar-header">
+            <img src="../logo.png" alt="Holismo">
+            <p style="font-size: 10px; font-weight: 700; color: var(--verde); letter-spacing: 2px; margin-top: 10px;">AULA VIRTUAL</p>
+        </div>
+        <ul class="lista-encuentros" id="contenedor-menu-encuentros">
+            </ul>
+    </aside>
+
+    <main class="contenido-aula" id="bloque-principal-contenidos">
+        <div id="home" class="seccion-contenido activa">
+            <h1 id="titulo-taller" style="font-family: 'Lora'; color: var(--azul);">Cargando taller...</h1>
+            <div id="descripcion-taller"></div>
+        </div>
+        </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCP5lzu3R4RPVoFEo06l65Iw7tRNqMRqlc",
+            authDomain: "holismotalleres.firebaseapp.com",
+            projectId: "holismotalleres",
+            storageBucket: "holismotalleres.firebasestorage.app",
+            messagingSenderId: "424049247991",
+            appId: "1:424049247991:web:e3ea92fbd96d7e2b2d35f2"
+        };
+        const db = getFirestore(initializeApp(firebaseConfig));
+
+        // Obtener el ID del taller desde la URL: aula.html?id=constelaciones
+        const urlParams = new URLSearchParams(window.location.search);
+        const idTaller = urlParams.get('id');
+
+        async function cargarContenidoMaestro() {
+            if (!idTaller) {
+                document.getElementById('titulo-taller').innerText = "Error: Taller no seleccionado";
+                return;
+            }
+
+            // 1. Cargar info general del taller
+            const tallerDoc = await getDoc(doc(db, "talleres", idTaller));
+            if (tallerDoc.exists()) {
+                document.getElementById('titulo-taller').innerText = tallerDoc.data().titulo;
+                document.getElementById('descripcion-taller').innerText = tallerDoc.data().info;
+            }
+
+            // 2. Cargar los encuentros (clases) de ese taller específico
+            const encuentrosSnapshot = await getDocs(collection(db, "talleres", idTaller, "encuentros"));
+            const menu = document.getElementById("contenedor-menu-encuentros");
+            
+            encuentrosSnapshot.forEach((doc) => {
+                const clase = doc.data();
+                // Aquí agregarías los <li> al menú y los <div> al contenido tal cual hacías antes
+            });
+        }
+        
+        cargarContenidoMaestro();
+    </script>
+</body>
+</html>
