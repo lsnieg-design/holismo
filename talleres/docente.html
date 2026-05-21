@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Control | Talleres Holismo</title>
+    <style>
+        body { font-family: 'Quicksand', sans-serif; padding: 40px; background: #f4f7f6; }
+        .admin-card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); max-width: 800px; margin: auto; }
+        .taller-row { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #eee; align-items: center; }
+        button { padding: 10px 20px; border-radius: 25px; border: none; cursor: pointer; font-weight: bold; }
+        .btn-add { background: #8DA18E; color: white; margin-bottom: 20px; }
+        .btn-edit { background: #3A7BD5; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="admin-card">
+    <h1>Administrador de Talleres</h1>
+    <button class="btn-add" onclick="crearNuevoTaller()">+ Crear Nuevo Taller</button>
+    
+    <div id="lista-talleres">
+        </div>
+</div>
+
+<script>
+    // En este archivo, más adelante conectaremos Firebase. 
+    // Por ahora, esto es solo la interfaz de gestión.
+    
+    function crearNuevoTaller() {
+        alert("Aquí se abrirá el formulario para crear el nuevo taller y guardarlo en la nube.");
+    }
+    
+    function editarTaller(id) {
+        alert("Editando taller: " + id);
+    }
+</script>
+
+</body>
+</html>
