@@ -28,13 +28,13 @@
         .info-clase h3 { font-family: 'Lora', serif; color: var(--verde); border-left: 4px solid var(--salmon); padding-left: 15px; margin-top: 30px; }
         .badge-live { display: inline-block; padding: 5px 12px; background: #ffebee; color: #d32f2f; border-radius: 5px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
         
-        /* Formulario del Editor para Docentes */
-        .panel-editor { background: #fff; padding: 30px; border-radius: 30px; border: 2px dashed var(--verde); margin-bottom: 40px; display: none; }
+        .panel-editor { background: #fff; padding: 30px; border-radius: 30px; border: 2px dashed var(--verde); margin-bottom: 40px; display: none; position: relative; }
         .panel-editor h2 { font-family: 'Lora'; color: var(--verde); margin-top: 0; }
         .form-group { margin-bottom: 15px; text-align: left; }
         .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 13px; color: #555; }
         .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-family: 'Quicksand'; box-sizing: border-box; }
-        .btn-publicar { background: var(--verde); color: white; padding: 12px 25px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-family: 'Quicksand'; }
+        .btn-publicar { background: var(--verde); color: white; padding: 12px 25px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-family: 'Quicksand'; transition: 0.3s; }
+        .btn-cancelar-edicion { background: #95a5a6; color: white; padding: 12px 25px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-family: 'Quicksand'; margin-left: 10px; display: none; }
 
         @media (max-width: 900px) {
             .header-movil { display: flex; }
@@ -51,7 +51,7 @@
 
     <div id="puerta-acceso" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--azul); z-index: 20000; display: flex; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
         <div style="background: white; padding: 40px; border-radius: 40px; max-width: 400px; width: 100%; text-align: center;">
-            <img src="logo.png" style="width: 150px; margin-bottom: 20px;">
+            <img src="../logo.png" style="width: 150px; margin-bottom: 20px;">
             <h2 style="font-family: 'Lora'; color: var(--azul);">Acceso al Aula</h2>
             <input type="password" id="input-password" placeholder="Contraseña" style="width: 100%; padding: 15px; border-radius: 50px; border: 2px solid #eee; margin-bottom: 20px; text-align: center;">
             <button onclick="verificarAcceso()" style="width: 100%; padding: 15px; border-radius: 50px; border: none; background: var(--azul); color: white; font-weight: 700; cursor: pointer;">Ingresar</button>
@@ -60,7 +60,7 @@
     </div>
 
     <div class="header-movil">
-        <img src="logo.png" style="height: 30px;">
+        <img src="../logo.png" style="height: 30px;">
         <button onclick="toggleMenu()" style="background:none; border:none; font-size:24px; color:var(--azul);">☰</button>
     </div>
 
@@ -68,31 +68,32 @@
 
     <aside id="sidebar" class="sidebar-aula">
         <div class="sidebar-header">
-            <a href="talleres.html" style="text-decoration: none; display: block;">
-                <img src="logo.png" alt="Holismo" style="cursor: pointer; transition: 0.3s;">
+            <a href="../talleres.html" style="text-decoration: none; display: block;">
+                <img src="../logo.png" alt="Holismo" style="cursor: pointer; transition: 0.3s;">
                 <p style="font-size: 10px; font-weight: 700; color: var(--verde); letter-spacing: 2px; margin-top: 10px;">AULA VIRTUAL</p>
             </a>
         </div>
         <ul class="lista-encuentros" id="contenedor-menu-encuentros">
             <li class="item-encuentro activo" id="menu-home" onclick="mostrarSeccion('home', this)"><div><span class="numero-clase">Inicio</span>Presentación y Objetivos</div></li>
-            <li class="item-encuentro" id="menu-e1" onclick="mostrarSeccion('e1', this)"><div><span class="numero-clase">Encuentro 1</span>La enfermedad como camino</div></li>
-            <li class="item-encuentro" id="menu-e2" onclick="mostrarSeccion('e2', this)"><div><span class="numero-clase">Encuentro 2</span>Conciencia e Intención</div></li>
         </ul>
     </aside>
 
     <main class="contenido-aula" id="bloque-principal-contenidos">
         
-        <div id="panel-carga-docente" class="panel-editor">
-            <h2>Panel Docente: Agregar Nueva Clase / Encuentro</h2>
+        <div id="panel-textos-docente" class="panel-editor">
+            <h2 id="titulo-panel-editor">Panel Docente: Agregar Nueva Clase</h2>
+            <input type="hidden" id="form-edit-id" value="">
             <form id="form-clase-nueva">
-                <div class="form-group"><label>Nombre del Encuentro / Clase:</label><input type="text" id="form-nombre" placeholder="Ej: Encuentro 3: Campo Cuántico" required></div>
+                <div class="form-group"><label>Nombre de la Clase / Encuentro:</label><input type="text" id="form-nombre" placeholder="Ej: Encuentro 3: Campo Cuántico" required></div>
                 <div class="form-group"><label>Introducción Conceptual:</label><textarea id="form-intro" rows="3" placeholder="Breve resumen o encuadre de la clase..."></textarea></div>
-                <div class="form-group"><label>Objetivos de la Clase:</label><textarea id="form-objetivos" rows="3" placeholder="Objetivo 1, Objetivo 2... (separados por comas)"></textarea></div>
-                <div class="form-group"><label>Ejes de Trabajo / Contenidos:</label><input type="text" id="form-ejes" placeholder="Ej: Resonancia • Epigenética • Campo relacional"></div>
-                <div class="form-group"><label>Link de la Grabación (URL de Drive, YouTube o Vimeo):</label><input type="url" id="form-grabacion" placeholder="https://drive.google.com/..."></div>
-                <div class="form-group"><label>Link de Zoom (Si es un vivo próximo):</label><input type="url" id="form-zoom" placeholder="https://zoom.us/j/..."></div>
-                <div class="form-group"><label>Link a la Bibliografía / Material PDF:</label><input type="url" id="form-biblio" placeholder="https://..."></div>
-                <button type="button" onclick="publicarClaseNueva()" class="btn-publicar">🚀 Publicar Encuentro</button>
+                <div class="form-group"><label>Objetivos de la Clase (Separados por coma):</label><textarea id="form-objetivos" rows="2" placeholder="Objetivo 1, Objetivo 2, Objetivo 3..."></textarea></div>
+                <div class="form-group"><label>Ejes de Trabajo:</label><input type="text" id="form-ejes" placeholder="Ej: Resonancia • Epigenética • Campo relacional"></div>
+                <div class="form-group"><label>Link de la Grabación (Drive, YouTube o Vimeo):</label><input type="text" id="form-grabacion" placeholder="www.drive.google.com/..."></div>
+                <div class="form-group"><label>Link de Zoom (Para próximos vivos):</label><input type="text" id="form-zoom" placeholder="www.zoom.us/j/..."></div>
+                <div class="form-group"><label>Link a la Bibliografía / Material PDF:</label><input type="text" id="form-biblio" placeholder="www.u-cursos.cl/..."></div>
+                
+                <button type="button" onclick="publicarOEditarClase()" id="btn-submit-editor" class="btn-publicar">🚀 Publicar Encuentro</button>
+                <button type="button" onclick="cancelarEdicionActual()" id="btn-cancel-editor" class="btn-cancelar-edicion">Cancelar Edición</button>
             </form>
         </div>
 
@@ -102,67 +103,52 @@
                 <h1 style="font-family: 'Lora'; font-size: clamp(24px, 5vw, 34px); margin: 10px 0;">Terapia Holística Integrativa en la Práctica Clínica con Discapacidad</h1>
                 <div style="width: 70px; height: 5px; background: var(--salmon); margin-top: 30px; border-radius: 10px;"></div>
             </div>
-
             <div class="info-clase">
                 <h2 style="font-family: 'Lora'; color: var(--azul);">Fundamentación</h2>
                 <div id="texto-fundamentacion-limpio"></div>
             </div>
-
             <div class="info-clase" style="background: #fcfcfc;">
                 <h2 style="font-family: 'Lora'; color: var(--azul);">Perfil del Profesional al finalizar la formación</h2>
                 <div id="texto-perfil-limpio"></div>
             </div>
         </div>
 
-        <div id="e1" class="seccion-contenido">
-            <div class="card-acceso" style="padding: 30px;">
-                <span class="badge-live" style="background: var(--azul); color: white;">Grabación disponible</span>
-                <h2 style="font-family:'Lora'; color:var(--azul); margin: 20px 0;">1. La enfermedad y la discapacidad como camino de sentido</h2>
-                <div style="width: 100%; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; margin-bottom: 30px;">
-                    <iframe src="https://drive.google.com/file/d/1N6s-dRKIN0KRXsZgP3QFuRvxewN4V9j-/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
-                </div>
-                <a href="https://www.u-cursos.cl/diplomados/2008/0/DIPDGP/1/material_docente/bajar?id_material=181945" target="_blank" class="btn-zoom" style="background: var(--salmon);">Descargar Bibliografía Eje</a>
-            </div>
-            <div class="info-clase">
-                <p><b>Libro eje de estudio:</b> La enfermedad como camino - Dethlefsen & Dahlke</p>
-                <h3>Introducción Conceptual</h3>
-                <p>Introducción a la mirada holística del ser humano, comprendiendo al paciente como una unidad total y analizando cómo el síntoma en la discapacidad puede ser un lenguaje con sentido dentro del sistema familiar.</p>
-                <h3>Objetivos de la Clase</h3>
-                <ul>
-                    <li>Diferenciar limitación funcional de sentido biológico.</li>
-                    <li>Introducir la mirada holística integrativa en la clínica diaria.</li>
-                </ul>
-                <h3>Ejes de Trabajo</h3>
-                <p>Mirada holística • Déficit vs Sentido • El niño portador de información sistémica.</p>
-            </div>
-        </div>
-
-        <div id="e2" class="seccion-contenido">
-            <div class="card-acceso">
-                <span class="badge-live">En Vivo</span>
-                <h2 style="font-family: 'Lora'; color: var(--azul); margin: 10px 0;">2. Conciencia, intención y coherencia en la práctica profesional</h2>
-                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                    <a href="#" target="_blank" class="btn-zoom">Unirse al Vivo</a>
-                    <a href="#" target="_blank" class="btn-zoom" style="background: var(--salmon);">Bibliografía Eje</a>
-                </div>
-            </div>
-            <div class="info-clase">
-                <p><b>Libro eje de estudio:</b> Las 7 leyes espirituales del éxito - Deepak Chopra</p>
-                <h3>Introducción Conceptual</h3>
-                <p>Analizaremos cómo la presencia, la coherencia interna y la mentalidad del profesional actúan como factores de sanación dentro del encuadre clínico.</p>
-                <h3>Ejes de Trabajo</h3>
-                <p>Pensamiento como frecuencia • Campo relacional y resonancia • Coherencia interna.</p>
-            </div>
-        </div>
-
     </main>
 
     <script>
-        // BASE DE DATOS LOCAL PARA LOS ENCUENTROS DINÁMICOS
+        // PROGRAMA BASE OFICIAL DEL PDF (Ahora viven en memoria para ser editables)
+        const programaBaseEstatico = [
+            {
+                id: "e1",
+                numero: 1,
+                titulo: "La enfermedad y la discapacidad como camino de sentido",
+                introduccion: "Introducción a la mirada holística del ser humano, comprendiendo al paciente como una unidad total y analizando cómo el síntoma en la discapacidad puede ser un lenguaje con sentido dentro del sistema familiar.",
+                objetivos: ["Diferenciar limitación funcional de sentido biológico.", "Introducir la mirada holística integrativa en la práctica clínica diaria."],
+                ejes: "Mirada holística • Déficit vs Sentido • El niño portador de información sistémica.",
+                linkGrabacion: "https://drive.google.com/file/d/1N6s-dRKIN0KRXsZgP3QFuRvxewN4V9j-/preview",
+                linkZoom: "",
+                linkBiblio: "https://www.u-cursos.cl/diplomados/2008/0/DIPDGP/1/material_docente/bajar?id_material=181945",
+                libro: "La enfermedad como camino - Dethlefsen & Dahlke"
+            },
+            {
+                id: "e2",
+                numero: 2,
+                titulo: "Conciencia, intención y coherencia en la práctica profesional",
+                introduccion: "Analizaremos cómo la presencia, la coherencia interna y la mentalidad del profesional actúan como factores de sanación dentro del encuadre clínico.",
+                objetivos: ["Incorporar la coherencia cardíaca y la autorregulación en la práctica diaria.", "Diferenciar el plano del 'Estar' frente al 'Ser' durante la consulta."],
+                ejes: "Pensamiento como frecuencia • Campo relacional y resonancia • Coherencia interna.",
+                linkGrabacion: "https://drive.google.com/file/d/1N6s-dRKIN0KRXsZgP3QFuRvxewN4V9j-/preview",
+                linkZoom: "",
+                linkBiblio: "https://www.colomos.ceti.mx/documentos/goe/sieteLeyesEspiritualesdelExito.pdf",
+                libro: "Las 7 leyes espirituales del éxito - Deepak Chopra"
+            }
+        ];
+
+        // Cargar encuentros adicionales guardados
         let encuentrosDinamicos = JSON.parse(localStorage.getItem("clasesCargadasHolismo")) || [];
+        let esModoEditor = false;
 
         document.addEventListener("DOMContentLoaded", () => {
-            // Inyección blindada de textos iniciales
             const parrafosFundacion = [
                 "La práctica clínica contemporánea en contextos de discapacidad infantil exige una mirada cada vez más amplia, integradora y respetuosa de la complejidad humana. Como equipo interdisciplinario —nos encontramos diariamente con situaciones que exceden lo estrictamente sintomático, involucrando dimensiones emocionales, vinculares, familiares y sistémicas.",
                 "El presente programa propone una formación en Terapia Holística Integrativa orientada a profesionales de la salud, con el objetivo de ampliar la mirada clínica tradicional, incorporando herramientas que permitan comprender al paciente como un ser integral."
@@ -176,74 +162,163 @@
             document.getElementById("texto-fundamentacion-limpio").innerHTML = parrafosFundacion.map(p => `<p style="line-height:1.9; color:#5A5A5A; text-align:justify; margin-bottom:20px;">${p}</p>`).join("");
             document.getElementById("texto-perfil-limpio").innerHTML = `<ul style="line-height:1.8; color:#5A5A5A; padding-left:20px;">${itemsPerfil.map(item => `<li>${item}</li>`).join("")}</ul>`;
 
-            // Verificar si entramos en Modo Editor Docente (?admin=editor)
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('admin') === 'editor') {
-                document.getElementById('panel-carga-docente').style.display = 'block';
+                esModoEditor = true;
+                document.getElementById('panel-textos-docente').style.display = 'block';
             }
 
-            // Pintar las clases creadas por el usuario
-            renderizarClasesDocente();
+            renderizarTodasLasClases();
         });
 
-        // LÓGICA DEL EDITOR PARA CREAR CLASES AL INSTANTE
-        function publicarClaseNueva() {
+        function asegurarProtocoloUrl(link) {
+            if (!link) return "";
+            let enlaceLimpio = link.trim();
+            if (!/^https?:\/\//i.test(enlaceLimpio)) {
+                enlaceLimpio = "https://" + enlaceLimpio;
+            }
+            if (enlaceLimpio.includes("drive.google.com") && enlaceLimpio.includes("/view")) {
+                enlaceLimpio = enlaceLMicro.replace("/view", "/preview");
+            }
+            return enlaceLimpio;
+        }
+
+        function publicarOEditarClase() {
+            const idEdicion = document.getElementById('form-edit-id').value;
             const nombre = document.getElementById('form-nombre').value;
             const intro = document.getElementById('form-intro').value;
             const objetivos = document.getElementById('form-objetivos').value;
             const ejes = document.getElementById('form-ejes').value;
-            const grabacion = document.getElementById('form-grabacion').value;
-            const zoom = document.getElementById('form-zoom').value;
-            const biblio = document.getElementById('form-biblio').value;
+            
+            const grabacion = asegurarProtocoloUrl(document.getElementById('form-grabacion').value);
+            const zoom = asegurarProtocoloUrl(document.getElementById('form-zoom').value);
+            const biblio = asegurarProtocoloUrl(document.getElementById('form-biblio').value);
 
             if(!nombre) { alert("El nombre de la clase es obligatorio."); return; }
 
-            const idNuevaClase = "dinamica-" + Date.now();
-            const nroEncuentro = encuentrosDinamicos.length + 3; // Comienza desde el Encuentro 3
+            // Verificar si estamos editando un encuentro base (E1 o E2)
+            if (idEdicion === "e1" || idEdicion === "e2") {
+                let modificadosBase = JSON.parse(localStorage.getItem("programaBaseModificado")) || {};
+                modificadosBase[idEdicion] = {
+                    titulo: nombre,
+                    introduccion: intro,
+                    objetivos: objetivos ? objetivos.split(",") : [],
+                    ejes: ejes,
+                    linkGrabacion: grabacion,
+                    linkZoom: zoom,
+                    linkBiblio: biblio
+                };
+                localStorage.setItem("programaBaseModificado", JSON.stringify(modificadosBase));
+                alert("¡Encuentro base modificado con éxito!");
+            } 
+            // Editar encuentro dinámico creado anteriormente
+            else if (idEdicion) {
+                let index = encuentrosDinamicos.findIndex(c => c.id === idEdicion);
+                if (index !== -1) {
+                    encuentrosDinamicos[index].titulo = nombre;
+                    encuentrosDinamicos[index].introduccion = intro;
+                    encuentrosDinamicos[index].objetivos = objetivos ? objetivos.split(",") : [];
+                    encuentrosDinamicos[index].ejes = ejes;
+                    encuentrosDinamicos[index].linkGrabacion = grabacion;
+                    encuentrosDinamicos[index].linkZoom = zoom;
+                    encuentrosDinamicos[index].linkBiblio = biblio;
+                    localStorage.setItem("clasesCargadasHolismo", JSON.stringify(encuentrosDinamicos));
+                    alert("¡Encuentro modificado con éxito!");
+                }
+            } 
+            // Crear nueva clase desde cero
+            else {
+                const idNuevaClase = "dinamica-" + Date.now();
+                const nroEncuentro = encuentrosDinamicos.length + 3;
 
-            const nuevaClase = {
-                id: idNuevaClase,
-                numero: nroEncuentro,
-                titulo: nombre,
-                introduccion: intro,
-                objetivos: objetivos ? objetivos.split(",") : [],
-                ejes: ejes,
-                linkGrabacion: grabacion,
-                linkZoom: zoom,
-                linkBiblio: biblio
-            };
+                const nuevaClase = {
+                    id: idNuevaClase,
+                    numero: nroEncuentro,
+                    titulo: nombre,
+                    introduccion: intro,
+                    objetivos: objetivos ? objetivos.split(",") : [],
+                    ejes: ejes,
+                    linkGrabacion: grabacion,
+                    linkZoom: zoom,
+                    linkBiblio: biblio
+                };
+                encuentrosDinamicos.push(nuevaClase);
+                localStorage.setItem("clasesCargadasHolismo", JSON.stringify(encuentrosDinamicos));
+                alert("¡Nuevo encuentro publicado con éxito!");
+            }
 
-            encuentrosDinamicos.push(nuevaClase);
-            localStorage.setItem("clasesCargadasHolismo", JSON.stringify(encuentrosDinamicos));
-
-            // Resetear formulario y actualizar pantalla
-            document.getElementById('form-clase-nueva').reset();
-            renderizarClasesDocente();
-            alert("¡Clase publicada con éxito y agregada al aula virtual!");
+            cancelarEdicionActual();
+            renderizarTodasLasClases();
         }
 
-        function renderizarClasesDocente() {
-            // Limpiar lo dinámico anterior de los contenedores
+        function activarModoEditarClase(idClase, esBase = false) {
+            let clase;
+            if (esBase) {
+                const modificadosBase = JSON.parse(localStorage.getItem("programaBaseModificado")) || {};
+                const baseOriginal = programaBaseEstatico.find(c => c.id === idClase);
+                clase = Object.assign({}, baseOriginal, modificadosBase[idClase] || {});
+            } else {
+                clase = encuentrosDinamicos.find(c => c.id === idClase);
+            }
+
+            if (!clase) return;
+
+            document.getElementById('form-edit-id').value = clase.id;
+            document.getElementById('form-nombre').value = clase.titulo;
+            document.getElementById('form-intro').value = clase.introduccion || "";
+            document.getElementById('form-objetivos').value = clase.objetivos ? clase.objetivos.join(", ") : "";
+            document.getElementById('form-ejes').value = clase.ejes || "";
+            document.getElementById('form-grabacion').value = clase.linkGrabacion || "";
+            document.getElementById('form-zoom').value = clase.linkZoom || "";
+            document.getElementById('form-biblio').value = clase.linkBiblio || "";
+
+            document.getElementById('titulo-panel-editor').innerText = `✏️ Editando: Encuentro ${clase.numero}`;
+            document.getElementById('btn-submit-editor').innerText = "💾 Guardar Cambios";
+            document.getElementById('btn-cancel-editor').style.display = "inline-block";
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function cancelarEdicionActual() {
+            document.getElementById('form-edit-id').value = "";
+            document.getElementById('form-clase-nueva').reset();
+            document.getElementById('titulo-panel-editor').innerText = "Panel Docente: Agregar Nueva Clase";
+            document.getElementById('btn-submit-editor').innerText = "🚀 Publicar Encuentro";
+            document.getElementById('btn-cancel-editor').style.display = "none";
+        }
+
+        function renderizarTodasLasClases() {
+            // Limpiar menú y cajas dinámicas anteriores
             document.querySelectorAll('.item-dinamico-menu').forEach(el => el.remove());
             document.querySelectorAll('.seccion-dinamica-contenido').forEach(el => el.remove());
 
             const menuContainer = document.getElementById('contenedor-menu-encuentros');
             const mainContainer = document.getElementById('bloque-principal-contenidos');
 
-            encuentrosDinamicos.forEach(clase => {
-                // 1. Crear el botón correspondiente en el menú lateral
+            // Leer modificaciones de los encuentros base E1 y E2
+            const modificadosBase = JSON.parse(localStorage.getItem("programaBaseModificado")) || {};
+
+            // Combinar lista base y lista dinámica
+            const listaCompleta = [
+                Object.assign({}, programaBaseEstatico[0], modificadosBase["e1"] || {}),
+                Object.assign({}, programaBaseEstatico[1], modificadosBase["e2"] || {}),
+                ...encuentrosDinamicos
+            ];
+
+            listaCompleta.forEach(clase => {
+                // Generar botón en menú lateral
                 const li = document.createElement('li');
                 li.className = "item-encuentro item-dinamico-menu";
+                li.id = "menu-" + clase.id;
                 li.onclick = function() { mostrarSeccion(clase.id, this); };
                 li.innerHTML = `<div><span class="numero-clase">Encuentro ${clase.numero}</span>${clase.titulo}</div>`;
                 menuContainer.appendChild(li);
 
-                // 2. Crear la sección completa del contenido a la derecha
+                // Generar bloque de contenido
                 const seccion = document.createElement('div');
                 seccion.id = clase.id;
                 seccion.className = "seccion-contenido seccion-dinamica-contenido";
 
-                // Armar bloque de video o accesos directos
                 let bloqueAcceso = '';
                 if(clase.linkGrabacion) {
                     bloqueAcceso = `
@@ -267,24 +342,26 @@
                         </div>`;
                 }
 
-                // Armar la caja informativa inferior
-                let listaObjetivos = clase.objetivos.map(obj => `<li>${obj.trim()}</li>`).join("");
+                let listaObjetivos = clase.objetivos.map(obj => obj.trim() ? `<li>${obj.trim()}</li>` : '').join("");
+                const esBase = (clase.id === "e1" || clase.id === "e2");
 
                 seccion.innerHTML = `
                     ${bloqueAcceso}
                     <div class="info-clase">
+                        ${clase.libro ? `<p><b>Libro eje de estudio:</b> ${clase.libro}</p>` : ''}
                         <h3>Introducción Conceptual</h3>
                         <p>${clase.introduccion || 'Sin descripción conceptual cargada.'}</p>
                         ${listaObjetivos ? `<h3>Objetivos de la Clase</h3><ul>${listaObjetivos}</ul>` : ''}
                         <h3>Ejes de Trabajo</h3>
                         <p>${clase.ejes || 'No se detallaron ejes temáticos.'}</p>
+                        
+                        ${esModoEditor ? `<button type="button" onclick="activarModoEditarClase('${clase.id}', ${esBase})" style="margin-top:30px; background:#8e44ad; color:white; padding:10px 20px; border:none; border-radius:50px; font-family:'Quicksand'; font-weight:bold; cursor:pointer;">✏️ Editar este encuentro</button>` : ''}
                     </div>
                 `;
                 mainContainer.appendChild(seccion);
             });
         }
 
-        // LÓGICA TRADICIONAL DE NAVEGACIÓN
         function toggleMenu() { document.getElementById('sidebar').classList.toggle('abierta'); document.getElementById('overlay').classList.toggle('activa'); }
 
         function mostrarSeccion(id, elementoMenu) {
