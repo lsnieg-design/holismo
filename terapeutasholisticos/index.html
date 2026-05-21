@@ -29,13 +29,13 @@
         .badge-live { display: inline-block; padding: 5px 12px; background: #ffebee; color: #d32f2f; border-radius: 5px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
         
         /* Formulario del Editor para Docentes */
-        .panel-editor { background: #fff; padding: 30px; border-radius: 30px; border: 2px dashed var(--verde); margin-bottom: 40px; display: none; position: relative; }
+        .panel-editor { background: #fff; padding: 30px; border-radius: 30px; border: 2px dashed var(--verde); margin-bottom: 40px; display: none; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .panel-editor h2 { font-family: 'Lora'; color: var(--verde); margin-top: 0; }
         .form-group { margin-bottom: 15px; text-align: left; }
         .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 13px; color: #555; }
         .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-family: 'Quicksand'; box-sizing: border-box; }
         .btn-publicar { background: var(--verde); color: white; padding: 12px 25px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-family: 'Quicksand'; transition: 0.3s; }
-        .btn-cancelar-edicion { background: #95a5a6; color: white; padding: 12px 25px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-family: 'Quicksand'; margin-left: 10px; display: none; }
+        .btn-cancelar-edicion { background: #95a5a6; color: white; padding: 12px 25px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-family: 'Quicksand'; margin-left: 10px; }
 
         @media (max-width: 900px) {
             .header-movil { display: flex; }
@@ -81,6 +81,12 @@
 
     <main class="contenido-aula" id="bloque-principal-contenidos">
         
+        <div id="btn-container-crear" style="display:none; text-align: center; margin-bottom: 30px;">
+            <button onclick="abrirFormularioNuevaClase()" style="background: var(--verde); color: white; padding: 15px 35px; border: none; border-radius: 50px; font-weight: bold; font-family: 'Quicksand'; font-size: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(141, 161, 142, 0.4); transition: 0.3s;">
+                ➕ Agregar Nuevo Encuentro
+            </button>
+        </div>
+
         <div id="panel-textos-docente" class="panel-editor">
             <h2 id="titulo-panel-editor">Panel Docente: Agregar Nueva Clase</h2>
             <input type="hidden" id="form-edit-id" value="">
@@ -94,7 +100,7 @@
                 <div class="form-group"><label>Link a la Bibliografía / Material PDF:</label><input type="text" id="form-biblio" placeholder="www.u-cursos.cl/..."></div>
                 
                 <button type="button" onclick="publicarOEditarClase()" id="btn-submit-editor" class="btn-publicar">🚀 Publicar Encuentro</button>
-                <button type="button" onclick="cancelarEdicionActual()" id="btn-cancel-editor" class="btn-cancelar-edicion">Cancelar Edición</button>
+                <button type="button" onclick="cancelarEdicionActual()" id="btn-cancel-editor" class="btn-cancelar-edicion">Cancelar</button>
             </form>
         </div>
 
@@ -188,7 +194,6 @@
             }
         ];
 
-        // INICIALIZACIÓN UNIFICADA DE BASE DE DATOS LOCAL
         if (!localStorage.getItem("registroClasesHolismoUnificado")) {
             localStorage.setItem("registroClasesHolismoUnificado", JSON.stringify(programaBaseOriginalInicial));
         }
@@ -197,7 +202,6 @@
         let esModoEditor = false;
 
         document.addEventListener("DOMContentLoaded", () => {
-            // Textos institucionales fijos
             const parrafosFundacion = [
                 "La práctica clínica contemporánea en contextos de discapacidad infantil exige una mirada cada vez más amplia, integradora y respetuosa de la complejidad humana. Como equipo interdisciplinario —nos encontramos diariamente con situaciones que exceden lo estrictamente sintomático, involucrando dimensiones emocionales, vinculares, familiares y sistémicas.",
                 "El presente programa propone una formación en Terapia Holística Integrativa orientada a profesionales de la salud, con el objetivo de ampliar la mirada clínica tradicional, incorporando herramientas que permitan comprender al paciente como un ser integral."
@@ -214,30 +218,37 @@
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('admin') === 'editor') {
                 esModoEditor = true;
-                document.getElementById('panel-textos-docente').style.display = 'block';
+                // Mostrar solo el botón de Crear Clase, no el formulario
+                document.getElementById('btn-container-crear').style.display = 'block';
             }
 
             renderizarEstructuraClases();
         });
 
-        // FORMATEADOR AUTOMÁTICO SEGURO DE ENLACES
         function asegurarProtocoloUrl(link) {
             if (!link) return "";
             let enlaceLimpio = link.trim();
             if (enlaceLimpio === "") return "";
-            
-            // Forzar protocolo HTTPS si no tiene esquema
             if (!/^https?:\/\//i.test(enlaceLimpio)) {
                 enlaceLimpio = "https://" + enlaceLimpio;
             }
-            // Parsear links de Drive compartidos a modo reproductor embebido
             if (enlaceLimpio.includes("drive.google.com") && enlaceLimpio.includes("/view")) {
                 enlaceLimpio = enlaceLimpio.replace("/view", "/preview");
             }
             return enlaceLimpio;
         }
 
-        // PUBLICAR O GUARDAR EDICIÓN SOBRE CUALQUIER CLASE (BASE O NUEVA)
+        // ABRIR FORMULARIO VACÍO PARA NUEVA CLASE
+        function abrirFormularioNuevaClase() {
+            document.getElementById('form-edit-id').value = "";
+            document.getElementById('form-clase-nueva').reset();
+            document.getElementById('titulo-panel-editor').innerText = "Panel Docente: Agregar Nueva Clase";
+            document.getElementById('btn-submit-editor').innerText = "🚀 Publicar Encuentro";
+            document.getElementById('panel-textos-docente').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // PUBLICAR O GUARDAR EDICIÓN
         function publicarOEditarClase() {
             const idEdicion = document.getElementById('form-edit-id').value;
             const nombre = document.getElementById('form-nombre').value;
@@ -252,7 +263,6 @@
             if(!nombre) { alert("El nombre de la clase es obligatorio."); return; }
 
             if (idEdicion) {
-                // Actualizar elemento existente en la lista unificada
                 let index = listaEncuentrosCompleta.findIndex(c => c.id === idEdicion);
                 if (index !== -1) {
                     listaEncuentrosCompleta[index].titulo = nombre;
@@ -265,7 +275,6 @@
                     alert("¡Cambios guardados con éxito!");
                 }
             } else {
-                // Crear nueva clase extra (Encuentro 10, 11, etc.)
                 const idNuevaClase = "dinamica-" + Date.now();
                 const nroEncuentro = listaEncuentrosCompleta.length + 1;
 
@@ -289,7 +298,7 @@
             renderizarEstructuraClases();
         }
 
-        // PRECARGAR FORMULARIO CON CUALQUIER CLASE SELECCIONADA
+        // PRECARGAR FORMULARIO CON CLASE A EDITAR
         function activarModoEditarClase(idClase) {
             const clase = listaEncuentrosCompleta.find(c => c.id === idClase);
             if (!clase) return;
@@ -305,17 +314,16 @@
 
             document.getElementById('titulo-panel-editor').innerText = `✏️ Editando: Encuentro ${clase.numero}`;
             document.getElementById('btn-submit-editor').innerText = "💾 Guardar Cambios";
-            document.getElementById('btn-cancel-editor').style.display = "inline-block";
+            document.getElementById('panel-textos-docente').style.display = 'block';
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // CERRAR FORMULARIO
         function cancelarEdicionActual() {
             document.getElementById('form-edit-id').value = "";
             document.getElementById('form-clase-nueva').reset();
-            document.getElementById('titulo-panel-editor').innerText = "Panel Docente: Agregar Nueva Clase";
-            document.getElementById('btn-submit-editor').innerText = "🚀 Publicar Encuentro";
-            document.getElementById('btn-cancel-editor').style.display = "none";
+            document.getElementById('panel-textos-docente').style.display = 'none';
         }
 
         // PINTAR MENÚ Y CONTENIDOS UNIFICADOS EN PANTALLA
@@ -327,7 +335,6 @@
             const mainContainer = document.getElementById('bloque-principal-contenidos');
 
             listaEncuentrosCompleta.forEach(clase => {
-                // Agregar al menú lateral
                 const li = document.createElement('li');
                 li.className = "item-encuentro item-dinamico-menu";
                 li.id = "menu-" + clase.id;
@@ -335,7 +342,6 @@
                 li.innerHTML = `<div><span class="numero-clase">Encuentro ${clase.numero}</span>${clase.titulo}</div>`;
                 menuContainer.appendChild(li);
 
-                // Agregar caja de contenidos a la derecha
                 const seccion = document.createElement('div');
                 seccion.id = clase.id;
                 seccion.className = "seccion-contenido seccion-dinamica-contenido";
