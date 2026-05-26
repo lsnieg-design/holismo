@@ -13,20 +13,7 @@
         .taller-info { margin-bottom: 20px; color: #5A5A5A; }
         .btn-taller { display: block; background: var(--azul); color: white; text-align: center; padding: 12px; border-radius: 25px; text-decoration: none; font-weight: 700; transition: 0.3s; }
         .btn-taller:hover { transform: translateY(-2px); opacity: 0.9; }
-        
-        /* Estilo para el aviso destacado de "Ya comenzó" */
-        .badge-estado-taller {
-            display: inline-block;
-            background-color: #ffebee;
-            color: #d32f2f;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 5px 12px;
-            border-radius: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 10px;
-        }
+        .badge-estado-taller { display: inline-block; background-color: #ffebee; color: #d32f2f; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 5px; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -40,9 +27,7 @@
             <a href="/talleres" class="active">Talleres</a>
             <a href="/contacto">Contacto</a>
         </nav>
-        <div class="menu-hamburguesa" id="menu-toggle">
-            <span></span><span></span><span></span>
-        </div>
+        <div class="menu-hamburguesa" id="menu-toggle"><span></span><span></span><span></span></div>
     </header>
 
     <div class="animacion-contenido">
@@ -56,7 +41,6 @@
 
         <main class="contenedor-talleres">
             <div class="talleres-grid" id="lista-talleres">
-                
                 <div class="taller-card">
                     <div>
                         <span>Virtual / Sincrónico</span>
@@ -76,12 +60,9 @@
                             $ 5.000 <span style="font-size: 14px; color: #aaa; font-weight: 400;">(Pago único)</span>
                         </div>
                     </div>
-                    <a href="https://mpago.la/15yj8UC" class="btn-taller" style="background: #009EE3; border: none;">
-                        Comprar con Mercado Pago
-                    </a>
+                    <a href="https://mpago.la/15yj8UC" class="btn-taller" style="background: #009EE3; border: none;">Comprar con Mercado Pago</a>
                 </div>
-
-                </div>
+            </div>
         </main>
     </div>
 
@@ -90,87 +71,10 @@
         <p style="font-size: 12px; color: #aaa;">© 2026 • Creado por Nómade</p>
     </footer>
 
-    <script>
-      // ... (dentro de tu script de Firebase en index.html)
-
-async function cargarTalleresDinamicos() {
-    const grid = document.getElementById('lista-talleres');
-    try {
-        const querySnapshot = await getDocs(collection(db, "talleres"));
-        querySnapshot.forEach((doc) => {
-            const t = doc.data();
-            // Creamos la tarjeta dinámicamente
-            const card = document.createElement('div');
-            card.className = "taller-card";
-            card.style.opacity = "0";
-            card.style.transform = "translateY(30px)";
-            card.style.transition = "all 0.8s ease-out";
-            
-            // AQUÍ LA CLAVE: El link apunta a aula.html?id=... pasando el ID de Firebase
-            card.innerHTML = `
-                <div>
-                    <span style="font-size: 14px; color: #888;">NUEVO</span>
-                    <h3>${t.titulo}</h3>
-                    <p class="taller-info">${t.info}</p>
-                </div>
-                <a href="aula.html?id=${doc.id}" class="btn-taller">Ingresar al Aula</a>
-            `;
-            
-            grid.appendChild(card);
-            if(window.tallerObserver) window.tallerObserver.observe(card);
-        });
-    } catch (error) {
-        console.log("No hay talleres dinámicos aún o error de red.", error);
-    }
-}
-cargarTalleresDinamicos();
-        // LÓGICA DE CONTROL DE VISIBILIDAD (MODO ADMIN)
-        function verificarFiltroAdmin() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const modo = urlParams.get('modo');
-            const tarjetaPrueba = document.getElementById('taller-privado-prueba');
-
-            if (modo === "admin") {
-                localStorage.setItem("verTallerPrueba", "true");
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-
-            if (localStorage.getItem("verTallerPrueba") === "true") {
-                tarjetaPrueba.style.display = "flex";
-            }
-        }
-
-        const menuToggle = document.getElementById('menu-toggle');
-        const navMenu = document.getElementById('nav-menu');
-        if(menuToggle) {
-            menuToggle.addEventListener('click', () => { navMenu.classList.toggle('mostrar'); });
-        }
-
-        // Exportamos el observer al objeto 'window' para que Firebase pueda usarlo al crear nuevas tarjetas
-        window.tallerObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.taller-card').forEach(el => {
-            el.style.opacity = "0";
-            el.style.transform = "translateY(30px)";
-            el.style.transition = "all 0.8s ease-out";
-            window.tallerObserver.observe(el);
-        });
-
-        window.onload = verificarFiltroAdmin;
-    </script>
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // Mantenemos tu configuración intacta (Corregí un dígito final en appId que se te había cortado al copiar)
         const firebaseConfig = {
             apiKey: "AIzaSyCP5lzu3R4RPVoFEo06l65Iw7tRNqMRqlc",
             authDomain: "holismotalleres.firebaseapp.com",
@@ -180,48 +84,60 @@ cargarTalleresDinamicos();
             appId: "1:424049247991:web:e3ea92fbd96d7e2b2d35f2",
             measurementId: "G-F2ENK6YHSC"
         };
-        
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        const db = getFirestore(initializeApp(firebaseConfig));
+
+        // Observer para animaciones
+        window.tallerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, { threshold: 0.1 });
 
         async function cargarTalleresDinamicos() {
             const grid = document.getElementById('lista-talleres');
-            try {
-                const querySnapshot = await getDocs(collection(db, "talleres"));
-                querySnapshot.forEach((doc) => {
-                    const t = doc.data();
-                    
-                    // Creamos la tarjeta dinámicamente con tu misma estructura y clases CSS
-                    const card = document.createElement('div');
-                    card.className = "taller-card";
-                    card.style.opacity = "0";
-                    card.style.transform = "translateY(30px)";
-                    card.style.transition = "all 0.8s ease-out";
-                    
-                    card.innerHTML = `
-                        <div>
-                            <span style="font-size: 14px; color: #888;">NUEVO</span>
-                            <h3>${t.titulo}</h3>
-                            <p class="taller-info">${t.info}</p>
-                        </div>
-                        <a href="${t.linkAula}" class="btn-taller">Ingresar al Aula</a>
-                    `;
-                    
-                    // Lo agregamos a la grilla
-                    grid.appendChild(card);
-                    
-                    // Le aplicamos tu animación de Scroll para que aparezca suavemente
-                    if(window.tallerObserver) {
-                        window.tallerObserver.observe(card);
-                    }
-                });
-            } catch (error) {
-                console.log("No hay talleres dinámicos aún o error de red.", error);
+            const querySnapshot = await getDocs(collection(db, "talleres"));
+            querySnapshot.forEach((doc) => {
+                const t = doc.data();
+                const card = document.createElement('div');
+                card.className = "taller-card";
+                card.style.opacity = "0";
+                card.style.transform = "translateY(30px)";
+                card.style.transition = "all 0.8s ease-out";
+                card.innerHTML = `
+                    <div>
+                        <span style="font-size: 14px; color: #888;">NUEVO</span>
+                        <h3>${t.titulo}</h3>
+                        <p class="taller-info">${t.info}</p>
+                    </div>
+                    <a href="aula.html?id=${doc.id}" class="btn-taller">Ingresar al Aula</a>
+                `;
+                grid.appendChild(card);
+                window.tallerObserver.observe(card);
+            });
+        }
+
+        // Lógica de UI original
+        function verificarFiltroAdmin() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('modo') === "admin") {
+                localStorage.setItem("verTallerPrueba", "true");
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+            if (localStorage.getItem("verTallerPrueba") === "true") {
+                document.getElementById('taller-privado-prueba').style.display = "flex";
             }
         }
 
-        // Llamamos a la función
-        cargarTalleresDinamicos();
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        if(menuToggle) menuToggle.addEventListener('click', () => navMenu.classList.toggle('mostrar'));
+        
+        document.querySelectorAll('.taller-card').forEach(el => window.tallerObserver.observe(el));
+        
+        window.onload = () => { verificarFiltroAdmin(); cargarTalleresDinamicos(); };
     </script>
 </body>
 </html>
