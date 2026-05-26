@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Virtual | Holismo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --azul: #3A7BD5; --verde: #8DA18E; --salmon: #E5A88A; --crema: #FDFBF7; }
+        body { background: #f8f9fa; font-family: 'Quicksand', sans-serif; margin: 0; display: flex; flex-direction: column; }
+        
+        /* HEADER MÓVIL */
+        .header-movil { display: none; background: white; padding: 15px 20px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10002; border-bottom: 1px solid #eee; }
+        
+        /* SIDEBAR (MENÚ LATERAL) */
+        .sidebar-aula { width: 320px; background: white; height: 100vh; position: fixed; left: 0; top: 0; border-right: 1px solid #eee; overflow-y: auto; z-index: 10001; transition: 0.3s; }
+        .sidebar-header { padding: 30px; border-bottom: 1px solid #f0f0f0; text-align: center; }
+        .sidebar-header img { width: 120px; }
+        .lista-encuentros { padding: 0; margin: 0; list-style: none; }
+        .item-encuentro { border-bottom: 1px solid #f9f9f9; cursor: pointer; }
+        .item-encuentro div { display: block; padding: 18px 25px; color: #777; font-size: 13.5px; transition: 0.3s; border-left: 4px solid transparent; }
+        .item-encuentro.activo div { background: #F0F7FF; border-left-color: var(--azul); color: var(--azul); font-weight: 700; }
+        .numero-clase { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 4px; }
+        
+        /* CONTENIDO PRINCIPAL */
+        .contenido-aula { margin-left: 320px; padding: 40px 5%; transition: 0.3s; }
+        .seccion-contenido { display: none; max-width: 900px; margin: 0 auto; }
+        .seccion-contenido.activa { display: block; animation: fadeIn 0.5s ease; }
+        
+        /* DISEÑO DE LAS CLASES (CÁSCARA) */
+        .card-acceso { background: white; padding: 40px; border-radius: 30px; border: 2px solid var(--azul); text-align: center; margin-bottom: 40px; box-shadow: 0 15px 35px rgba(58,123,213,0.1); }
+        .btn-zoom { display: inline-flex; align-items: center; gap: 10px; background: var(--azul); color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 14px; margin-top: 15px; transition: 0.3s; border:none; cursor:pointer; text-align: center; justify-content: center; }
+        .btn-zoom:hover { transform: translateY(-3px); background: #2A5FB0; }
+        .info-clase { background: white; padding: 40px; border-radius: 30px; border: 1px solid #eee; margin-bottom: 30px; text-align: left; }
+        .info-clase h3 { font-family: 'Lora', serif; color: var(--verde); border-left: 4px solid var(--salmon); padding-left: 15px; margin-top: 30px; }
+        .badge-live { display: inline-block; padding: 5px 12px; background: #ffebee; color: #d32f2f; border-radius: 5px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
+        
+        /* RESPONSIVE MÓVIL */
+        @media (max-width: 900px) {
+            .header-movil { display: flex; }
+            .sidebar-aula { transform: translateX(-100%); width: 280px; }
+            .sidebar-aula.abierta { transform: translateX(0); }
+            .contenido-aula { margin-left: 0; padding: 20px 5%; }
+            .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; }
+            .overlay.activa { display: block; }
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div id="puerta-acceso" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--azul); z-index: 20000; display: flex; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
+        <div style="background: white; padding: 40px; border-radius: 40px; max-width: 400px; width: 100%; text-align: center;">
+            <img src="../logo.png" style="width: 150px; margin-bottom: 20px;" alt="Logo">
+            <h2 style="font-family: 'Lora'; color: var(--azul);">Acceso al Aula</h2>
+            <input type="password" id="input-password" placeholder="Contraseña" style="width: 100%; padding: 15px; border-radius: 50px; border: 2px solid #eee; margin-bottom: 20px; text-align: center; box-sizing: border-box; font-family: 'Quicksand';">
+            <button onclick="verificarAcceso()" style="width: 100%; padding: 15px; border-radius: 50px; border: none; background: var(--azul); color: white; font-weight: 700; cursor: pointer; font-family: 'Quicksand';">Ingresar</button>
+            <p id="error-msg" style="color: #d32f2f; font-size: 13px; margin-top: 15px; display: none;">Contraseña incorrecta.</p>
+        </div>
+    </div>
+
+    <div class="header-movil">
+        <img src="../logo.png" style="height: 30px;" alt="Logo">
+        <button onclick="toggleMenu()" style="background:none; border:none; font-size:24px; color:var(--azul);">☰</button>
+    </div>
+    <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
+
+    <aside id="sidebar" class="sidebar-aula">
+        <div class="sidebar-header">
+            <a href="index.html" style="text-decoration: none; display: block;">
+                <img src="../logo.png" alt="Holismo" style="cursor: pointer; transition: 0.3s;">
+                <p style="font-size: 10px; font-weight: 700; color: var(--verde); letter-spacing: 2px; margin-top: 10px;">AULA VIRTUAL</p>
+            </a>
+        </div>
+        <ul class="lista-encuentros" id="contenedor-menu-encuentros">
+            <li class="item-encuentro activo" id="menu-home" onclick="mostrarSeccion('home', this)">
+                <div><span class="numero-clase">Inicio</span>Presentación del Taller</div>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="contenido-aula" id="bloque-principal-contenidos">
+        
+        <div id="home" class="seccion-contenido activa">
+            <div style="background: linear-gradient(135deg, #3A7BD5 0%, #2A5FB0 100%); padding: 60px 50px; border-radius: 40px; color: white; margin-bottom: 50px; position: relative; overflow: hidden;">
+                <p style="text-transform: uppercase; letter-spacing: 4px; font-size: 11px; font-weight: 700; opacity: 0.9;">Espacio de Formación</p>
+                <h1 id="titulo-taller-pantalla" style="font-family: 'Lora'; font-size: clamp(24px, 5vw, 34px); margin: 10px 0;">Cargando taller...</h1>
+                <div style="width: 70px; height: 5px; background: var(--salmon); margin-top: 30px; border-radius: 10px;"></div>
+            </div>
+            <div class="info-clase" id="descripcion-taller-pantalla">
+                <p style="color:#777; text-align:center;">Conectando con la base de datos...</p>
+            </div>
+        </div>
+
+        </main>
+
+    <script>
+        function toggleMenu() { 
+            document.getElementById('sidebar').classList.toggle('abierta'); 
+            document.getElementById('overlay').classList.toggle('activa'); 
+        }
+
+        // Función para cambiar entre pestañas del menú
+        window.mostrarSeccion = function(id, elementoMenu) {
+            document.querySelectorAll('.seccion-contenido').forEach(s => s.classList.remove('activa'));
+            const objetivo = document.getElementById(id);
+            if(objetivo) objetivo.classList.add('activa');
+            
+            document.querySelectorAll('.item-encuentro').forEach(i => i.classList.remove('activo'));
+            elementoMenu.classList.add('activo');
+            if(window.innerWidth < 900) toggleMenu();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        function verificarAcceso() {
+            if (document.getElementById('input-password').value === "holismo2026") {
+                sessionStorage.setItem("accesoPermitido", "true");
+                document.getElementById('puerta-acceso').style.display = "none";
+            } else { 
+                document.getElementById('error-msg').style.display = "block"; 
+            }
+        }
+
+        // Si ya puso la contraseña antes, no se la pedimos de nuevo
+        if (sessionStorage.getItem("accesoPermitido") === "true") {
+            document.getElementById('puerta-acceso').style.display = "none";
+        }
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCP5lzu3R4RPVoFEo06l65Iw7tRNqMRqlc",
+            authDomain: "holismotalleres.firebaseapp.com",
+            projectId: "holismotalleres",
+            storageBucket: "holismotalleres.firebasestorage.app",
+            messagingSenderId: "424049247991",
+            appId: "1:424049247991:web:e3ea92fbd96d7e2b2d35f2"
+        };
+        const db = getFirestore(initializeApp(firebaseConfig));
+
+        // Obtener de qué taller estamos hablando desde la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const idTaller = urlParams.get('id');
+
+        async function armarAulaDinamica() {
+            if (!idTaller) {
+                document.getElementById('titulo-taller-pantalla').innerText = "Taller no encontrado";
+                document.getElementById('descripcion-taller-pantalla').innerHTML = "<p>Por favor, ingresá desde el catálogo principal.</p>";
+                return;
+            }
+
+            // 1. Traer y dibujar la portada del taller
+            try {
+                const tallerDoc = await getDoc(doc(db, "talleres", idTaller));
+                if (tallerDoc.exists()) {
+                    document.getElementById('titulo-taller-pantalla').innerText = tallerDoc.data().titulo;
+                    document.getElementById('descripcion-taller-pantalla').innerHTML = `
+                        <h2 style="font-family: 'Lora'; color: var(--azul); margin-top:0;">Fundamentación</h2>
+                        <p style="line-height:1.8; color:#5A5A5A;">${tallerDoc.data().info}</p>
+                    `;
+                }
+            } catch (error) {
+                console.error("Error cargando taller general", error);
+            }
+
+            // 2. Traer y dibujar cada clase de ese taller (Subcolección 'encuentros')
+            try {
+                const encuentrosRef = collection(db, "talleres", idTaller, "encuentros");
+                const encuentrosSnap = await getDocs(encuentrosRef);
+                
+                const menu = document.getElementById("contenedor-menu-encuentros");
+                const mainArea = document.getElementById("bloque-principal-contenidos");
+                
+                let clases = [];
+                encuentrosSnap.forEach(doc => {
+                    clases.push({ idDoc: doc.id, ...doc.data() });
+                });
+
+                // Ordenamos las clases por el número que se les asigne
+                clases.sort((a, b) => a.numero - b.numero);
+
+                clases.forEach((clase) => {
+                    
+                    // --- A. CREAR EL BOTÓN EN EL MENÚ LATERAL ---
+                    const li = document.createElement('li');
+                    li.className = "item-encuentro";
+                    li.id = "menu-" + clase.idDoc;
+                    li.onclick = function() { window.mostrarSeccion(clase.idDoc, this); };
+                    li.innerHTML = `<div><span class="numero-clase">Encuentro ${clase.numero || '-'}</span>${clase.titulo}</div>`;
+                    menu.appendChild(li);
+
+                    // --- B. CREAR EL CONTENIDO DE LA CLASE ---
+                    const seccion = document.createElement('div');
+                    seccion.id = clase.idDoc;
+                    seccion.className = "seccion-contenido";
+
+                    // Evaluar botones extra (recursos)
+                    let btnRecursos = '';
+                    if(clase.rec1Link) btnRecursos += `<a href="${clase.rec1Link}" target="_blank" class="btn-zoom" style="background: var(--salmon);">${clase.rec1Nombre || "Recurso 1"}</a>`;
+                    if(clase.rec2Link) btnRecursos += `<a href="${clase.rec2Link}" target="_blank" class="btn-zoom" style="background: var(--salmon);">${clase.rec2Nombre || "Recurso 2"}</a>`;
+                    
+                    // Evaluar si es Video Grabado o Link de Zoom
+                    let bloqueSuperior = '';
+                    if (clase.linkGrabacion) {
+                        bloqueSuperior = `
+                            <div class="card-acceso" style="padding: 30px;">
+                                <span class="badge-live" style="background: var(--azul); color: white;">Grabación disponible</span>
+                                <h2 style="font-family:'Lora'; color:var(--azul); margin: 20px 0;">${clase.titulo}</h2>
+                                <div style="width: 100%; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; margin-bottom: 30px;">
+                                    <iframe src="${clase.linkGrabacion}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
+                                </div>
+                                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">${btnRecursos}</div>
+                            </div>
+                        `;
+                    } else {
+                        bloqueSuperior = `
+                            <div class="card-acceso">
+                                <span class="badge-live">Próximamente En Vivo</span>
+                                <h2 style="font-family: 'Lora'; color: var(--azul); margin: 10px 0;">${clase.titulo}</h2>
+                                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                                    ${clase.linkZoom ? `<a href="${clase.linkZoom}" target="_blank" class="btn-zoom">Unirse al Vivo por Zoom</a>` : ''}
+                                    ${btnRecursos}
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    // Armar la sección completa
+                    let objetivosHTML = '';
+                    if(clase.objetivos && clase.objetivos.length > 0) {
+                        objetivosHTML = `<h3>Objetivos</h3><ul style="color:#555; line-height:1.6;">` + clase.objetivos.map(o => `<li>${o}</li>`).join("") + `</ul>`;
+                    }
+
+                    seccion.innerHTML = `
+                        ${bloqueSuperior}
+                        <div class="info-clase">
+                            <h3>Introducción Conceptual</h3>
+                            <p style="color:#555; line-height:1.8;">${clase.introduccion || 'Sin descripción.'}</p>
+                            ${objetivosHTML}
+                            ${clase.ejes ? `<h3>Ejes de Trabajo</h3><p style="color:#555; line-height:1.8;">${clase.ejes}</p>` : ''}
+                        </div>
+                    `;
+                    
+                    mainArea.appendChild(seccion);
+                });
+
+            } catch (error) {
+                console.error("Error cargando clases", error);
+            }
+        }
+
+        // Ejecutar al cargar
+        armarAulaDinamica();
+    </script>
+</body>
+</html>
