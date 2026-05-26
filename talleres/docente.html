@@ -3,106 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control | Talleres Holismo</title>
+    <title>Panel Docente | Holismo</title>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Quicksand', sans-serif; background: #fdfbf7; margin: 0; padding: 0; color: #333; }
-        .nav-admin { background: #3A7BD5; color: white; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .nav-admin h2 { margin: 0; font-family: 'Lora', serif; font-size: 22px; }
-        .main-container { max-width: 900px; margin: 40px auto; padding: 0 20px; box-sizing: border-box; }
+        :root { --azul: #3A7BD5; --verde: #8DA18E; --bg: #fdfbf7; }
+        body { font-family: 'Quicksand', sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; }
+        .nav-admin { background: var(--azul); color: white; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .nav-admin h2 { margin: 0; font-family: 'Lora', serif; }
         
-        /* Tarjeta de Bienvenida y Orientación */
-        .welcome-card { background: white; padding: 35px; border-radius: 24px; border-left: 6px solid #8DA18E; margin-bottom: 35px; box-shadow: 0 10px 25px rgba(0,0,0,0.03); }
-        .welcome-card h1 { font-family: 'Lora', serif; color: #3A7BD5; margin: 0 0 15px 0; font-size: 28px; }
-        .welcome-card p { color: #666; line-height: 1.6; font-size: 15px; margin-bottom: 25px; margin-top: 0; }
+        .main-container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .card-seccion { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); margin-bottom: 30px; }
         
-        .talleres-section-title { font-family: 'Lora', serif; color: #2C3E50; margin-bottom: 20px; font-size: 22px; font-weight: 700; }
+        /* Botones */
+        .btn { padding: 12px 25px; border-radius: 50px; border: none; cursor: pointer; font-weight: 700; font-family: 'Quicksand'; font-size: 14px; transition: 0.3s; }
+        .btn-verde { background: var(--verde); color: white; }
+        .btn-azul { background: var(--azul); color: white; }
+        .btn-gris { background: #e0e0e0; color: #555; }
+        .btn-rojo { background: #d32f2f; color: white; }
         
-        /* Dashboard Visual: Lista de filas de Talleres */
-        .talleres-list { display: grid; gap: 20px; }
-        .taller-admin-card { background: white; padding: 25px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eef2f5; box-shadow: 0 5px 15px rgba(0,0,0,0.01); transition: 0.3s; }
-        .taller-admin-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.03); }
-        .taller-info-block { flex-grow: 1; padding-right: 20px; }
-        .taller-info-block h3 { margin: 0 0 8px 0; color: #3A7BD5; font-size: 18px; font-weight: 700; }
-        .taller-info-block p { margin: 0; color: #777; font-size: 14px; line-height: 1.5; }
+        /* Listas */
+        .lista-items { display: grid; gap: 15px; margin-top: 20px; }
+        .item-row { background: #fff; border: 1px solid #eee; padding: 20px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .item-info h3 { margin: 0 0 5px 0; color: var(--azul); }
+        .item-info p { margin: 0; color: #777; font-size: 14px; }
         
-        /* Botones de acción estéticos */
-        .btn-action { padding: 12px 28px; border-radius: 50px; border: none; cursor: pointer; font-weight: 700; font-family: 'Quicksand'; font-size: 14px; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-add { background: #8DA18E; color: white; box-shadow: 0 4px 12px rgba(141, 161, 142, 0.3); }
-        .btn-add:hover { background: #7a8e7b; transform: translateY(-1px); }
-        .btn-edit { background: #3A7BD5; color: white; box-shadow: 0 4px 12px rgba(58, 123, 213, 0.2); }
-        .btn-edit:hover { background: #2a69be; transform: translateY(-1px); }
-        .btn-cancel { background: #e0e0e0; color: #555; }
-        .btn-cancel:hover { background: #d5d5d5; }
+        /* Modales */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000; overflow-y: auto; padding: 20px; box-sizing: border-box; }
+        .modal-content { background: white; padding: 40px; border-radius: 20px; width: 100%; max-width: 600px; margin: auto; }
         
-        /* Ventana Emergente Flujo Unificado (Modal) */
-        #modal-editor { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); align-items: center; justify-content: center; z-index: 10000; backdrop-filter: blur(4px); }
-        .modal-content { background: white; padding: 40px; border-radius: 24px; width: 550px; max-width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.15); animation: scaleUp 0.3s ease; }
-        .modal-content h2 { font-family: 'Lora', serif; color: #2C3E50; margin: 0 0 25px 0; font-size: 24px; }
-        
-        .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; color: #444; }
-        .input-field { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 12px; font-family: 'Quicksand'; font-size: 14px; box-sizing: border-box; transition: 0.3s; }
-        .input-field:focus { border-color: #3A7BD5; outline: none; box-shadow: 0 0 0 3px rgba(58,123,213,0.1); }
-        .modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 30px; }
-        
-        @keyframes scaleUp { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        @media (max-width: 600px) {
-            .taller-admin-card { flex-direction: column; align-items: flex-start; gap: 15px; }
-            .nav-admin { padding: 20px; }
-        }
+        /* Formularios */
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 13px; color: #555; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-family: 'Quicksand'; box-sizing: border-box; }
+        .recurso-inputs { display: flex; gap: 10px; }
+        .recurso-inputs input { flex: 1; }
     </style>
 </head>
 <body>
 
-    <header class="nav-admin">
-        <h2>Holismo Panel</h2>
-        <a href="index.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 14px;">← Ver Web Pública</a>
-    </header>
-
-    <div class="main-container">
-        <div class="welcome-card">
-            <h1>¡Hola! Bienvenida al Centro de Gestión</h1>
-            <p>Desde este espacio privado podés añadir nuevas propuestas al catálogo o modificar los accesos de los talleres existentes de forma inmediata. Al realizar un cambio, la web pública se actualizará de manera automática para todas las familias y alumnos.</p>
-            <button class="btn-action btn-add" onclick="abrirModalCrear()">➕ Crear Nuevo Taller</button>
-        </div>
-
-        <h2 class="talleres-section-title">Tus Talleres Activos</h2>
-        <div class="talleres-list" id="lista-talleres">
-            <p style="color: #999;">Cargando catálogo desde la nube...</p>
+    <div id="puerta-acceso" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--azul); z-index: 20000; display: flex; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
+        <div style="background: white; padding: 40px; border-radius: 40px; max-width: 400px; width: 100%; text-align: center;">
+            <h2 style="font-family: 'Lora'; color: var(--azul);">Panel de Control</h2>
+            <input type="password" id="input-password" placeholder="Contraseña" style="width: 100%; padding: 15px; border-radius: 50px; border: 2px solid #eee; margin-bottom: 20px; text-align: center; box-sizing: border-box; font-family: 'Quicksand';">
+            <button onclick="verificarAcceso()" class="btn btn-azul" style="width: 100%;">Ingresar</button>
+            <p id="error-msg" style="color: #d32f2f; font-size: 13px; margin-top: 15px; display: none;">Contraseña incorrecta.</p>
         </div>
     </div>
 
-    <div id="modal-editor">
+    <header class="nav-admin">
+        <h2>Holismo Panel</h2>
+        <a href="index.html" style="color: white; text-decoration: none; font-weight: bold;">← Ver Web Pública</a>
+    </header>
+
+    <div class="main-container">
+        
+        <div id="vista-talleres">
+            <div class="card-seccion" style="border-left: 6px solid var(--verde);">
+                <h1 style="font-family: 'Lora'; color: var(--azul); margin-top:0;">Tus Talleres Activos</h1>
+                <p>Aquí gestionás la oferta general. Agregá un taller para que aparezca en la web pública. Luego, entrá a "Gestionar Clases" para subirle el contenido.</p>
+                <button class="btn btn-verde" onclick="abrirModalTaller()">➕ Crear Nuevo Taller</button>
+            </div>
+            <div class="lista-items" id="lista-talleres-html">
+                <p style="text-align: center; color: #999;">Cargando catálogo...</p>
+            </div>
+        </div>
+
+        <div id="vista-clases" style="display: none;">
+            <button class="btn btn-gris" onclick="volverATalleres()" style="margin-bottom: 20px;">← Volver al catálogo</button>
+            <div class="card-seccion" style="border-left: 6px solid var(--azul);">
+                <h2 id="titulo-taller-activo" style="font-family: 'Lora'; color: var(--azul); margin-top:0;">Clases del Taller</h2>
+                <p>Agregá los encuentros (videos, zooms y PDFs) para este taller.</p>
+                <button class="btn btn-azul" onclick="abrirModalClase()">➕ Agregar Nueva Clase</button>
+            </div>
+            <div class="lista-items" id="lista-clases-html"></div>
+        </div>
+
+    </div>
+
+    <div id="modal-taller" class="modal">
         <div class="modal-content">
-            <h2 id="form-title">Configurar Taller</h2>
-            <input type="hidden" id="edit-id">
+            <h2 id="modal-taller-titulo" style="font-family: 'Lora'; color: var(--azul);">Configurar Taller</h2>
+            <input type="hidden" id="taller-id">
             
             <div class="form-group">
                 <label>Título del Taller / Curso:</label>
-                <input type="text" id="titulo" class="input-field" placeholder="Ej: Formación de Terapeutas Holísticos">
+                <input type="text" id="taller-titulo" placeholder="Ej: Formación de Terapeutas Holísticos">
             </div>
+            <div class="form-group">
+                <label>Descripción / Fundamentación:</label>
+                <textarea id="taller-info" rows="4" placeholder="De qué trata la propuesta..."></textarea>
+            </div>
+            
+            <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                <button class="btn btn-gris" onclick="cerrarModales()">Cancelar</button>
+                <button class="btn btn-verde" onclick="guardarTaller()">💾 Guardar Taller</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-clase" class="modal">
+        <div class="modal-content">
+            <h2 id="modal-clase-titulo" style="font-family: 'Lora'; color: var(--azul);">Configurar Clase</h2>
+            <input type="hidden" id="clase-id">
+            
+            <div class="recurso-inputs">
+                <div class="form-group" style="flex: 1;"><label>Nº Encuentro:</label><input type="number" id="clase-numero" placeholder="Ej: 1"></div>
+                <div class="form-group" style="flex: 3;"><label>Título de la Clase:</label><input type="text" id="clase-titulo" placeholder="Ej: Las 5 Leyes Biológicas"></div>
+            </div>
+            
+            <div class="form-group"><label>Introducción Conceptual:</label><textarea id="clase-intro" rows="2"></textarea></div>
+            <div class="form-group"><label>Objetivos (Separados por coma):</label><textarea id="clase-obj" rows="2" placeholder="Obj 1, Obj 2, Obj 3..."></textarea></div>
+            <div class="form-group"><label>Ejes de Trabajo:</label><input type="text" id="clase-ejes"></div>
+            <div class="form-group"><label>Link Grabación (YouTube/Drive):</label><input type="text" id="clase-grabacion"></div>
+            <div class="form-group"><label>Link Zoom (Vivo):</label><input type="text" id="clase-zoom"></div>
             
             <div class="form-group">
-                <label>Descripción Breve:</label>
-                <textarea id="info" class="input-field" rows="3" placeholder="Contanos brevemente de qué trata la propuesta..."></textarea>
+                <label>Recurso 1 (PDF / Lectura):</label>
+                <div class="recurso-inputs">
+                    <input type="text" id="clase-r1-nom" placeholder="Nombre Botón (Ej: Ver PDF)">
+                    <input type="text" id="clase-r1-link" placeholder="Link">
+                </div>
             </div>
-            
             <div class="form-group">
-                <label>Enlace del Aula Virtual (Nombre de tu archivo HTML):</label>
-                <input type="text" id="linkAula" class="input-field" placeholder="Ej: terapeutasholisticos.html">
+                <label>Recurso 2 (Opcional):</label>
+                <div class="recurso-inputs">
+                    <input type="text" id="clase-r2-nom" placeholder="Nombre Botón">
+                    <input type="text" id="clase-r2-link" placeholder="Link">
+                </div>
             </div>
-            
-            <div class="modal-actions">
-                <button type="button" class="btn-action btn-cancel" onclick="cerrarModal()">Cancelar</button>
-                <button type="button" class="btn-action btn-add" onclick="guardarTaller()">💾 Guardar Cambios</button>
+
+            <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                <button class="btn btn-gris" onclick="cerrarModales()">Cancelar</button>
+                <button class="btn btn-azul" onclick="guardarClase()">🚀 Publicar Clase</button>
             </div>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, addDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, addDoc, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCP5lzu3R4RPVoFEo06l65Iw7tRNqMRqlc",
@@ -110,100 +149,205 @@
             projectId: "holismotalleres",
             storageBucket: "holismotalleres.firebasestorage.app",
             messagingSenderId: "424049247991",
-            appId: "1:424049247991:web:e3ea92fbd96d7e2b2d35f2",
-            measurementId: "G-F2ENK6YHSC"
+            appId: "1:424049247991:web:e3ea92fbd96d7e2b2d35f2"
         };
-        
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        const db = getFirestore(initializeApp(firebaseConfig));
 
-        // Renderizado del Dashboard Dinámico leyendo Firebase
-        async function cargarTalleres() {
-            const lista = document.getElementById("lista-talleres");
-            try {
-                const querySnapshot = await getDocs(collection(db, "talleres"));
-                lista.innerHTML = "";
-                
-                if (querySnapshot.empty) {
-                    lista.innerHTML = `<p style="color: #999; text-align: center; padding: 20px;">No tenés talleres guardados en la nube todavía. ¡Crea el primero!</p>`;
-                    return;
-                }
+        let tallerActivoId = null;
 
-                querySnapshot.forEach((doc) => {
-                    const t = doc.data();
-                    // Limpieza segura de datos cruzados por comillas de escape
-                    const tituloEscapado = t.titulo.replace(/'/g, "\\'");
-                    const infoEscapada = t.info.replace(/'/g, "\\'");
-                    const linkEscapado = t.linkAula.replace(/'/g, "\\'");
-
-                    lista.innerHTML += `
-                        <div class="taller-admin-card">
-                            <div class="taller-info-block">
-                                <h3>${t.titulo}</h3>
-                                <p>${t.info}</p>
-                            </div>
-                            <button class="btn-action btn-edit" onclick="window.activarEdicion('${doc.id}', '${tituloEscapado}', '${infoEscapada}', '${linkEscapado}')">✏️ Editar</button>
-                        </div>`;
-                });
-            } catch (error) {
-                lista.innerHTML = `<p style="color: #d32f2f;">Error al conectar con el servidor: ${error.message}</p>`;
-            }
+        // SEGURIDAD
+        window.verificarAcceso = () => {
+            if (document.getElementById('input-password').value === "holismo2026") {
+                sessionStorage.setItem("accesoDocente", "true");
+                document.getElementById('puerta-acceso').style.display = "none";
+                cargarTalleres();
+            } else { document.getElementById('error-msg').style.display = "block"; }
+        };
+        if (sessionStorage.getItem("accesoDocente") === "true") {
+            document.getElementById('puerta-acceso').style.display = "none";
+            cargarTalleres();
         }
 
-        // Enviar o Actualizar datos en Firestore
+        // ================== GESTIÓN DE TALLERES ==================
+        async function cargarTalleres() {
+            const contenedor = document.getElementById('lista-talleres-html');
+            contenedor.innerHTML = "<p>Cargando...</p>";
+            const snap = await getDocs(collection(db, "talleres"));
+            contenedor.innerHTML = "";
+            if (snap.empty) { contenedor.innerHTML = "<p>No hay talleres. ¡Creá el primero!</p>"; return; }
+
+            snap.forEach(doc => {
+                const t = doc.data();
+                contenedor.innerHTML += `
+                    <div class="item-row">
+                        <div class="item-info">
+                            <h3>${t.titulo}</h3>
+                            <p>${t.info.substring(0, 80)}...</p>
+                        </div>
+                        <div style="display:flex; gap:10px;">
+                            <button class="btn btn-gris" onclick="editarTaller('${doc.id}', '${t.titulo.replace(/'/g, "\\'")}', '${t.info.replace(/'/g, "\\'")}')">Editar Info</button>
+                            <button class="btn btn-azul" onclick="abrirGestorClases('${doc.id}', '${t.titulo.replace(/'/g, "\\'")}')">📚 Gestionar Clases</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.abrirModalTaller = () => {
+            document.getElementById('taller-id').value = "";
+            document.getElementById('taller-titulo').value = "";
+            document.getElementById('taller-info').value = "";
+            document.getElementById('modal-taller-titulo').innerText = "Crear Nuevo Taller";
+            document.getElementById('modal-taller').style.display = "flex";
+        };
+
+        window.editarTaller = (id, tit, info) => {
+            document.getElementById('taller-id').value = id;
+            document.getElementById('taller-titulo').value = tit;
+            document.getElementById('taller-info').value = info;
+            document.getElementById('modal-taller-titulo').innerText = "Editar Taller";
+            document.getElementById('modal-taller').style.display = "flex";
+        };
+
         window.guardarTaller = async () => {
-            const id = document.getElementById('edit-id').value;
-            const titulo = document.getElementById('titulo').value.trim();
-            const info = document.getElementById('info').value.trim();
-            const linkAula = document.getElementById('linkAula').value.trim();
+            const id = document.getElementById('taller-id').value;
+            const data = {
+                titulo: document.getElementById('taller-titulo').value,
+                info: document.getElementById('taller-info').value
+            };
+            if (!data.titulo) return alert("Falta el título.");
 
-            if (!titulo || !linkAula) {
-                alert("Por favor completá el título y el enlace de acceso al aula.");
-                return;
+            if (id) { await updateDoc(doc(db, "talleres", id), data); } 
+            else { await addDoc(collection(db, "talleres"), data); }
+            
+            cerrarModales();
+            cargarTalleres();
+        };
+
+        // ================== GESTIÓN DE CLASES ==================
+        window.abrirGestorClases = (id, titulo) => {
+            tallerActivoId = id;
+            document.getElementById('vista-talleres').style.display = "none";
+            document.getElementById('vista-clases').style.display = "block";
+            document.getElementById('titulo-taller-activo').innerText = "Clases de: " + titulo;
+            cargarClases();
+        };
+
+        window.volverATalleres = () => {
+            tallerActivoId = null;
+            document.getElementById('vista-talleres').style.display = "block";
+            document.getElementById('vista-clases').style.display = "none";
+        };
+
+        async function cargarClases() {
+            const contenedor = document.getElementById('lista-clases-html');
+            contenedor.innerHTML = "<p>Cargando clases...</p>";
+            const snap = await getDocs(collection(db, "talleres", tallerActivoId, "encuentros"));
+            
+            let clases = [];
+            snap.forEach(doc => clases.push({ id: doc.id, ...doc.data() }));
+            clases.sort((a, b) => a.numero - b.numero);
+
+            contenedor.innerHTML = "";
+            if (clases.length === 0) { contenedor.innerHTML = "<p>Aún no hay encuentros cargados.</p>"; return; }
+
+            clases.forEach(c => {
+                const safeC = JSON.stringify(c).replace(/"/g, '&quot;');
+                contenedor.innerHTML += `
+                    <div class="item-row">
+                        <div class="item-info">
+                            <h3>Encuentro ${c.numero}: ${c.titulo}</h3>
+                            <p>${c.linkGrabacion ? '🟢 Tiene grabación' : (c.linkZoom ? '🔵 Clase en Vivo' : '⚪ Sin link asignado')}</p>
+                        </div>
+                        <div style="display:flex; gap:10px;">
+                            <button class="btn btn-gris" onclick="editarClase(${safeC})">✏️ Editar</button>
+                            <button class="btn btn-rojo" onclick="borrarClase('${c.id}')">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.abrirModalClase = () => {
+            document.getElementById('clase-id').value = "";
+            document.getElementById('clase-numero').value = "";
+            document.getElementById('clase-titulo').value = "";
+            document.getElementById('clase-intro').value = "";
+            document.getElementById('clase-obj').value = "";
+            document.getElementById('clase-ejes').value = "";
+            document.getElementById('clase-grabacion').value = "";
+            document.getElementById('clase-zoom').value = "";
+            document.getElementById('clase-r1-nom').value = "";
+            document.getElementById('clase-r1-link').value = "";
+            document.getElementById('clase-r2-nom').value = "";
+            document.getElementById('clase-r2-link').value = "";
+            document.getElementById('modal-clase-titulo').innerText = "Crear Encuentro";
+            document.getElementById('modal-clase').style.display = "flex";
+        };
+
+        window.editarClase = (c) => {
+            document.getElementById('clase-id').value = c.id;
+            document.getElementById('clase-numero').value = c.numero || "";
+            document.getElementById('clase-titulo').value = c.titulo || "";
+            document.getElementById('clase-intro').value = c.introduccion || "";
+            document.getElementById('clase-obj').value = c.objetivos ? c.objetivos.join(", ") : "";
+            document.getElementById('clase-ejes').value = c.ejes || "";
+            document.getElementById('clase-grabacion').value = c.linkGrabacion || "";
+            document.getElementById('clase-zoom').value = c.linkZoom || "";
+            document.getElementById('clase-r1-nom').value = c.rec1Nombre || "";
+            document.getElementById('clase-r1-link').value = c.rec1Link || "";
+            document.getElementById('clase-r2-nom').value = c.rec2Nombre || "";
+            document.getElementById('clase-r2-link').value = c.rec2Link || "";
+            document.getElementById('modal-clase-titulo').innerText = "Editar Encuentro";
+            document.getElementById('modal-clase').style.display = "flex";
+        };
+
+        // Formateador de URLs
+        function formatoUrl(url) {
+            if (!url) return "";
+            let u = url.trim();
+            if (!/^https?:\/\//i.test(u)) u = "https://" + u;
+            return u;
+        }
+
+        window.guardarClase = async () => {
+            const id = document.getElementById('clase-id').value;
+            const objRaw = document.getElementById('clase-obj').value;
+            
+            const data = {
+                numero: parseInt(document.getElementById('clase-numero').value) || 99,
+                titulo: document.getElementById('clase-titulo').value,
+                introduccion: document.getElementById('clase-intro').value,
+                objetivos: objRaw ? objRaw.split(",").map(o => o.trim()) : [],
+                ejes: document.getElementById('clase-ejes').value,
+                linkGrabacion: formatoUrl(document.getElementById('clase-grabacion').value),
+                linkZoom: formatoUrl(document.getElementById('clase-zoom').value),
+                rec1Nombre: document.getElementById('clase-r1-nom').value,
+                rec1Link: formatoUrl(document.getElementById('clase-r1-link').value),
+                rec2Nombre: document.getElementById('clase-r2-nom').value,
+                rec2Link: formatoUrl(document.getElementById('clase-r2-link').value)
+            };
+
+            if (!data.titulo) return alert("Falta el título de la clase.");
+
+            if (id) { await updateDoc(doc(db, "talleres", tallerActivoId, "encuentros", id), data); } 
+            else { await addDoc(collection(db, "talleres", tallerActivoId, "encuentros"), data); }
+            
+            cerrarModales();
+            cargarClases();
+        };
+
+        window.borrarClase = async (id) => {
+            if(confirm("¿Seguro que querés borrar esta clase? Es irreversible.")) {
+                await deleteDoc(doc(db, "talleres", tallerActivoId, "encuentros", id));
+                cargarClases();
             }
-
-            const data = { titulo, info, linkAula };
-
-            try {
-                if (id) {
-                    await updateDoc(doc(db, "talleres", id), data);
-                    alert("¡Taller actualizado con éxito!");
-                } else {
-                    await addDoc(collection(db, "talleres"), data);
-                    alert("¡Nuevo taller publicado de forma global!");
-                }
-                window.cerrarModal();
-                cargarTalleres();
-            } catch (error) {
-                alert("Error de escritura en base de datos: " + error.message);
-            }
         };
 
-        // Enlazar manejadores a la ventana global (necesario por type="module")
-        window.abrirModalCrear = () => {
-            document.getElementById('edit-id').value = "";
-            document.getElementById('titulo').value = "";
-            document.getElementById('info').value = "";
-            document.getElementById('linkAula').value = "";
-            document.getElementById('form-title').innerText = "Crear Nuevo Taller";
-            document.getElementById('modal-editor').style.display = 'flex';
+        window.cerrarModales = () => {
+            document.getElementById('modal-taller').style.display = "none";
+            document.getElementById('modal-clase').style.display = "none";
         };
-
-        window.activarEdicion = (id, titulo, info, link) => {
-            document.getElementById('edit-id').value = id;
-            document.getElementById('titulo').value = titulo;
-            document.getElementById('info').value = info;
-            document.getElementById('linkAula').value = link;
-            document.getElementById('form-title').innerText = "✏️ Modificar Propuesta";
-            document.getElementById('modal-editor').style.display = 'flex';
-        };
-
-        window.cerrarModal = () => {
-            document.getElementById('modal-editor').style.display = 'none';
-        };
-
-        // Carga inicial al arrancar el dashboard
-        cargarTalleres();
     </script>
 </body>
 </html>
