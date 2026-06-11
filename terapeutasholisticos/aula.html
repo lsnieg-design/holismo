@@ -5,67 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aula Virtual | Holismo</title>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
-    </head>
+    <style>
+        :root { --azul: #3A7BD5; --verde: #8DA18E; --salmon: #E5A88A; }
+        body { font-family: 'Quicksand', sans-serif; margin: 0; display: flex; background: #fdfbf7; }
+        
+        /* SIDEBAR */
+        .sidebar-aula { width: 300px; height: 100vh; background: white; border-right: 1px solid #eee; padding: 40px; position: fixed; }
+        .sidebar-header img { width: 100px; }
+        .lista-encuentros { list-style: none; padding: 0; margin-top: 40px; }
+        .item-encuentro { padding: 15px 0; border-bottom: 1px solid #f9f9f9; color: #666; cursor: pointer; font-size: 14px; }
+        
+        /* MAIN */
+        .contenido-aula { margin-left: 380px; padding: 60px; max-width: 800px; }
+        .video-box { width: 100%; height: 450px; background: #000; border-radius: 20px; margin: 20px 0; }
+        .btn { padding: 15px 30px; background: var(--azul); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 700; }
+        
+        #seccion-evaluacion, #certificado { display: none; background: white; padding: 30px; border-radius: 20px; border: 2px solid var(--azul); margin-top: 40px; }
+    </style>
+</head>
 <body>
 
-    <aside id="sidebar" class="sidebar-aula">
+    <aside class="sidebar-aula">
         <div class="sidebar-header">
             <img src="../logo.png" alt="Holismo">
             <p style="font-size: 10px; font-weight: 700; color: var(--verde); letter-spacing: 2px; margin-top: 10px;">AULA VIRTUAL</p>
         </div>
-        <ul class="lista-encuentros" id="contenedor-menu-encuentros">
-            </ul>
+        <ul class="lista-encuentros">
+            <li class="item-encuentro">Encuentro 1: Introducción</li>
+            <li class="item-encuentro">Encuentro 2: Desarrollo</li>
+            <li class="item-encuentro">Encuentro 3: Cierre</li>
+        </ul>
     </aside>
 
-    <main class="contenido-aula" id="bloque-principal-contenidos">
-        <div id="home" class="seccion-contenido activa">
-            <h1 id="titulo-taller" style="font-family: 'Lora'; color: var(--azul);">Cargando taller...</h1>
-            <div id="descripcion-taller"></div>
-        </div>
-        </main>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCP5lzu3R4RPVoFEo06l65Iw7tRNqMRqlc",
-            authDomain: "holismotalleres.firebaseapp.com",
-            projectId: "holismotalleres",
-            storageBucket: "holismotalleres.firebasestorage.app",
-            messagingSenderId: "424049247991",
-            appId: "1:424049247991:web:e3ea92fbd96d7e2b2d35f2"
-        };
-        const db = getFirestore(initializeApp(firebaseConfig));
-
-        // Obtener el ID del taller desde la URL: aula.html?id=constelaciones
-        const urlParams = new URLSearchParams(window.location.search);
-        const idTaller = urlParams.get('id');
-
-        async function cargarContenidoMaestro() {
-            if (!idTaller) {
-                document.getElementById('titulo-taller').innerText = "Error: Taller no seleccionado";
-                return;
-            }
-
-            // 1. Cargar info general del taller
-            const tallerDoc = await getDoc(doc(db, "talleres", idTaller));
-            if (tallerDoc.exists()) {
-                document.getElementById('titulo-taller').innerText = tallerDoc.data().titulo;
-                document.getElementById('descripcion-taller').innerText = tallerDoc.data().info;
-            }
-
-            // 2. Cargar los encuentros (clases) de ese taller específico
-            const encuentrosSnapshot = await getDocs(collection(db, "talleres", idTaller, "encuentros"));
-            const menu = document.getElementById("contenedor-menu-encuentros");
-            
-            encuentrosSnapshot.forEach((doc) => {
-                const clase = doc.data();
-                // Aquí agregarías los <li> al menú y los <div> al contenido tal cual hacías antes
-            });
-        }
+    <main class="contenido-aula">
+        <h1 style="font-family: 'Lora'; color: var(--azul);">Taller de Prueba</h1>
         
-        cargarContenidoMaestro();
+        <div class="encuentro">
+            <h2>Encuentro 1: Nombre del video</h2>
+            <div class="video-box"></div>
+            <p>Bibliografía: <a href="#">Descargar PDF</a></p>
+        </div>
+
+        <button class="btn" onclick="iniciarEvaluacion()">Finalizar Taller y Evaluar</button>
+
+        <div id="seccion-evaluacion">
+            <h3>Evaluación Final</h3>
+            <p>Pregunta: ¿Qué es el holismo?</p>
+            <input type="radio" name="p1" value="no"> Respuesta A<br>
+            <input type="radio" name="p1" value="si" id="correcta"> Respuesta Correcta<br><br>
+            <button class="btn" onclick="verificar()">Enviar</button>
+        </div>
+
+        <div id="certificado">
+            <h3>¡Aprobado!</h3>
+            <a href="#" class="btn" style="background: var(--verde);">Descargar Certificado</a>
+        </div>
+    </main>
+
+    <script>
+        function iniciarEvaluacion() {
+            document.getElementById('seccion-evaluacion').style.display = 'block';
+        }
+        function verificar() {
+            if(document.getElementById('correcta').checked) {
+                document.getElementById('certificado').style.display = 'block';
+            } else { alert("Revisá las respuestas."); }
+        }
     </script>
 </body>
 </html>
