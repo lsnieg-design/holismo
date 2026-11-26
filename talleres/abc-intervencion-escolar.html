@@ -1,0 +1,524 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ABC de la Intervención Escolar | Holismo</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        :root {
+            --azul-holismo: #3A7BD5;
+            --celeste: #A3C1D9;
+            --crema: #FDFBF7;
+            --texto: #555;
+        }
+
+        body {
+            background: #FDFBF7;
+        }
+
+        .hero-abc {
+            background: linear-gradient(135deg, #3A7BD5, #6098d5);
+            padding: 75px 8% 90px;
+            text-align: center;
+            color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        .hero-abc .etiqueta {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero-abc h1 {
+            font-family: 'Lora', serif;
+            font-size: clamp(32px, 5vw, 52px);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .hero-abc h2 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(17px, 2vw, 22px);
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .contenido-abc {
+            max-width: 1050px;
+            margin: -10px auto 0;
+            padding: 40px 25px 70px;
+        }
+
+        .introduccion {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+
+        .introduccion h2 {
+            font-family: 'Lora', serif;
+            color: var(--azul-holismo);
+            font-size: 29px;
+        }
+
+        .introduccion p {
+            color: var(--texto);
+            line-height: 1.9;
+            font-size: 16px;
+        }
+
+        .destinatarios {
+            background: white;
+            padding: 25px 30px;
+            border-radius: 18px;
+            border-left: 5px solid var(--azul-holismo);
+            margin-bottom: 35px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+        }
+
+        .destinatarios h3 {
+            color: var(--azul-holismo);
+            font-family: 'Lora', serif;
+            margin-top: 0;
+        }
+
+        .seccion-contenidos {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+            margin-bottom: 45px;
+        }
+
+        .seccion-contenidos h2 {
+            font-family: 'Lora', serif;
+            color: var(--azul-holismo);
+            margin-top: 0;
+            font-size: 27px;
+        }
+
+        .lista-contenidos {
+            list-style: none;
+            padding: 0;
+            margin-top: 25px;
+        }
+
+        .lista-contenidos li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .lista-contenidos li:last-child {
+            border-bottom: none;
+        }
+
+        .lista-contenidos li::before {
+            content: "✓";
+            color: #3A7BD5;
+            font-weight: 700;
+            margin-right: 12px;
+        }
+
+        .galeria-titulo {
+            text-align: center;
+            font-family: 'Lora', serif;
+            color: var(--azul-holismo);
+            font-size: 29px;
+            margin-bottom: 12px;
+        }
+
+        .galeria-subtitulo {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .galeria-flyers {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 25px;
+            align-items: start;
+            margin-bottom: 50px;
+        }
+
+        .flyer {
+            background: white;
+            padding: 12px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .flyer img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .flyer img:hover {
+            transform: scale(1.02);
+        }
+
+        .responsable {
+            text-align: center;
+            background: #edf4fa;
+            padding: 35px 25px;
+            border-radius: 20px;
+            margin-bottom: 35px;
+        }
+
+        .responsable h3 {
+            color: var(--azul-holismo);
+            font-family: 'Lora', serif;
+            font-size: 23px;
+        }
+
+        .responsable p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .cta-abc {
+            text-align: center;
+            background: #fff;
+            padding: 40px 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+
+        .cta-abc h2 {
+            color: var(--azul-holismo);
+            font-family: 'Lora', serif;
+            font-size: 27px;
+        }
+
+        .cta-abc p {
+            color: #666;
+            line-height: 1.8;
+            max-width: 650px;
+            margin: 15px auto 25px;
+        }
+
+        .btn-consulta {
+            display: inline-block;
+            background: var(--azul-holismo);
+            color: white;
+            text-decoration: none;
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .btn-consulta:hover {
+            transform: translateY(-3px);
+            opacity: 0.9;
+        }
+
+        .volver {
+            display: inline-block;
+            margin-top: 35px;
+            color: var(--azul-holismo);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        @media(max-width: 700px) {
+
+            .galeria-flyers {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-abc {
+                padding: 60px 6% 75px;
+            }
+
+            .contenido-abc {
+                padding: 30px 6% 50px;
+            }
+
+            .seccion-contenidos {
+                padding: 25px;
+            }
+
+            .introduccion h2 {
+                font-size: 25px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <img src="/logo.png" class="logo-header" alt="Holismo">
+
+    <nav class="nav-menu" id="nav-menu">
+        <a href="/">Inicio</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/equipo">Equipo</a>
+        <a href="/talleres/" class="active">Talleres</a>
+        <a href="/contacto">Contacto</a>
+    </nav>
+
+    <div class="menu-hamburguesa" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+</header>
+
+
+<!-- PORTADA -->
+
+<section class="hero-abc">
+
+    <span class="etiqueta">
+        Colección Herramientas para acompañar
+    </span>
+
+    <h1>
+        HERRAMIENTAS PARA ACOMPAÑAR
+    </h1>
+
+    <h2>
+        ABC de la Intervención Escolar
+    </h2>
+
+    <p style="margin-top:25px; font-weight:700; letter-spacing:1px;">
+        MATERIAL DISPONIBLE
+    </p>
+
+</section>
+
+
+<main class="contenido-abc">
+
+
+    <!-- PRESENTACIÓN -->
+
+    <section class="introduccion">
+
+        <h2>Una propuesta para acompañar las trayectorias escolares</h2>
+
+        <p>
+            Una propuesta de formación destinada a docentes,
+            acompañantes escolares, profesionales y equipos educativos.
+        </p>
+
+        <p>
+            Este material ofrece herramientas prácticas para comprender
+            las conductas en el ámbito escolar y desarrollar
+            intervenciones respetuosas, fundamentadas y adaptadas
+            a las necesidades de cada estudiante.
+        </p>
+
+    </section>
+
+
+    <!-- DESTINATARIOS -->
+
+    <section class="destinatarios">
+
+        <h3>¿A quiénes está destinado?</h3>
+
+        <p style="color:#666; line-height:1.8; margin-bottom:0;">
+            A docentes, acompañantes escolares, profesionales
+            de la salud y la educación, y equipos institucionales
+            interesados en fortalecer sus herramientas de intervención
+            y acompañamiento en el contexto educativo.
+        </p>
+
+    </section>
+
+
+    <!-- CONTENIDOS -->
+
+    <section class="seccion-contenidos">
+
+        <h2>✨ ¿Qué vas a encontrar?</h2>
+
+        <ul class="lista-contenidos">
+
+            <li>
+                Modelo ABC de análisis de la conducta.
+            </li>
+
+            <li>
+                Estrategias de anticipación y prevención.
+            </li>
+
+            <li>
+                Recursos de regulación emocional.
+            </li>
+
+            <li>
+                Orientaciones para el trabajo conjunto entre docentes
+                y acompañantes.
+            </li>
+
+            <li>
+                Ejemplos escolares, actividades y herramientas de registro.
+            </li>
+
+            <li>
+                Fundamentación bibliográfica y normativa.
+            </li>
+
+        </ul>
+
+    </section>
+
+
+    <!-- FLYERS -->
+
+    <section>
+
+        <h2 class="galeria-titulo">
+            Conocé nuestra propuesta
+        </h2>
+
+        <p class="galeria-subtitulo">
+            Colección Herramientas para acompañar
+        </p>
+
+        <div class="galeria-flyers">
+
+            <div class="flyer">
+                <img
+                    src="/talleres/abc.png"
+                    alt="Flyer ABC de la Intervención Escolar"
+                    loading="lazy"
+                >
+            </div>
+
+            <div class="flyer">
+                <img
+                    src="/talleres/rolacompañante.png"
+                    alt="Flyer sobre el rol del acompañante escolar"
+                    loading="lazy"
+                >
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESPONSABLE -->
+
+    <section class="responsable">
+
+        <h3>Material elaborado por</h3>
+
+        <p style="font-size:19px; font-weight:700;">
+            Lic. en Psicología Yesica López Juarez
+        </p>
+
+        <p>
+            Una propuesta que busca acercar herramientas
+            para construir acompañamientos respetuosos,
+            conscientes y situados en cada contexto escolar.
+        </p>
+
+    </section>
+
+
+    <!-- CONSULTAS -->
+
+    <section class="cta-abc">
+
+        <h2>¿Te interesa esta propuesta?</h2>
+
+        <p>
+            Consultá por el cuadernillo digital y las propuestas
+            de capacitación.
+
+            Para recibir información sobre valores, modalidades
+            y formas de pago, comunicate por mensaje privado.
+        </p>
+
+        <a href="/contacto" class="btn-consulta">
+            Solicitar información
+        </a>
+
+    </section>
+
+
+    <div style="text-align:center;">
+        <a href="/talleres/" class="volver">
+            ← Volver a todos los talleres
+        </a>
+    </div>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="footer-holismo" style="
+    background-color:#FDFBF7;
+    padding:40px;
+    text-align:center;
+    border-top:2px solid #A3C1D9;
+    margin-top:30px;
+">
+
+    <h2 style="
+        font-size:22px;
+        margin-bottom:10px;
+        font-family:'Lora',serif;
+        color:#3A7BD5;
+    ">
+        Holismo
+    </h2>
+
+    <p style="font-size:12px;color:#aaa;">
+        © 2026 • Creado por Nómade
+    </p>
+
+</footer>
+
+
+<script>
+
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('mostrar');
+        });
+    }
+
+</script>
+
+</body>
+</html>
