@@ -976,10 +976,41 @@
         }
 
 
-        /* CERRAR PROMOCIÓN ABC */
+       /* MOSTRAR PROMOCIÓN ABC A LOS 15 SEGUNDOS */
 
-        const promo = document.getElementById('promo-abc-holismo');
-        const cerrarPromo = document.getElementById('cerrar-promo-abc');
+const promo = document.getElementById('promo-abc-holismo');
+const cerrarPromo = document.getElementById('cerrar-promo-abc');
+
+// Ocultar al cargar la página
+if (promo) {
+    promo.style.display = 'none';
+
+    // Mostrar después de 15 segundos
+    setTimeout(function() {
+        promo.style.display = 'flex';
+    }, 15000);
+}
+
+// Cerrar al tocar la cruz
+if (promo && cerrarPromo) {
+    cerrarPromo.addEventListener('click', function() {
+        promo.style.display = 'none';
+    });
+
+    // Cerrar al tocar fuera de la tarjeta
+    promo.addEventListener('click', function(e) {
+        if (e.target === promo) {
+            promo.style.display = 'none';
+        }
+    });
+}
+
+// Cerrar también con Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && promo) {
+        promo.style.display = 'none';
+    }
+});
 
         if (promo && cerrarPromo) {
 
