@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,139 +6,281 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Holismo | Talleres</title>
     <link rel="stylesheet" href="style.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
-        .contenedor-talleres { position: relative; padding: 20px 0; }
-        .talleres-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 20px 5%; }
-        .taller-card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; }
-        .taller-info { margin-bottom: 20px; color: #5A5A5A; }
-        .btn-taller { display: block; background: var(--azul); color: white; text-align: center; padding: 12px; border-radius: 25px; text-decoration: none; font-weight: 700; transition: 0.3s; }
-        .btn-taller:hover { transform: translateY(-2px); opacity: 0.9; }
-        .badge-estado-taller { display: inline-block; background-color: #ffebee; color: #d32f2f; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 5px; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; }
+        .contenedor-talleres {
+            position: relative;
+            padding: 20px 0 60px;
+        }
+
+        .talleres-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 380px));
+            justify-content: center;
+            gap: 30px;
+            padding: 20px 5%;
+        }
+
+        .taller-card {
+            background: white;
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.3s;
+            border: 1px solid #edf0f3;
+        }
+
+        .taller-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.11);
+        }
+
+        .taller-categoria {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+        }
+
+        .taller-card h3 {
+            font-family: 'Lora', serif;
+            color: #3A7BD5;
+            font-size: 23px;
+            margin: 18px 0 12px;
+        }
+
+        .taller-info {
+            margin-bottom: 22px;
+            color: #666;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .btn-taller {
+            display: block;
+            background: var(--azul, #3A7BD5);
+            color: white;
+            text-align: center;
+            padding: 13px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-taller:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .badge-estado {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 7px 13px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .disponible {
+            background: #e5f4ed;
+            color: #28734f;
+        }
+
+        .comenzo {
+            background: #fff0e1;
+            color: #a96626;
+        }
+
+        .taller-icono {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        @media(max-width: 600px) {
+            .talleres-grid {
+                grid-template-columns: 1fr;
+                padding: 15px 6%;
+            }
+
+            .taller-card {
+                padding: 25px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-    <header>
-        <img src="logo.png" class="logo-header">
-        <nav class="nav-menu" id="nav-menu"> 
-            <a href="/">Inicio</a>
-            <a href="/servicios">Servicios</a>
-            <a href="/equipo">Equipo</a>
-            <a href="/talleres" class="active">Talleres</a>
-            <a href="/contacto">Contacto</a>
-        </nav>
-        <div class="menu-hamburguesa" id="menu-toggle"><span></span><span></span><span></span></div>
-    </header>
+<header>
+    <img src="logo.png" class="logo-header" alt="Holismo">
 
-    <div class="animacion-contenido">
-        <section class="hero-seccion" style="background-color: #3A7BD5; height: 40vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 5%; clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); margin-bottom: 40px; position: relative; overflow: hidden;">
-            <div style="position: absolute; right: -30px; bottom: -30px; opacity: 0.15; transform: rotate(-10deg);">
-                <img src="logo.png" style="width: 280px; filter: brightness(0) invert(1);"> 
-            </div>
-            <h1 style="font-family: 'Lora', serif; color: white; font-size: clamp(35px, 6vw, 55px); margin: 0; font-weight: 700;">Talleres y Encuentros</h1>
-            <p style="color: white; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; font-size: 13px; margin-top: 12px;">Espacios para compartir y aprender</p>
-        </section>
+    <nav class="nav-menu" id="nav-menu">
+        <a href="/">Inicio</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/equipo">Equipo</a>
+        <a href="/talleres" class="active">Talleres</a>
+        <a href="/contacto">Contacto</a>
+    </nav>
 
-        <main class="contenedor-talleres">
-            <div class="talleres-grid" id="lista-talleres">
-                <div class="taller-card">
-                    <div>
-                        <span>Virtual / Sincrónico</span>
-                        <h3>Formación de Terapeutas Holísticos</h3>
-                        <p class="taller-info">Orientado a la práctica profesional en el equipo interdisciplinario de atención a la discapacidad. Una mirada integradora y sistémica.</p>
-                        <div class="badge-estado-taller">Ya comenzó</div>
-                    </div>
-                    <a href="terapeutasholisticos.html" class="btn-taller">Ingresar al Aula</a>
-                </div>
-
-                <div class="taller-card" id="taller-privado-prueba" style="display: none;">
-                    <div>
-                        <span style="color: #d32f2f; font-weight: bold;">[VISTA ADMIN] Curso Grabado</span>
-                        <h3>Taller de Prueba: Introducción al Campus</h3>
-                        <p class="taller-info">Acceso inmediato. Incluye 3 clases, evaluación y certificado.</p>
-                        <div style="margin: 20px 0; font-size: 24px; font-weight: 700; color: var(--azul);">
-                            $ 5.000 <span style="font-size: 14px; color: #aaa; font-weight: 400;">(Pago único)</span>
-                        </div>
-                    </div>
-                    <a href="https://mpago.la/15yj8UC" class="btn-taller" style="background: #009EE3; border: none;">Comprar con Mercado Pago</a>
-                </div>
-            </div>
-        </main>
+    <div class="menu-hamburguesa" id="menu-toggle">
+        <span></span><span></span><span></span>
     </div>
+</header>
 
-    <footer class="footer-holismo" style="background-color: #FDFBF7; padding: 40px; text-align: center; border-top: 2px solid #A3C1D9; margin-top: 50px;">
-        <h2 style="font-size: 22px; margin-bottom: 10px; font-family: 'Lora'; color: #3A7BD5;">Holismo</h2>
-        <p style="font-size: 12px; color: #aaa;">© 2026 • Creado por Nómade</p>
-    </footer>
+<div class="animacion-contenido">
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <section class="hero-seccion" style="
+        background-color: #3A7BD5;
+        min-height: 40vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 40px 5%;
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+    ">
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCP5lzu3R4RPVoFEo06l65Iw7tRNqMRqlc",
-            authDomain: "holismotalleres.firebaseapp.com",
-            projectId: "holismotalleres",
-            storageBucket: "holismotalleres.firebasestorage.app",
-            messagingSenderId: "424049247991",
-            appId: "1:424049247991:web:e3ea92fbd96d7e2b2d35f2",
-            measurementId: "G-F2ENK6YHSC"
-        };
-        const db = getFirestore(initializeApp(firebaseConfig));
+        <div style="position:absolute; right:-30px; bottom:-30px; opacity:0.15;">
+            <img src="logo.png" style="width:280px; filter:brightness(0) invert(1);" alt="">
+        </div>
 
-        // Observer para animaciones
-        window.tallerObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
-                }
-            });
-        }, { threshold: 0.1 });
+        <h1 style="
+            font-family:'Lora',serif;
+            color:white;
+            font-size:clamp(35px,6vw,55px);
+            margin:0;
+        ">
+            Talleres y Encuentros
+        </h1>
 
-        async function cargarTalleresDinamicos() {
-            const grid = document.getElementById('lista-talleres');
-            const querySnapshot = await getDocs(collection(db, "talleres"));
-            querySnapshot.forEach((doc) => {
-                const t = doc.data();
-                const card = document.createElement('div');
-                card.className = "taller-card";
-                card.style.opacity = "0";
-                card.style.transform = "translateY(30px)";
-                card.style.transition = "all 0.8s ease-out";
-                card.innerHTML = `
-                    <div>
-                        <span style="font-size: 14px; color: #888;">NUEVO</span>
-                        <h3>${t.titulo}</h3>
-                        <p class="taller-info">${t.info}</p>
-                    </div>
-                    <a href="aula.html?id=${doc.id}" class="btn-taller">Ingresar al Aula</a>
-                `;
-                grid.appendChild(card);
-                window.tallerObserver.observe(card);
-            });
-        }
+        <p style="
+            color:white;
+            font-weight:600;
+            text-transform:uppercase;
+            letter-spacing:3px;
+            font-size:13px;
+            margin-top:15px;
+        ">
+            Espacios para compartir y aprender
+        </p>
 
-        // Lógica de UI original
-        function verificarFiltroAdmin() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('modo') === "admin") {
-                localStorage.setItem("verTallerPrueba", "true");
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-            if (localStorage.getItem("verTallerPrueba") === "true") {
-                document.getElementById('taller-privado-prueba').style.display = "flex";
-            }
-        }
+    </section>
 
-        const menuToggle = document.getElementById('menu-toggle');
-        const navMenu = document.getElementById('nav-menu');
-        if(menuToggle) menuToggle.addEventListener('click', () => navMenu.classList.toggle('mostrar'));
-        
-        document.querySelectorAll('.taller-card').forEach(el => window.tallerObserver.observe(el));
-        
-        window.onload = () => { verificarFiltroAdmin(); cargarTalleresDinamicos(); };
-    </script>
+    <main class="contenedor-talleres">
+
+        <div class="talleres-grid">
+
+            <!-- TALLER 1 -->
+            <article class="taller-card">
+
+                <div>
+                    <div class="taller-icono">🌿</div>
+
+                    <span class="taller-categoria">
+                        Virtual / Sincrónico
+                    </span>
+
+                    <h3>Formación de Terapeutas Holísticos</h3>
+
+                    <p class="taller-info">
+                        Orientado a la práctica profesional en el equipo
+                        interdisciplinario de atención a la discapacidad.
+                        Una mirada integradora y sistémica.
+                    </p>
+
+                    <span class="badge-estado comenzo">
+                        Ya comenzó
+                    </span>
+                </div>
+
+                <a href="terapeutasholisticos.html" class="btn-taller">
+                    Ingresar al Aula
+                </a>
+
+            </article>
+
+
+            <!-- TALLER 2 -->
+            <article class="taller-card">
+
+                <div>
+                    <div class="taller-icono">📚</div>
+
+                    <span class="taller-categoria">
+                        Colección Herramientas para acompañar
+                    </span>
+
+                    <h3>ABC de la Intervención Escolar</h3>
+
+                    <p class="taller-info">
+                        Herramientas prácticas para comprender las
+                        conductas en el ámbito escolar y desarrollar
+                        intervenciones respetuosas, fundamentadas
+                        y adaptadas a cada estudiante.
+                    </p>
+
+                    <span class="badge-estado disponible">
+                        Disponible para realizar
+                    </span>
+                </div>
+
+                <a href="abc-intervencion-escolar.html" class="btn-taller">
+                    Conocer la propuesta
+                </a>
+
+            </article>
+
+        </div>
+
+    </main>
+
+</div>
+
+<footer class="footer-holismo" style="
+    background-color:#FDFBF7;
+    padding:40px;
+    text-align:center;
+    border-top:2px solid #A3C1D9;
+    margin-top:50px;
+">
+    <h2 style="
+        font-size:22px;
+        margin-bottom:10px;
+        font-family:'Lora',serif;
+        color:#3A7BD5;
+    ">
+        Holismo
+    </h2>
+
+    <p style="font-size:12px;color:#aaa;">
+        © 2026 • Creado por Nómade
+    </p>
+</footer>
+
+<script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('mostrar');
+        });
+    }
+</script>
+
 </body>
 </html>
